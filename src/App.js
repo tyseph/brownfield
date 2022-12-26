@@ -1,15 +1,15 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { Button } from "@mui/material";
+import Header from "./component/Header";
+import Routing from "./routes/Routing";
+import Footer from "./component/Footer";
 
-function App() {
+const App = () => {
   return (
     <>
-      <div>
-        <Button>Hello world</Button>
-      </div>
+      <Header />
+      <Routing />
+      <Footer />
     </>
   );
-}
+};
 
 export default App;
