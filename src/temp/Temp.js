@@ -9,6 +9,7 @@ const Temp = () => {
     // // let long = [];
     // // let name = [];
     // // let city = [];
+let s = 0;
     // // let state = [];
 
 
