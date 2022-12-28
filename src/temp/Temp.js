@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
 import airportData from "./Data.js";
+import axios from 'axios';
 
 const Temp = () => {
   const [data, setData] = useState();
+
+
   useEffect(() => {
     // // let code = [];
     // // let lat = [];
     // // let long = [];
     // // let name = [];
     // // let city = [];
-let s = 0;
     // // let state = [];
+    let s = 0;
 
 
+
+
+
+
+  }, []);
+
+  const example = () => {
     airportData.forEach((item) => {
       delete item.woeid
       delete item.tz
@@ -35,9 +45,20 @@ let s = 0;
       }
     })
     console.log(final)
-    
 
-  }, []);
+    for (let i = 0; i <= final.length; i++) {
+
+      axios.post('http://localhost:8089/addAirport', final[i])
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+
+  }
   return (
     <>
       <div>
@@ -50,6 +71,7 @@ let s = 0;
             </div>
           );
         })} */}
+        <button onClick={example}>UPLOAD</button>
       </div>
     </>
   );
