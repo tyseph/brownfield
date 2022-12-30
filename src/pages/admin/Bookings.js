@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import Sidebar from "./adminComponents/Sidebar";
-import Content from './adminComponents/Content';
 import './adminComponents/componentscss.css'
 
-const Dashboard = () => {
+const Bookings = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
   return (
     <div className="flex">
@@ -13,13 +12,9 @@ const Dashboard = () => {
         }}
         showSidebar={showSidebar}
       />
-      <Content
-        onSidebarHide={() => {
-          onSetShowSidebar(true);
-        }}
-      />
+      
     </div>
   );
 }
 
-export default Dashboard;
+export default Bookings;
