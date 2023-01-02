@@ -1,7 +1,7 @@
 import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
 import { useState } from 'react';
-import { useSpring, animated, config} from '@react-spring/web';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { useSpring, animated, config } from '@react-spring/web';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Icon from "./Icon";
 import IconButton from "./IconButton";
 import MenuItem from "./MenuItem";
@@ -25,7 +25,7 @@ const sidebarItems = [
 const Sidebar = ({ onSidebarHide, showSidebar }) => {
   const [selected, setSelected] = useState('0');
   const navigate = useNavigate();
-  const onMenuClick =(key) => {
+  const onMenuClick = (key) => {
     setSelected(key)
     console.log('clicked', key)
   }
@@ -39,10 +39,9 @@ const Sidebar = ({ onSidebarHide, showSidebar }) => {
   });
   return (
     <div
-      className={clsx(
-        'fixed inset-y-0 left-0 bg-gray-900 w-full sm:w-20 xl:w-60 sm:flex flex-col z-10',
-        showSidebar ? 'flex' : 'hidden',
-      )}
+      className={
+        `fixed inset-y-0 left-0 bg-gray-900 w-full sm:w-20 xl:w-60 sm:flex flex-col z-10
+        ${showSidebar ? 'flex' : 'hidden'}`}
     >
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-top">
@@ -106,7 +105,7 @@ const Sidebar = ({ onSidebarHide, showSidebar }) => {
                 Admin updated 09:12 am November 08,2020
               </div>
               <animated.div className="text-right text-gray-400 text-xs">
-                {precentage.interpolate((i) => `${Math.round(i)}%`)}
+                {precentage.interpolate((i) => `${Math.round(i)}% `)}
               </animated.div>
               <div className="w-full text-gray-300">
                 <svg

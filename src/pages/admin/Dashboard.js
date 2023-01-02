@@ -9,13 +9,13 @@ const Dashboard = () => {
     <div className="flex">
       <Sidebar
         onSidebarHide={() => {
-          onSetShowSidebar(false);
+          onSetShowSidebar(!showSidebar);
         }}
         showSidebar={showSidebar}
       />
       <Content
         onSidebarHide={() => {
-          onSetShowSidebar(true);
+          onSetShowSidebar(!showSidebar);
         }}
       />
     </div>
