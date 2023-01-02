@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
+import '../../styles/Home.css'
+import flight from '../../elements/flight.jpg'
 const Login = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -12,10 +14,10 @@ const Login = () => {
     <>
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
         <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
-          <img className="absolute inset-0 h-full w-full object-cover" src="https://images.pexels.com/photos/6479834/pexels-photo-6479834.jpeg" />
-          <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
+          <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
+          {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
             <h1>Planes to take you everywhere</h1>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-center justify-center p-6 min-h-screen w-full">
@@ -66,7 +68,7 @@ const Login = () => {
 
                 <div className="mt-6">
                   <span className="block w-full rounded-md shadow-sm">
-                    <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out">Login</button>
+                    <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-sky-900 border border-transparent rounded-md hover:bg-#1F2937-500 focus:outline-none transition duration-150 ease-in-out">Login</button>
                   </span>
                 </div>
               </form>
