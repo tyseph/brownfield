@@ -38,9 +38,11 @@ const LiveTime = () => {
                     <div className="block sm:hidden xl:block pt-3">
                         <div className="font-bold text-gray-300 text-sm">Currently</div>
                         <div className="text-gray-500 text-xs">
-                            {date.getHours()}{':'}{date.getMinutes()}{":"}{date.getSeconds()}{" hours"}
+                            {date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: "numeric", hour12: true })}
+                            {/* {date.getHours()}{':'}{date.getMinutes()}{":"}{date.getSeconds()}{" hours"} */}
                             <div>
-                                {monthNames[date.getMonth()]}{" "}{date.getDate()}{","}{date.getFullYear()}
+                                {/* {monthNames[date.getMonth()]}{" "}{date.getDate()}{","}{date.getFullYear()} */}
+                                {date.toLocaleDateString('en-US', { month: 'long', year: "numeric", day: "numeric", weekday: 'long' })}
                             </div>
                             {/* 09:12 am November 08,2020 */}
                         </div>
@@ -100,7 +102,9 @@ const LiveTime = () => {
                             />
                         </svg> */}
                         <div className="text-gray-500 align-items-center justify-content-center text-xs">
-                            {date.getHours()}{':'}{date.getMinutes()}{":"}{date.getSeconds()}{" hours"}
+                            {/* {date.getHours()}{':'}{date.getMinutes()}{":"}{date.getSeconds()}{" hours"} */}
+                            {date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
+
                         </div>
                     </div>
 
