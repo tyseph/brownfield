@@ -44,8 +44,8 @@ const Register = () => {
                     </div>
                   </div>
 
-                  <div className="mb-3">
-                    <label htmlFor="last" className="block text-sm font-medium leading-5"> Last Name </label>
+                  <div className="mb-3 ml-3">
+                    <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Last Name </label>
 
                     <div className="rounded-md shadow-sm">
                       <input id="last" name="last" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
@@ -68,6 +68,17 @@ const Register = () => {
                     <input id="phone" name="phone" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                   </div>
                 </div>
+
+
+                <div className="mb-3">
+                    <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
+
+                    <div className="rounded-md shadow-sm">
+                      <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    </div>
+                  </div>
+
+
                 <div className="mb-3">
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5"> Password </label>
 
