@@ -2,6 +2,7 @@ import { redirect } from "react-router-dom";
 import { userLogin } from "../../api/authenticationService";
 import { userSignup } from "../../api/authenticationService";
 
+
 export const signup = (userDetails) => { 
     console.log(userDetails)
     userSignup(userDetails).then((response) => {

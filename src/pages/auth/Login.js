@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { login } from "../../redux/auth/authActions";
-import { connect } from 'react-redux'
-import flight from '../../elements/flight.jpg'
 
+import { connect } from 'react-redux'
+
+import flight from '../../elements/flight.jpg'
 const Login = () => {
 
   const [values, setValues] = useState({
@@ -11,12 +12,12 @@ const Login = () => {
     password: ''
     });
 
-    const handleChange = (e) => {
-      e.persist();
-      setValues(values => ({
+  const handleChange = (e) => {
+    e.persist();
+    setValues(values => ({
       ...values,
       [e.target.name]: e.target.value
-      }));
+    }));
   };
 
   // const handleClickShowPassword = () => {
@@ -188,10 +189,12 @@ const mapStateToProps=(state)=>{
 }}
 
 
-const mapDispatchToProps=(dispatch)=>{
+
+const mapDispatchToProps = (dispatch) => {
 
   return {
       login:(values)=> dispatch(login(values)),   
+
   }
 }
 

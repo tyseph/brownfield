@@ -43,7 +43,7 @@ const AdminHeader = () => {
                 onClick={onSidebarHide}
             /> */}
             </div>
-            <div className="w-full  sm:w-56 mt-4 sm:mt-0 relative">
+            {/* <div className="w-full  sm:w-56 mt-4 sm:mt-0 relative">
                 <SearchIcon className="w-5 h-5 search-icon left-3 absolute" />
                 <form action="#" method="POST">
                     <input
@@ -54,7 +54,7 @@ const AdminHeader = () => {
                         placeholder="Search..."
                     />
                 </form>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -7,39 +7,49 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import AdminHeader from "../adminComponents/AdminHeader";
 import FlightTable from "./FlightTable";
+import { useState } from "react";
+import AddFlight from "./AddFlight";
 
 
 const FlightManagement = () => {
+
+  const [tasksCompleted, setTasksCompleted] = useState()
+  const [add, setAdd] = useState(false)
+
+  const getTasks = (count) => {
+    setTasksCompleted(count);
+  }
+
   const employeeData = [
     {
       id: 1,
       name: 'Flights',
       position: "Currently Running Flights",
-      transactions: 15,
+      transactions: tasksCompleted,
       rise: true,
-      tasksCompleted: 3,
+      tasksCompleted: tasksCompleted,
       imgId: <FlightIcon />,
     },
 
-    {
-      id: 2,
-      name: 'Bookings',
-      position: "Today's Booking",
-      transactions: 1570,
-      rise: true,
-      tasksCompleted: 5,
-      imgId: <DashboardIcon />,
-    },
+    // {
+    //   id: 2,
+    //   name: 'Bookings',
+    //   position: "Today's Booking",
+    //   transactions: 1570,
+    //   rise: true,
+    //   tasksCompleted: 5,
+    //   imgId: <DashboardIcon />,
+    // },
 
-    {
-      id: 3,
-      name: 'Revenue',
-      position: "Net Revenue",
-      transactions: 2600,
-      rise: true,
-      tasksCompleted: 1,
-      imgId: <AirplaneTicketIcon />,
-    },
+    // {
+    //   id: 3,
+    //   name: 'Revenue',
+    //   position: "Net Revenue",
+    //   transactions: 2600,
+    //   rise: true,
+    //   tasksCompleted: 1,
+    //   imgId: <AirplaneTicketIcon />,
+    // },
   ];
   return (
     <div className="flex w-full">
@@ -70,10 +80,29 @@ const FlightManagement = () => {
             />
           ),
         )}
+        <div className="mt-2">
+          <div onClick={() => setAdd(!add)} className='button w-40 h-16 bg-gray-900 rounded-lg cursor-pointer select-none
+    active:translate-y-2  active:[box-shadow:0_0px_0_0_#1f2937,0_0px_0_0_#6b7280]
+    active:border-b-[0px]
+    transition-all duration-100 [box-shadow:0_10px_0_0_#1f2937,0_15px_0_0_#6b7280]
+    border-b-[1px] border-gray-400
+  '>
+            <span className='flex flex-col justify-center items-center h-full text-white font-bold text-lg '>{!add ? "Add Flights" : "View All Flights"}</span>
+          </div>
+        </div>
 
-        {/* TABLE HERE */}
+        <div className="p-2 w-screen justify-center align-center">
 
-        <FlightTable />
+          {/* TABLE HERE */}
+
+
+          {
+            add ?
+              <AddFlight /> :
+              <FlightTable flightCount={getTasks} />
+          }
+        </div>
+
       </div>
     </div >
   )
