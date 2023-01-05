@@ -1,7 +1,7 @@
 
 const SearchByText = ({ placeholderText, icon, gap }) => {
     return (
-        <div className="w-56 sm:w-56 mt-4 sm:mt-0 relative">
+        <div className="w-48 sm:w-48 mt-4 sm:mt-0 relative">
             {icon}
             <form>
                 <input

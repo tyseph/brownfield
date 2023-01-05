@@ -1,5 +1,5 @@
-import { userLogin } from "../../api/authenticationService";
-import { userSignup } from "../../api/authenticationService";
+import { userLogin } from "../../api/AuthenticationService";
+import { userSignup } from "../../api/AuthenticationService";
 
 export const signup = (userDetails) => { 
     userSignup(userDetails).then((response) => {

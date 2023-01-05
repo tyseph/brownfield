@@ -1,29 +1,22 @@
 import { Link } from "react-router-dom";
-
 import React, { useState } from 'react';
-
 import { login } from "../../redux/auth/authActions";
-
-import { connect } from 'react-redux'
-
-// import '../styles/Home.css'
-
+import { connect } from 'react-redux';
 import flight from '../../elements/flight.jpg'
-
 const Login = () => {
 
   const [values, setValues] = useState({
     username: '',
     password: '',
-    showPassword:false
-    });
+    showPassword: false
+  });
 
-    const handleChange = (e) => {
-      e.persist();
-      setValues(values => ({
+  const handleChange = (e) => {
+    e.persist();
+    setValues(values => ({
       ...values,
       [e.target.name]: e.target.value
-      }));
+    }));
   };
 
   // const handleClickShowPassword = () => {
@@ -186,19 +179,20 @@ const Login = () => {
 
 }
 
-const mapStateToProps=({auth})=>{
-  console.log("state ",auth)
-  
-  return {
-      loading:auth.loading,
-      error:auth.error
-}}
-
-
-const mapDispatchToProps=(dispatch)=>{
+const mapStateToProps = ({ auth }) => {
+  console.log("state ", auth)
 
   return {
-      setUser:(data)=> dispatch(login(data)),   
+    loading: auth.loading,
+    error: auth.error
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+
+  return {
+    setUser: (data) => dispatch(login(data)),
   }
 }
 

@@ -24,7 +24,7 @@ const Register = () => {
 
         <div className="hidden md:block h-50 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
 
-          <img className="absolute inset-0 h-full w-full object-cover" src={flight}/>
+          <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
 
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
 
@@ -143,17 +143,17 @@ const Register = () => {
 
                 <div className="mb-3">
 
-                    <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
+                  <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
 
 
 
-                    <div className="rounded-md shadow-sm">
+                  <div className="rounded-md shadow-sm">
 
-                      <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
-
-                    </div>
+                    <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
 
                   </div>
+
+                </div>
 
 
 
@@ -216,7 +216,7 @@ const Register = () => {
 
                   <span className="block w-full rounded-md shadow-sm">
 
-                  <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-sky-900 border border-transparent rounded-md hover:bg-#1F2937-500 focus:outline-none transition duration-150 ease-in-out">Register</button>
+                    <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-sky-900 border border-transparent rounded-md hover:bg-#1F2937-500 focus:outline-none transition duration-150 ease-in-out">Register</button>
 
                   </span>
 
