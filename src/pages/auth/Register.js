@@ -1,20 +1,60 @@
-import { Link } from "react-router-dom";
-
-
-
-// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-
-// import TextField from '@mui/material/TextField';
-
+import { Link } from "react-router-dom"
 import flight from '../../elements/flightRegister.jpg'
-
-// import '../styles/Home.css'
-
 import { useState } from "react";
+import { signup } from "../../redux/auth/authActions";
+import { connect } from "react-redux";
 
-
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const Register = () => {
+
+  const [values, setValues] = useState({
+    firstName:"",
+
+    lastName:"",
+
+    emailId:"",
+
+    dateOfBirth:"",
+
+    password:"",
+
+    contactNumber:"",
+
+    gender:""
+
+    });
+
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+
+    const handleChange = (e) => {
+      e.persist();
+      setValues(values => ({
+      ...values,
+      [e.target.name]: e.target.value
+      }));
+  };
+
+  const onChangeConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    
+    e.preventDefault();
+    if (confirmPassword === values.password) {
+      signup(values)
+    } else {
+      console.log('password doesnt match')
+    }
+  }
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
 
   return (
 
@@ -42,7 +82,9 @@ const Register = () => {
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
-              <a className="flex justify-center font-bold text-4xl"> <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} /> </a>
+              {/* <a className="flex justify-center font-bold text-4xl">
+                  </a> */}
+                 <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
 
 
 
@@ -56,7 +98,7 @@ const Register = () => {
 
                 <Link to={{ pathname: '/login' }}>
 
-                  <a className="font-medium transition ease-in-out duration-150"> Login to your account </a>
+                  <p className="font-medium transition ease-in-out duration-150"> Login to your account </p>
 
                 </Link>
 
@@ -70,7 +112,7 @@ const Register = () => {
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
-              <form>
+              <form onSubmit={handleSubmit}>
 
                 <div className="flex items-left justify-between mt-6">
 
@@ -82,7 +124,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="first" name="first" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                      <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
 
                     </div>
 
@@ -98,7 +140,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="last" name="last" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                      <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
 
                     </div>
 
@@ -116,7 +158,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="email" name="email" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="email" name="emailId" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                   </div>
 
@@ -132,7 +174,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="phone" name="phone" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="phone" name="contactNumber" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                   </div>
 
@@ -146,14 +188,127 @@ const Register = () => {
                   <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
 
 
+                    <div className="rounded-md shadow-sm">
 
-                  <div className="rounded-md shadow-sm">
+                      <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
+
 
                     <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
 
                   </div>
 
-                </div>
+
+                  {/* <Menu as="div" className="relative inline-block text-left">
+                  <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Gender </label>
+      <div>
+        <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+          Choose
+          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+        </Menu.Button>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          
+          <div className="py-1">
+            
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  MALE
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  FEMALE
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  OTHER
+                </a>
+              )}
+            </Menu.Item>
+            <form method="POST" action="#">
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    type="submit"
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'block w-full px-4 py-2 text-left text-sm'
+                    )}
+                  >
+                    DON'T WANT TO MENTION
+                  </button>
+                )}
+              </Menu.Item>
+            </form>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu> */}
+
+<div className="flex justify-center">
+  <div className="mb-3 xl:w-96">
+  <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
+    <select className="form-select appearance-none
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
+      onChange={handleChange}
+      name="gender"
+      value={values.gender}
+      >
+        <option selected>Open this select menu ▼</option>
+        <option>MALE</option>
+        <option>FEMALE</option>
+        <option>OTHER</option>
+    </select>
+  </div>
+</div>
 
 
 
@@ -166,7 +321,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="password" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
 
                   </div>
 
@@ -182,7 +337,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="confirm" type="confirm" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword}/>
 
                   </div>
 
@@ -204,7 +359,7 @@ const Register = () => {
 
                   <div className="text-sm leading-5">
 
-                    <a className="font-medium transition ease-in-out duration-150"> Forgot your password? </a>
+                    <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
                   </div>
 
@@ -236,6 +391,18 @@ const Register = () => {
 
 }
 
+const mapStateToProps=(state)=>{
+  
+  return {
+      currentUser: state.currentUser
+}}
 
 
-export default Register;
+const mapDispatchToProps=(dispatch)=>{
+
+  return {
+      signup:(values)=> dispatch(signup(values)),   
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

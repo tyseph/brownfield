@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { login } from "../../redux/auth/authActions";
-import { connect } from 'react-redux';
+
+import { connect } from 'react-redux'
+
 import flight from '../../elements/flight.jpg'
 const Login = () => {
 
   const [values, setValues] = useState({
     username: '',
-    password: '',
-    showPassword: false
-  });
+    password: ''
+    });
 
   const handleChange = (e) => {
     e.persist();
@@ -36,8 +37,10 @@ const Login = () => {
   //   setSelectedDate(date);
 
   // };
-
-  const handleSubmit = () => {
+  
+  const handleSubmit = (e) => {
+    
+    e.preventDefault();
     login(values)
   }
 
@@ -85,7 +88,7 @@ const Login = () => {
 
                 <Link to={{ pathname: '/register' }}>
 
-                  <a className="font-medium transition ease-in-out duration-150"> create a new account </a>
+                  {/* <a className="font-medium transition ease-in-out duration-150"> create a new account </a> */}
 
                 </Link>
 
@@ -103,13 +106,13 @@ const Login = () => {
 
                 <div>
 
-                  <label htmlFor="email" className="block text-sm font-medium leading-5" required onChange={handleChange} value={values.username} > Email address </label>
+                  <label htmlFor="email" className="block text-sm font-medium leading-5" > Email address </label>
 
 
 
                   <div className="mt-1 rounded-md shadow-sm">
 
-                    <input id="email" name="email" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="email" name="username" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                   </div>
 
@@ -125,7 +128,7 @@ const Login = () => {
 
                   <div className="mt-1 rounded-md shadow-sm">
 
-                    <input id="password" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="password" name="password" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
 
                   </div>
 
@@ -147,7 +150,7 @@ const Login = () => {
 
                   <div className="text-sm leading-5">
 
-                    <a className="font-medium transition ease-in-out duration-150"> Forgot your password? </a>
+                    {/* <a className="font-medium transition ease-in-out duration-150"> Forgot your password? </a> */}
 
                   </div>
 
@@ -179,20 +182,19 @@ const Login = () => {
 
 }
 
-const mapStateToProps = ({ auth }) => {
-  console.log("state ", auth)
-
+const mapStateToProps=(state)=>{
+  
   return {
-    loading: auth.loading,
-    error: auth.error
-  }
-}
+      currentUser: state.currentUser
+}}
+
 
 
 const mapDispatchToProps = (dispatch) => {
 
   return {
-    setUser: (data) => dispatch(login(data)),
+      login:(values)=> dispatch(login(values)),   
+
   }
 }
 
