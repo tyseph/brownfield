@@ -7,8 +7,10 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import AdminHeader from "../adminComponents/AdminHeader";
 import FlightTable from "./FlightTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddFlight from "./AddFlight";
+import { getAllFlights } from "../../../api/FlightManagementService";
+
 
 
 const FlightManagement = () => {
@@ -16,9 +18,18 @@ const FlightManagement = () => {
   const [tasksCompleted, setTasksCompleted] = useState()
   const [add, setAdd] = useState(false)
 
-  const getTasks = (count) => {
-    setTasksCompleted(count);
-  }
+  const [flights, setFlights] = useState([])
+
+  useEffect(() => {
+    getAllFlights().then((res) => {
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      setTasksCompleted(res.data.length)
+    })
+    // console.log("CAlled")
+  }, [])
+
+  
+
 
   const employeeData = [
     {
@@ -29,27 +40,7 @@ const FlightManagement = () => {
       rise: true,
       tasksCompleted: tasksCompleted,
       imgId: <FlightIcon />,
-    },
-
-    // {
-    //   id: 2,
-    //   name: 'Bookings',
-    //   position: "Today's Booking",
-    //   transactions: 1570,
-    //   rise: true,
-    //   tasksCompleted: 5,
-    //   imgId: <DashboardIcon />,
-    // },
-
-    // {
-    //   id: 3,
-    //   name: 'Revenue',
-    //   position: "Net Revenue",
-    //   transactions: 2600,
-    //   rise: true,
-    //   tasksCompleted: 1,
-    //   imgId: <AirplaneTicketIcon />,
-    // },
+    }
   ];
   return (
     <div className="flex w-full">
@@ -99,7 +90,7 @@ const FlightManagement = () => {
           {
             add ?
               <AddFlight /> :
-              <FlightTable flightCount={getTasks} />
+              <FlightTable flights={flights} />
           }
         </div>
 

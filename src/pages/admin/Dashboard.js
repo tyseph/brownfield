@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from "./adminComponents/Sidebar";
 import Content from './adminComponents/Content';
 import './adminComponents/componentscss.css'
@@ -12,6 +12,7 @@ const Dashboard = () => {
     setSelected(key)
     console.log('clicked', key)
   }
+
   return (
     <div className="flex">
       <Sidebar

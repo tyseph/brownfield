@@ -1,10 +1,13 @@
+import { input } from "@material-tailwind/react"
 
-const SearchByText = ({ placeholderText, icon, gap }) => {
+const SearchByText = ({ placeholderText, icon, gap, onChange, value }) => {
     return (
         <div className="w-48 sm:w-48 mt-4 sm:mt-0 relative">
             {icon}
             <form>
                 <input
+                    value={value}
+                    onChange={onChange}
                     type="text"
                     name="company_website"
                     id="company_website"

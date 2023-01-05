@@ -6,7 +6,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
-const FlightTable = ({ flightCount }) => {
+const FlightTable = ({ flights, filterByValue }) => {
+
+    const [input, setInput] = useState();
 
     const menuItems = [
         {
@@ -23,12 +25,21 @@ const FlightTable = ({ flightCount }) => {
         }
     ]
 
+    const handleOnChange = (e) => {
+        e.preventDefault()
+        setInput(e.target.value)
+    }
+
+    const handleSubmit = () => {
+        
+    }
+
     return (
         <div className="p-2 mt-6">
             <div className="">
                 <div className='flex flex-wrap justify-start gap-2' >
                     <div className='flex flex-wrap gap-2'>
-                        <SearchByText gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
+                        <SearchByText value={input} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
                         <SearchByTime menuItems={menuItems} placeholder="Select Time..." />
                     </div>
                     <div className='flex flex-wrap gap-1'>
@@ -39,7 +50,7 @@ const FlightTable = ({ flightCount }) => {
                     </div>
                     <div className='flex flex-nowrap gap-1'>
                         <span className="block w-full rounded-md shadow-sm">
-                            <button type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
+                            <button onClick={handleSubmit} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
                         </span>
                     </div>
                     <div className='flex flex-nowrap gap-1'>
@@ -98,7 +109,7 @@ const FlightTable = ({ flightCount }) => {
 
                                 </tr>
                             </thead>
-                            <FlightData flightCount={flightCount} />
+                            <FlightData flights={flights} />
                         </table>
                     </div>
                 </div>

@@ -1,16 +1,12 @@
-export const getAllFlights = () => {
-    axios.get('http://LIN51016635:8082/getAllFlights')
-        .then(function (response) {
-            // handle success
-            console.log(response.data);
-            var res = response.data.sort(({ flightId: a }, { flightId: b }) => a - b);
-            setFlights(res)
-            // console(res.length)
-            flightCount(res.length)
+import axios from "axios";
 
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error.message)
-        })
+const URL = "http://LIN59017635:8081"
+
+export const getAllFlights = () => {
+    // console.log("calledService")
+    return axios.get(`${URL}/getAllFlights`)
+}
+
+export const getFlightByID = (id) => {
+    return axios.get(`${URL}/getFlight/${id}`)
 }

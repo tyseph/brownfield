@@ -47,7 +47,7 @@ const NameCard = ({
               'text-xl',
             )}
           >
-            {transactions.interpolate((i) => `${i.toFixed(2)}`)}
+            {transactions.interpolate((i) => `${i.toFixed(1)}`)}
           </animated.div>
           <div className="text-md text-gray-400 ">Last 1 month</div>
         </div>

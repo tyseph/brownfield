@@ -71,7 +71,7 @@ const AddFlight = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap justify-between mb-6">
+                <div className="flex flex-wrap justify-around mb-6">
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">
