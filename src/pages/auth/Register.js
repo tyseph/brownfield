@@ -2,40 +2,36 @@ import { Link } from "react-router-dom"
 import flight from '../../elements/flightRegister.jpg'
 import { useState } from "react";
 import { signup } from "../../redux/auth/authActions";
-import { connect } from "react-redux";
-
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { connect } from "react-redux"
 
 const Register = () => {
 
   const [values, setValues] = useState({
-    firstName:"",
+    firstName: "",
 
-    lastName:"",
+    lastName: "",
 
-    emailId:"",
+    emailId: "",
 
-    dateOfBirth:"",
+    dateOfBirth: "",
 
-    password:"",
+    password: "",
 
-    contactNumber:"",
+    contactNumber: "",
 
-    gender:""
+    gender: ""
 
-    });
+  });
 
   const [confirmPassword, setConfirmPassword] = useState("")
 
 
-    const handleChange = (e) => {
-      e.persist();
-      setValues(values => ({
+  const handleChange = (e) => {
+    e.persist();
+    setValues(values => ({
       ...values,
       [e.target.name]: e.target.value
-      }));
+    }));
   };
 
   const onChangeConfirmPassword = (e) => {
@@ -43,7 +39,7 @@ const Register = () => {
   }
 
   const handleSubmit = (e) => {
-    
+
     e.preventDefault();
     if (confirmPassword === values.password) {
       signup(values)
@@ -84,7 +80,7 @@ const Register = () => {
 
               {/* <a className="flex justify-center font-bold text-4xl">
                   </a> */}
-                 <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
+              <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
 
 
 
@@ -124,7 +120,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
+                      <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
@@ -140,7 +136,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
+                      <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
@@ -188,17 +184,16 @@ const Register = () => {
                   <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
 
 
-                    <div className="rounded-md shadow-sm">
+                  <div className="rounded-md shadow-sm">
 
-                      <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
+                    <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
-
-                    <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
 
                   </div>
+                </div>
 
 
-                  {/* <Menu as="div" className="relative inline-block text-left">
+                {/* <Menu as="div" className="relative inline-block text-left">
                   <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Gender </label>
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
@@ -280,10 +275,10 @@ const Register = () => {
       </Transition>
     </Menu> */}
 
-<div className="flex justify-center">
-  <div className="mb-3 xl:w-96">
-  <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
-    <select className="form-select appearance-none
+                <div className="flex justify-center">
+                  <div className="mb-3 xl:w-96">
+                    <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
+                    <select className="form-select appearance-none
       block
       w-full
       px-3
@@ -298,17 +293,17 @@ const Register = () => {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
-      onChange={handleChange}
-      name="gender"
-      value={values.gender}
-      >
-        <option selected>Open this select menu ▼</option>
-        <option>MALE</option>
-        <option>FEMALE</option>
-        <option>OTHER</option>
-    </select>
-  </div>
-</div>
+                      onChange={handleChange}
+                      name="gender"
+                      value={values.gender}
+                    >
+                      <option selected>Open this select menu ▼</option>
+                      <option>MALE</option>
+                      <option>FEMALE</option>
+                      <option>OTHER</option>
+                    </select>
+                  </div>
+                </div>
 
 
 
@@ -321,7 +316,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
+                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                   </div>
 
@@ -337,7 +332,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword}/>
+                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
 
                   </div>
 
@@ -391,17 +386,18 @@ const Register = () => {
 
 }
 
-const mapStateToProps=(state)=>{
-  
-  return {
-      currentUser: state.currentUser
-}}
-
-
-const mapDispatchToProps=(dispatch)=>{
+const mapStateToProps = (state) => {
 
   return {
-      signup:(values)=> dispatch(signup(values)),   
+    currentUser: state.currentUser
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+
+  return {
+    signup: (values) => dispatch(signup(values)),
   }
 }
 

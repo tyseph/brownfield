@@ -6,9 +6,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
-const FlightTable = ({ flights, filterByValue }) => {
+const FlightTable = ({ flights, searchFlight }) => {
 
-    const [input, setInput] = useState();
+    const [input, setInput] = useState({
+        flightId: "",
+        time: "",
+        src: "",
+        des: ""
+    });
 
     const menuItems = [
         {
@@ -26,12 +31,15 @@ const FlightTable = ({ flights, filterByValue }) => {
     ]
 
     const handleOnChange = (e) => {
-        e.preventDefault()
-        setInput(e.target.value)
+        e.preventDefault();
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        searchFlight(input.time)
     }
 
     return (
@@ -39,8 +47,8 @@ const FlightTable = ({ flights, filterByValue }) => {
             <div className="">
                 <div className='flex flex-wrap justify-start gap-2' >
                     <div className='flex flex-wrap gap-2'>
-                        <SearchByText value={input} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
-                        <SearchByTime menuItems={menuItems} placeholder="Select Time..." />
+                        <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
+                        <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                     </div>
                     <div className='flex flex-wrap gap-1'>
                         <SearchByTime gap="pl-12" menuItems={menuItems} placeholder="Source Code..." />
