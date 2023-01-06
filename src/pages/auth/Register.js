@@ -192,9 +192,7 @@ const Register = () => {
 
                       <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange}/>
 
-
-                    <input id="dob" name="dob" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
-
+                  </div>
                   </div>
 
 

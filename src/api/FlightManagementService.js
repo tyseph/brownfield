@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const URL = "http://LIN59017635:8081"
+import URL from './URL'
 
 export const getAllFlights = () => {
     // console.log("calledService")
