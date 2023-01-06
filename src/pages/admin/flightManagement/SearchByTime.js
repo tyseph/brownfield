@@ -1,17 +1,17 @@
 import { useState } from "react";
 
 
-const SearchByTime = ({ menuItems, placeholder }) => {
+const SearchByTime = ({ menuItems, placeholder, name, value, onChange }) => {
 
     return (
         // <div className="relative ">
         <div className="relative inline-block mt-4 xl:mt-0 md:mt-0 lg:mt-0 sxl:mt-0 text-left ">
-            <select placeholder="Select time" className="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" id="grid-state" >
-                <option selected disabled>{placeholder}</option>
+            <select onChange={onChange} name={name} defaultValue="" placeholder="Select time" className="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" id="grid-state" >
+                <option>{placeholder}</option>
                 {
                     menuItems.map((item) => {
                         return (
-                            <option key={item.code} className="cursor-pointer rounded-lg hover:bg-zinc-200 text-gray-100 hover:font-black font-semibold hover:text-zinc-900 block px-4 py-2 text-md">{item.value}</option>
+                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg hover:bg-zinc-200 text-gray-100 hover:font-black font-semibold hover:text-zinc-900 block px-4 py-2 text-md">{item.value}</option>
                         )
                     })
                 }

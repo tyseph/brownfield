@@ -9,7 +9,7 @@ import AdminHeader from "../adminComponents/AdminHeader";
 import FlightTable from "./FlightTable";
 import { useEffect, useState } from "react";
 import AddFlight from "./AddFlight";
-import { getAllFlights } from "../../../api/FlightManagementService";
+import { getAllFlights, getFlightByTime } from "../../../api/FlightManagementService";
 
 
 
@@ -28,7 +28,11 @@ const FlightManagement = () => {
     // console.log("CAlled")
   }, [])
 
-  
+  const searchFlight = (obj) => {
+    // getFlightByTime(obj)
+    setFlights(getFlightByTime(obj))
+  }
+
 
 
   const employeeData = [
@@ -90,7 +94,7 @@ const FlightManagement = () => {
           {
             add ?
               <AddFlight /> :
-              <FlightTable flights={flights} />
+              <FlightTable searchFlight={searchFlight} flights={flights} />
           }
         </div>
 
