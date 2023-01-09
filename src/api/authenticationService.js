@@ -1,10 +1,10 @@
 import axios from 'axios';
-import URL from './URL'
+
 
 export const userSignup = (userDetails) => {
     return axios({
         'method':'POST',
-        'url':`${URL}/signup`,
+        'url':`http://localhost:8080/signup`,
         'data': userDetails
     })
 }
@@ -12,7 +12,7 @@ export const userSignup = (userDetails) => {
 export const userLogin = (authRequest) => {
     return axios({
         'method':'POST',
-        'url':`${URL}/login`,
+        'url':`https://reqres.in/api/login`,
         'data':authRequest
     })
 }
