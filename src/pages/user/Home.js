@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import changeIcon from '../../elements/exchange.png';
+import changeIcon from '../../elements/exchangeWhite.png';
 import SearchIcon from '@mui/icons-material/Search';
-import { Input, InputAdornment } from '@mui/material';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
 import Navbar from './Navbar';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Select from "react-select";
 import Cover from './Cover';
 import ImageCards from './ImageCards';
@@ -34,17 +28,23 @@ const Home = () => {
     { value: "Banglore", label: "Banglore" },
     { value: "Goa", label: "Goa" }
   ];
-  const handleFromCitySelect = (data) => {
-    setSelectedFromCity(data);
+  const handleFromCitySelect = (e) => {
+    console.log(e.target.value);
+    setSelectedFromCity(e.target.value);
   }
-  const handleToCitySelect = (data) => {
-    setSelectedToCity(data);
+  // console.log(selectedFromCity);
+  const handleToCitySelect = (e) => {
+    setSelectedToCity(e.target.value);
   }
 
   const switchCity = () => {
     setSelectedToCity(selectedFromCity)
     setSelectedFromCity(selectedToCity)
   }
+
+  console.log(selectedFromCity);
+  console.log(selectedToCity);
+
   // const wayMenu = [
   //   {
   //     value: "One Way",
@@ -57,7 +57,7 @@ const Home = () => {
   //   }
   // ]
 
-  console.log(searchByWay)
+  // console.log(searchByWay)
   const searchBarOpen = () => {
     setSearchBarOn(true)
   }
@@ -68,119 +68,175 @@ const Home = () => {
       <div className='homePage'>
         <div className="mt-0 md:col-span-2 md:mt-0 md:pt-2 md:pb-24 md:ml-20 md:mr-20 ml-6 mr-6" >
           <form>
-            <div className="sm:rounded-md rounded-md pt-10 pb-10">
+            <div className="sm:rounded-md rounded-md pt-10 pb-10 bg-white">
               <div className='flightSearchBox'>
                 {/* <pre className='tag'>
                   {`Where Would You like to go?`}</pre> */}
-                <img className='flightImage' src="https://www.freepnglogos.com/uploads/plane-png/plane-png-flights-airlines-msp-airport-1.png" height="80px" data-aos="fade-right" />
+                <img className='flightImage' src="https://www.freepnglogos.com/uploads/plane-png/plane-png-flights-airlines-msp-airport-1.png" height="80px" />
                 <div className="flightsearch px-4 py-5 sm:p-6 ">
                   <div className="grid grid-cols-12 gap-3">
                     <div className="col-span-12 sm:col-span-12 md:mr-3 ">
-                      <FormControl>
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="row-radio-buttons-group"
-                          defaultValue="ONEWAY">
-                          <FormControlLabel value="ONEWAY" control={<Radio />} label={<span className='radioText' style={{ fontSize: '14px' }}>{"ONEWAY"}</span>} />
-                          <FormControlLabel value="ROUND TRIP" control={<Radio />} label={<span className='radioText' style={{ fontSize: '14px' }}>{"ROUND TRIP"}</span>} />
-                          <FormControlLabel value="MULTI CITY" control={<Radio />} label={<span className='radioText' style={{ fontSize: '14px' }}>{"MULTI CITY"}</span>} />
-                        </RadioGroup>
-                      </FormControl>
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ONEWAY" id="ONEWAY" />
+                      <label for="y" className='mr-3 sm:mr-4 text-sm text-white'>ONEWAY</label>
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ROUND TRIP" id="ROUND TRIP" />
+                      <label for="z" className='mr-3 sm:mr-4 text-sm text-white'>ROUND TRIP</label>
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="MULTI CITY" id="MULTI CITY" />
+                      <label for="z" className='mr-3 sm:mr-4 text-sm text-white'>MULTI CITY</label>
                     </div>
                   </div>
-                  <div class="container mx-auto">
-                    <div class="grid grid-cols-5 divide-x overflow-scroll">
-                      <div
-                        class="flex justify-center p-6 text-6xl bg-slate-50 rounded-l-lg relative col-span-5 sm:col-span-1 sm:text-center text-center "
-                        onClickCapture={searchBarOpen} >
-                        <label className=" labels absolute text-left text-base text-zinc-500 font-bold left-4 top-1 ">
-                          From
-                        </label>
-                        <div className="dropdown-container text-base">
-                          <Select menuPosition="fixed"
-                            className="basic-single selectbar"
-                            classNamePrefix="select"
-                            options={optionList}
-                            placeholder="Select City"
-                            value={selectedFromCity}
-                            onChange={handleFromCitySelect}
-                            isSearchable={true} />
+
+
+                  <div className="grid grid-cols-9 gap-3 relative mt-5 mb-5">
+                    <div className="col-span-12 sm:col-span-4 md:mr-3 relative">
+                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                        From
+                      </label>
+                      <div className="dropdown-container text-base ">
+                        <select required
+                          value={selectedFromCity}
+                          onChange={(e) => handleFromCitySelect(e)}
+                          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
+                          <option selected disabled>Source code...</option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Banglore">Banglore</option>
+                          <option value="Mumbai">Mumbai</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                         </div>
-                      </div>
-                      <div
-                        class="flex justify-center col-span-5 sm:col-span-1 p-6 text-6xl bg-slate-50 relative">
-                        <img className='changeIcon' src={changeIcon} onClick={switchCity} />
-                        <label className="labels absolute text-left text-base text-zinc-500 font-bold left-4 top-1">
-                          To
-                        </label>
-                        <div className="dropdown-container text-base ">
-                          <Select menuPosition="fixed"
-                            className="basic-single selectbar"
-                            classNamePrefix="select"
-                            options={optionList}
-                            placeholder="Select City"
-                            value={selectedToCity}
-                            onChange={handleToCitySelect}
-                            isSearchable={true} />
-                        </div>
-                      </div>
-                      <div
-                        class="flex justify-center col-span-5 sm:col-span-1 p-6 text-6xl bg-slate-50  relative">
-                        <label className="labels absolute text-left text-base text-zinc-500 font-bold left-4 top-1">
-                          Departure
-                        </label>
-                        <Input type='date' />
-                      </div>
-                      <div
-                        class="flex justify-center col-span-5 sm:col-span-1 p-6 text-6xl bg-slate-50  relative">
-                        <label className="labels absolute text-left text-base text-zinc-500 font-bold left-4 top-1">
-                          Return
-                        </label>
-                        <Input type='date' />
-                      </div>
-                      <div
-                        class="flex justify-center col-span-5 sm:col-span-1 p-6 text-6xl bg-slate-50 rounded-r-lg relative ">
-                        <label className="labels absolute text-left text-base text-zinc-500 font-bold left-4 top-1">
-                          Passengers
-                        </label>
-                        <Input type='number' />
                       </div>
                     </div>
+                    <div className="col-span- sm:col-span-1 md:mr-6 ml-11 mt-7 relative">
+                      <img className='changeIcon' src={changeIcon} onClick={switchCity} />
+                    </div>
+                    <div className="col-span-12 sm:col-span-4 md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                        To
+                      </label>
+                      <div className="dropdown-container text-base ">
+                        <select required
+                          value={selectedToCity}
+                          onChange={(e) => handleToCitySelect(e)}
+                          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
+                          <option selected disabled>Source code...</option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Banglore">Banglore</option>
+                          <option value="Mumbai">Mumbai</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-span-12 sm:col-span-3  md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                        Departure
+                      </label>
+                      <input
+                        type="date"
+                        name="departure"
+                        id="departure"
+                        autoComplete="given-name"
+                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+
+                      />
+                    </div>
+                    <div className="col-span-12 sm:col-span-3  md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                        Return
+                      </label>
+                      <input
+                        type="date"
+                        name="return"
+                        id="return"
+                        autoComplete="given-name"
+                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+
+                      />
+                    </div>
+                    <div className="col-span-12 sm:col-span-1  md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                        Adult
+                      </label>
+                      
+                      {/* <input
+                        type="number"
+                        name="adult"
+                        id="adult"
+                        autoComplete="given-name"
+                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+                      /> */}
+                      <select name='adult'  className="pl-10 h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                    <div className="col-span-12 sm:col-span-1  md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base text-white text-white font-bold">
+                        Children
+                      </label>
+                      {/* <input
+                        type="number"
+                        name="children"
+                        id="children"
+                        autoComplete="given-name"
+                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+                      /> */}
+                      <select name='children'  className="pl-10 h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                    <div className="col-span-12 sm:col-span-1  md:mr-3 ">
+                      <label htmlFor="first-name" className="block text-base text-white text-white font-bold">
+                        Infant
+                      </label>
+                      {/* <input
+                        type="number"
+                        name="infant"
+                        id="infant"
+                        autoComplete="given-name"
+                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+                      /> */}
+                      <select name='infant' className="pl-10 h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+
                   </div>
+
                   <div className='search-button mt-2'>
                     <button
                       type="submit"
-                      className="search-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute">
+                      className="search-button bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 text-white py-2 px-4 rounded absolute">
                       Search
                     </button>
                   </div>
                 </div>
-                {/* <div className='search-button mt-2'>
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Search
-                  </button>
-                </div> */}
-                <ImageCards />
+                {/* <ImageCards /> */}
               </div>
             </div>
           </form>
         </div>
       </div >
-      <br />
-      <br />
-      <br />
-      <SectionOne />
-      <br />
-      <br />
-      <br />
+
+      {/* <SectionOne />
+
       <Cover />
-      <br />
-      <br />
-      <br />
-      <Cards />
+
+      <Cards /> */}
 
     </div >
 
