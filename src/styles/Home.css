@@ -42,7 +42,7 @@
 }
 
 .flightsearch {
-  background-color: white;
+  background-color: #0F172A;
   border-radius: 17px;
   /* border-top-left-radius: 17px; */
 }
@@ -118,16 +118,23 @@
 background: linear-gradient(90deg, rgba(15,19,42,1) 69%, rgba(35,0,140,1) 99%); */
   /* background: rgb(15,19,42);
 background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%); */
-  background: linear-gradient(to bottom, #051322, #4078b9);
+  /* background: linear-gradient(to bottom, #051322, #4078b9); */
   /* background-image: url('https://img1.goodfon.com/wallpaper/nbig/6/ed/boeing-737-aviaciya-samolet.jpg'); */
+  background-color: white;
 }
 
-input[type="date"] {
-  display: flex;
+.dateInput {
   flex-flow: row-reverse;
-  padding: 8px;
-  height: auto;
+  /* padding: 8px; */
   cursor: pointer;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid black;
+  margin-top: 12px;
+}
+.numberInput{
+  cursor: pointer;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid black;
 }
 
 .flightSearchBox {
@@ -170,10 +177,11 @@ input[type="date"] {
   }
 
   .flightImage {
-    height: 9vh;
+    /* height: 9vh;
     position: absolute;
     right: 1vw;
-    top: 40vh;
+    top: 40vh; */
+    display: none;
   }
 
   .labels {
@@ -229,6 +237,11 @@ input[type="date"] {
     object-fit: fill;
   
   }
+
+  
+.changeIcon {
+display: none;
+}
 
 }
 
@@ -303,4 +316,24 @@ input[type="date"] {
 .right-section{
   float: left;
   width: 50%;
+}
+
+.input-icons i {
+  position: absolute;
+}
+
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.icon {
+  padding: 10px;
+  min-width: 40px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
 }
