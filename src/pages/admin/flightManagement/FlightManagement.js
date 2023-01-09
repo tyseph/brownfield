@@ -9,9 +9,9 @@ import AdminHeader from "../adminComponents/AdminHeader";
 import FlightTable from "./FlightTable";
 import { useEffect, useState } from "react";
 import AddFlight from "./AddFlight";
-import { getAllFlights, getFlightByTime } from "../../../api/FlightManagementService";
+import { getAllAiriports, getAllFlights, getFlightByID, getFlightBySearch, getFlightByTime } from "../../../api/FlightManagementService";
 
-
+import axios from 'axios'
 
 const FlightManagement = () => {
 
@@ -19,30 +19,67 @@ const FlightManagement = () => {
   const [add, setAdd] = useState(false)
 
   const [flights, setFlights] = useState([])
+  const [airPorts, setAirPorts] = useState([])
+  const [clear, setClear] = useState(false);
+
+  const [addFlight, setAddFlight] = useState({
+    sourceCode: "",
+    destinationCode: "",
+    timeOfDeparture: "",
+    timeOfArrival: ""
+  })
+
+  const handleOnChange = (e) => {
+    e.preventDefault()
+    setAddFlight({
+      [e.target.name]: e.target.value
+    })
+  }
 
   useEffect(() => {
     getAllFlights().then((res) => {
       setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
       setTasksCompleted(res.data.length)
     })
-    // console.log("CAlled")
+  }, [clear])
+
+  useEffect(() => {
+    getAllAiriports().then((res) => {
+      setAirPorts(res.data);
+    })
   }, [])
 
   const searchFlight = (obj) => {
-    // getFlightByTime(obj)
-    setFlights(getFlightByTime(obj))
+    getFlightByTime(obj).then((res) => {
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      // setTasksCompleted(res.data.length)
+    })
+    // console.log(flights)
   }
 
+  const searchFligthID = (obj) => {
+    getFlightByID(obj).then((res) => {
+      let tmp = []
+      tmp.push(res.data)
+      setFlights(tmp)
+      console.log(tmp)
+    })
+  }
 
+  const searchFlightSrcDes = (obj) => {
+    getFlightBySearch(obj).then((res) => {
+      setFlights(res.data)
+    })
+  }
 
   const employeeData = [
     {
       id: 1,
       name: 'Flights',
-      position: "Currently Running Flights",
+      position: "Total Airports",
       transactions: tasksCompleted,
       rise: true,
-      tasksCompleted: tasksCompleted,
+      tasksCompleted: airPorts.length,
       imgId: <FlightIcon />,
     }
   ];
@@ -93,8 +130,8 @@ const FlightManagement = () => {
 
           {
             add ?
-              <AddFlight /> :
-              <FlightTable searchFlight={searchFlight} flights={flights} />
+              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} /> :
+              <FlightTable clear={() => setClear(!clear)} searchFlight={searchFlight} searchFligthID={searchFligthID} searchFlightSrcDes={searchFlightSrcDes} airPorts={airPorts} flights={flights} />
           }
         </div>
 

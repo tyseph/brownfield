@@ -1,4 +1,6 @@
-const AddFlight = () => {
+import AllAirports from "./AllAirports";
+
+const AddFlight = ({ airPorts, onChange, addFlight }) => {
 
     return (
         <div className="w-full mt-6">
@@ -14,12 +16,17 @@ const AddFlight = () => {
                             <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                                 Source Airport Code
                             </label>
-                            <select required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
+                            {/* <select name="sourceCode" onChange={onChange} required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
                                 <option selected disabled>Source code...</option>
-                                <option>New Mexico</option>
-                                <option>Missouri</option>
-                                <option>Texas</option>
-                            </select>
+                                {
+                                    airPorts.map((item) => {
+                                        return (
+                                            <option value={item.code}>{item.name}</option>
+                                        )
+                                    })
+                                }
+                            </select> */}
+                            <AllAirports name="sourceCode" value={addFlight.sourceCode} gap="pl-12" onChange={onChange} menuItems={airPorts} placeholder="Source Code..." />
                             <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                             </div>
@@ -31,7 +38,7 @@ const AddFlight = () => {
                             <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                                 Destination Airport Code
                             </label>
-                            <select required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
+                            <select required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
                                 <option selected disabled>Destination code...</option>
                                 <option>New Mexico</option>
                                 <option>Missouri</option>
@@ -44,7 +51,7 @@ const AddFlight = () => {
                         {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
                     </div>
                 </div>
-                <div className="flex flex-wrap justify-center text-center -mx-3 mb-6">
+                <div className="flex flex-wrap text-center p-2 mx-6 mb-6">
 
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
@@ -79,7 +86,7 @@ const AddFlight = () => {
                                 Departure Time
                             </label>
                             <div className="rounded-md shadow-sm">
-                                <input type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                <input type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                             </div>
                         </div>
                     </div>
@@ -89,7 +96,7 @@ const AddFlight = () => {
                                 Arrival Time
                             </label>
                             <div className="rounded-md shadow-sm">
-                                <input type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                <input type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                             </div>
                         </div>
                     </div>

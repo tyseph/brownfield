@@ -5,8 +5,9 @@ import SearchByTime from './SearchByTime';
 import SearchIcon from '@mui/icons-material/Search';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import AllAirports from './AllAirports';
 
-const FlightTable = ({ flights, searchFlight }) => {
+const FlightTable = ({ flights, searchFlight, clear, airPorts, searchFligthID, searchFlightSrcDes }) => {
 
     const [input, setInput] = useState({
         flightId: "",
@@ -22,7 +23,7 @@ const FlightTable = ({ flights, searchFlight }) => {
         },
         {
             value: "Afternoon",
-            code: "aftenoonFlights"
+            code: "afternoonFlights"
         },
         {
             value: "Night",
@@ -39,7 +40,34 @@ const FlightTable = ({ flights, searchFlight }) => {
     }
 
     const handleSubmit = (e) => {
-        searchFlight(input.time)
+        if (input.flightId !== "") {
+            searchFligthID(input.flightId)
+            // console.log(searchFligthID(input.flightId))
+            setInput({
+                flightId: ""
+            })
+            return;
+        }
+        if (input.time !== "") {
+            searchFlight(input.time)
+            setInput({
+                time: ""
+            })
+            return;
+        }
+        if (input.src !== "" && input.des !== "") {
+            let tmp = {
+                source: "",
+                destination: ""
+            }
+            tmp.source = input.src
+            tmp.destination = input.des
+            console.log(tmp)
+            searchFlightSrcDes(tmp)
+        }
+        else {
+            alert("No Filetrs Selected")
+        }
     }
 
     return (
@@ -51,9 +79,9 @@ const FlightTable = ({ flights, searchFlight }) => {
                         <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                     </div>
                     <div className='flex flex-wrap gap-1'>
-                        <SearchByTime gap="pl-12" menuItems={menuItems} placeholder="Source Code..." />
+                        <AllAirports name="src" value={input.src} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
                         <SwapHorizIcon className='mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2' />
-                        <SearchByTime gap="pl-12" menuItems={menuItems} placeholder="Destination Code..." />
+                        <AllAirports name="des" value={input.des} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
                         {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
                     </div>
                     <div className='flex flex-nowrap gap-1'>
@@ -63,7 +91,7 @@ const FlightTable = ({ flights, searchFlight }) => {
                     </div>
                     <div className='flex flex-nowrap gap-1'>
                         <span className="block w-full rounded-md shadow-sm">
-                            <button type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
+                            <button onClick={clear} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
                         </span>
                     </div>
                 </div>
