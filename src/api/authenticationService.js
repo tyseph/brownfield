@@ -14,5 +14,5 @@ export const userLogin = (authRequest) => {
         'method':'POST',
         'url':`${authURL}/login`,
         'data':authRequest
-    })
+    })``
 }
