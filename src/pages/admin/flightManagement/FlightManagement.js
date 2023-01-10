@@ -9,7 +9,7 @@ import AdminHeader from "../adminComponents/AdminHeader";
 import FlightTable from "./FlightTable";
 import { useEffect, useState } from "react";
 import AddFlight from "./AddFlight";
-import { getAllAiriports, getAllFlights, getFlightByID, getFlightBySearch, getFlightByTime } from "../../../api/FlightManagementService";
+import { getAllAiriports, getAllFlights, getByAdminSearch, getFlightByID, getFlightBySearch, getFlightByTime, postFlightData } from "../../../api/FlightManagementService";
 
 import axios from 'axios'
 
@@ -25,13 +25,14 @@ const FlightManagement = () => {
   const [addFlight, setAddFlight] = useState({
     sourceCode: "",
     destinationCode: "",
-    timeOfDeparture: "",
-    timeOfArrival: ""
+    timeOfDeparture: "10:00",
+    timeOfArrival: "12:00"
   })
 
   const handleOnChange = (e) => {
     e.preventDefault()
     setAddFlight({
+      ...addFlight,
       [e.target.name]: e.target.value
     })
   }
@@ -49,26 +50,17 @@ const FlightManagement = () => {
     })
   }, [])
 
-  const searchFlight = (obj) => {
-    getFlightByTime(obj).then((res) => {
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-      // setTasksCompleted(res.data.length)
-    })
-    // console.log(flights)
-  }
-
-  const searchFligthID = (obj) => {
-    getFlightByID(obj).then((res) => {
-      let tmp = []
-      tmp.push(res.data)
-      setFlights(tmp)
-      console.log(tmp)
-    })
-  }
-
-  const searchFlightSrcDes = (obj) => {
-    getFlightBySearch(obj).then((res) => {
+  const adminSearch = (obj) => {
+    getByAdminSearch(obj).then((res) => {
       setFlights(res.data)
+    })
+  }
+
+  const insertFlightData = (e) => {
+    console.log(addFlight)
+    e.preventDefault()
+    postFlightData(addFlight).then((res) => {
+      alert(res.data)
     })
   }
 
@@ -130,8 +122,8 @@ const FlightManagement = () => {
 
           {
             add ?
-              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} /> :
-              <FlightTable clear={() => setClear(!clear)} searchFlight={searchFlight} searchFligthID={searchFligthID} searchFlightSrcDes={searchFlightSrcDes} airPorts={airPorts} flights={flights} />
+              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} insertFlightData={insertFlightData} /> :
+              <FlightTable clear={() => setClear(!clear)} searchFlight={adminSearch} airPorts={airPorts} flights={flights} />
           }
         </div>
 

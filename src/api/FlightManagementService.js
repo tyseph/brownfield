@@ -21,9 +21,28 @@ export const getAllAiriports = (time) => {
 
 export const getFlightBySearch = (obj) => {
     console.log(obj.source, obj.destination)
-    return axios.post(`${URL}/search`, {
-        source: obj.source,
-        destination: obj.destination
+    return axios.post(`${URL}/search`, obj)
+}
+
+export const getByAdminSearch = (obj) => {
+    return axios.post(`${URL}/adminSearch`, {
+        flightId: obj.flightId,
+        source: obj.src,
+        destination: obj.des,
+        time: obj.time
+    })
+}
+
+export const postFlightData = (obj) => {
+    return axios.post(`${URL}/addFlight`, {
+        // sourceCode: obj.sourceCode,
+        // destinationCode: obj.destinationCode,
+        // timeOfDeparture: obj.timeOfDeparture,
+        // timeOfArrival: obj.timeOfArrival
+        sourceCode: "DEL",
+        destinationCode: "PNQ",
+        timeOfDeparture: "10:00:00",
+        timeOfArrival: "12:00:00"
     })
 }
 

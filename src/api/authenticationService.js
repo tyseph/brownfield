@@ -1,18 +1,20 @@
 import axios from 'axios';
 
+const URL = "http://LIN59017635:8081"
+
 
 export const userSignup = (userDetails) => {
     return axios({
-        'method':'POST',
-        'url':`http://localhost:8080/signup`,
+        'method': 'POST',
+        'url': `${URL}/home/registerUser`,
         'data': userDetails
     })
 }
 
 export const userLogin = (authRequest) => {
     return axios({
-        'method':'POST',
-        'url':`https://reqres.in/api/login`,
-        'data':authRequest
+        'method': 'POST',
+        'url': `${URL}/login`,
+        'data': authRequest
     })
 }

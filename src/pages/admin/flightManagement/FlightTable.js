@@ -7,7 +7,7 @@ import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import AllAirports from './AllAirports';
 
-const FlightTable = ({ flights, searchFlight, clear, airPorts, searchFligthID, searchFlightSrcDes }) => {
+const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
 
     const [input, setInput] = useState({
         flightId: "",
@@ -40,34 +40,54 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts, searchFligthID, s
     }
 
     const handleSubmit = (e) => {
-        if (input.flightId !== "") {
-            searchFligthID(input.flightId)
-            // console.log(searchFligthID(input.flightId))
-            setInput({
-                flightId: ""
-            })
-            return;
-        }
-        if (input.time !== "") {
-            searchFlight(input.time)
-            setInput({
-                time: ""
-            })
-            return;
-        }
-        if (input.src !== "" && input.des !== "") {
-            let tmp = {
-                source: "",
-                destination: ""
-            }
-            tmp.source = input.src
-            tmp.destination = input.des
-            console.log(tmp)
-            searchFlightSrcDes(tmp)
-        }
-        else {
-            alert("No Filetrs Selected")
-        }
+        console.log(input)
+        searchFlight(input)
+        setInput({
+            flightId: "",
+            time: "",
+            src: "",
+            des: ""
+        })
+        // if (input.flightId !== "") {
+        //     searchFligthID(input.flightId)
+        //     // console.log(searchFligthID(input.flightId))
+        //     setInput({
+        //         flightId: "",
+        //         time: "",
+        //         src: "",
+        //         des: ""
+        //     })
+        //     return;
+        // }
+        // if (input.time !== "") {
+        //     searchFlight(input.time)
+        //     setInput({
+        //         flightId: "",
+        //         time: "",
+        //         src: "",
+        //         des: ""
+        //     })
+        //     return;
+        // }
+        // if (input.src !== "" && input.des !== "") {
+        //     let tmp = {
+        //         source: "",
+        //         destination: ""
+        //     }
+        //     tmp.source = input.src
+        //     tmp.destination = input.des
+        //     console.log(tmp)
+        //     searchFlightSrcDes(tmp)
+        //     setInput({
+        //         flightId: "",
+        //         time: "",
+        //         src: "",
+        //         des: ""
+        //     })
+        // }
+        // else {
+        //     alert("No Filetrs Selected")
+        // }
     }
 
     return (
