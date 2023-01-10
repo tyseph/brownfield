@@ -44,16 +44,22 @@ const FlightManagement = () => {
     setFlights(getFlightByTime(obj))
   }
 
-
+  const insertFlightData = (e) => {
+    console.log(addFlight)
+    e.preventDefault()
+    postFlightData(addFlight).then((res) => {
+      alert(res.data)
+    })
+  }
 
   const employeeData = [
     {
       id: 1,
       name: 'Flights',
-      position: "Currently Running Flights",
+      position: "Total Airports",
       transactions: tasksCompleted,
       rise: true,
-      tasksCompleted: tasksCompleted,
+      tasksCompleted: airPorts.length,
       imgId: <FlightIcon />,
     }
   ];
@@ -104,8 +110,8 @@ const FlightManagement = () => {
 
           {
             add ?
-              <AddFlight /> :
-              <FlightTable searchFlight={searchFlight} flights={flights} />
+              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} insertFlightData={insertFlightData} /> :
+              <FlightTable clear={() => setClear(!clear)} searchFlight={adminSearch} airPorts={airPorts} flights={flights} />
           }
         </div>
 

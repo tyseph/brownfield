@@ -4,7 +4,7 @@ const Cards = () =>{
 
     return(
         <div>
-          <div className='cards flex-wrap justify-center mr-10 ml-10'>
+          <div className='cards flex-wrap justify-center mr-10 ml-10 mt-9'>
             <div class="max-w-sm rounded overflow-hidden shadow-lg sm:w-80 " data-aos="flip-left">
               <img class="w-full" src="https://www.adanione.com/-/media/Project/Adani/Offers/Offers-Discounts15thDecLive/Flight-Booking-Page-Images/Flight-Page_Flat-Rs1001-Off-Domestic.jpg" alt="Sunset in the mountains" />
               <div class="px-6 py-4">
