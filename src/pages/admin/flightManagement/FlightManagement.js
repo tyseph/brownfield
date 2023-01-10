@@ -21,6 +21,7 @@ const FlightManagement = () => {
 
   const [flights, setFlights] = useState([])
 
+<<<<<<< HEAD
   const flightState = useSelector(state => state.admin)
   const dispatch = useDispatch()
 
@@ -33,22 +34,44 @@ const FlightManagement = () => {
       } else {
         console.log('could not get data')
       }
+=======
+
+
+
+  useEffect(() => {
+    getAllFlights().then((res) => {
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      setTasksCompleted(res.data.length)
+    })
+  }, [add])
+
+  useEffect(() => {
+    // adminSearch()
+    getAllAiriports().then((res) => {
+      setAirPorts(res.data);
+>>>>>>> 0f3d0144834741b3a1c231b75f402d367d1ab454
     })
     
     // console.log("CAlled")
   }, [])
   
 
+<<<<<<< HEAD
   const searchFlight = (obj) => {
     // getFlightByTime(obj)
     setFlights(getFlightByTime(obj))
+=======
+  const adminSearch = (obj) => {
+    getByAdminSearch(obj).then((res) => {
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
+    })
+>>>>>>> 0f3d0144834741b3a1c231b75f402d367d1ab454
   }
 
-  const insertFlightData = (e) => {
-    console.log(addFlight)
-    e.preventDefault()
-    postFlightData(addFlight).then((res) => {
-      alert(res.data)
+  const insertFlightData = (obj) => {
+    // e.preventDefault()
+    postFlightData(obj).then((res) => {
+      setAdd(false)
     })
   }
 
@@ -110,7 +133,7 @@ const FlightManagement = () => {
 
           {
             add ?
-              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} insertFlightData={insertFlightData} /> :
+              <AddFlight airPorts={airPorts} insertFlightData={insertFlightData} /> :
               <FlightTable clear={() => setClear(!clear)} searchFlight={adminSearch} airPorts={airPorts} flights={flights} />
           }
         </div>
