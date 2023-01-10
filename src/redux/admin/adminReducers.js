@@ -1,9 +1,16 @@
 import { GET_ALL_FLIGHTS } from "./adminTypes";
 import { ADD_FLIGHT } from "./adminTypes";
 
-export const adminReducer = (state = [], action) => {
+const initialState = {
+    flights: {}
+}
+
+export const adminReducer = (state = initialState, action) => {
     switch(action.type) {
-        case GET_ALL_FLIGHTS: return action.payload;
+        case GET_ALL_FLIGHTS: return {
+            ...state,
+            flights: action.payload
+        };
 
         case ADD_FLIGHT: return action.payload;
 

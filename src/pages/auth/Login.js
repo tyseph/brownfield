@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { login } from "../../redux/auth/authActions";
-
-import { connect } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { userLogin } from "../../api/authenticationService";
+import { useSelector, useDispatch } from "react-redux";
 
 import flight from '../../elements/flight.jpg'
 const Login = () => {
+
+  const inState = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
   const [values, setValues] = useState({
     username: '',
@@ -14,10 +18,13 @@ const Login = () => {
 
   const handleChange = (e) => {
     e.persist();
+
     setValues(values => ({
       ...values,
       [e.target.name]: e.target.value
     }));
+
+    
   };
 
   // const handleClickShowPassword = () => {
@@ -37,11 +44,27 @@ const Login = () => {
   //   setSelectedDate(date);
 
   // };
+
+  const navigate = useNavigate();
   
   const handleSubmit = (e) => {
     
     e.preventDefault();
-    login(values)
+    userLogin(values).then((response) => {
+      if (response.status === 200) {
+          localStorage.setItem('USER_KEY', response.data.token)
+          dispatch(login(values))
+          navigate("/")
+          console.log('successfully logged in')
+          console.log('in state', inState)
+      }
+      else {
+          console.log('something wrong, please try again')
+      }
+  })
+  .catch(() => {
+      
+  })
   }
 
 
@@ -106,7 +129,7 @@ const Login = () => {
 
                 <div>
 
-                  <label htmlFor="email" className="block text-sm font-medium leading-5" > Email address </label>
+                  <label htmlFor="email" className="block text-sm font-medium leading-5" > Email </label>
 
 
 
@@ -182,20 +205,20 @@ const Login = () => {
 
 }
 
-const mapStateToProps=(state)=>{
+// const mapStateToProps=(state)=>{
   
-  return {
-      currentUser: state.currentUser
-}}
+//   return {
+//       state
+// }}
 
 
 
-const mapDispatchToProps = (dispatch) => {
+// const mapDispatchToProps = (dispatch) => {
 
-  return {
-      login:(values)=> dispatch(login(values)),   
+//   return {
+//       login:(values)=> dispatch(login(values)),   
 
-  }
-}
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

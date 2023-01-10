@@ -1,10 +1,10 @@
 import axios from 'axios';
-import URL from './URL'
+import {authURL} from './URL'
 
 export const userSignup = (userDetails) => {
     return axios({
         'method':'POST',
-        'url':`${URL}/signup`,
+        'url':`${authURL}/signup`,
         'data': userDetails
     })
 }
@@ -12,7 +12,7 @@ export const userSignup = (userDetails) => {
 export const userLogin = (authRequest) => {
     return axios({
         'method':'POST',
-        'url':`${URL}/login`,
+        'url':`${authURL}/login`,
         'data':authRequest
     })
 }

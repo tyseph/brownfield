@@ -1,22 +1,16 @@
 // flight actions
-import { getAllFlights } from "../../api/FlightManagementService"
-import { getFlightById } from "../../api/FlightManagementService"
+import { GET_ALL_FLIGHTS } from "./adminTypes"
 
-export const GetAllFlights = () => {
-    getAllFlights().then(response => {
-        if(response.status === 200) {
-            console.log('got all flights')
-        }
-    })
-    console.log('inside getallflights action')
+export const GetAllFlights = (flights) => {
+    return {
+        type: GET_ALL_FLIGHTS,
+        payload: flights
+    }
 }
 
-export const GetFlightById = (id) => {
-    getFlightById(id).then(response => {
-        if(response.status === 200) {
-            console.log('got flight by id')
-        }
-    })
-    
-    console.log('inside getflightbyid action')
+export const GetFlightById = (flights_by_id) => {
+    return {
+        type: GET_ALL_FLIGHTS,
+        payload: flights_by_id
+    }
 }

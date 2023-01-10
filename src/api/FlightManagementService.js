@@ -1,17 +1,17 @@
 import axios from "axios";
-import URL from './URL'
+import {flightManagementURL} from './URL'
 
 export const getAllFlights = () => {
     // console.log("calledService")
-    return axios.get(`${URL}/getAllFlights`)
+    return axios.get(`${flightManagementURL}/getAllFlights`)
 }
 
 export const getFlightByID = (id) => {
-    return axios.get(`${URL}/getFlight/${id}`)
+    return axios.get(`${flightManagementURL}/getFlight/${id}`)
 }
 
 export const getFlightByTime = (time) => {
-    return axios.get(`${URL}/${time}`)
+    return axios.get(`${flightManagementURL}/${time}`)
 }
 
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar

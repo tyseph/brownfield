@@ -2,9 +2,17 @@ import { LOGIN } from "./authTypes";
 import { SIGNUP } from "./authTypes";
 import { LOGOUT } from "./authTypes";
 
-export const authReducer = (state = [], action) => {
+const initialState = {
+    username: ''
+}
+
+export const authReducer = (state = initialState, action) => {
     switch(action.type) {
-        case LOGIN: return action.payload;
+
+        case LOGIN: return {
+            ...state,
+            username: action.payload
+        };
 
         case SIGNUP: return action.payload;
 

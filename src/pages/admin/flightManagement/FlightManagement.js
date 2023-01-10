@@ -10,7 +10,8 @@ import FlightTable from "./FlightTable";
 import { useEffect, useState } from "react";
 import AddFlight from "./AddFlight";
 import { getAllFlights, getFlightByTime } from "../../../api/FlightManagementService";
-
+import { useSelector, useDispatch } from "react-redux";
+import { GetAllFlights } from "../../../redux/admin/adminActions";
 
 
 const FlightManagement = () => {
@@ -20,13 +21,23 @@ const FlightManagement = () => {
 
   const [flights, setFlights] = useState([])
 
+  const flightState = useSelector(state => state.admin)
+  const dispatch = useDispatch()
+
   useEffect(() => {
     getAllFlights().then((res) => {
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-      setTasksCompleted(res.data.length)
+      if (res.status === 200) {
+        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+        dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
+        setTasksCompleted(res.data.length)
+      } else {
+        console.log('could not get data')
+      }
     })
+    
     // console.log("CAlled")
   }, [])
+  
 
   const searchFlight = (obj) => {
     // getFlightByTime(obj)
