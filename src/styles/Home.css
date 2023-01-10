@@ -112,16 +112,25 @@
   gap: 20px;
 }
 
-.homePage {
+.homePageBanner {
   /* background-color: #111827;   */
   /* background: rgb(15,19,42);
 background: linear-gradient(90deg, rgba(15,19,42,1) 69%, rgba(35,0,140,1) 99%); */
   /* background: rgb(15,19,42);
 background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%); */
-  /* background: linear-gradient(to bottom, #051322, #4078b9); */
+  background: linear-gradient(to bottom, #051322, #4078b9);
   /* background-image: url('https://img1.goodfon.com/wallpaper/nbig/6/ed/boeing-737-aviaciya-samolet.jpg'); */
-  background-color: white;
+  /* background-color: white; */
+  /* background-image: url(); */
+  /* background-image: linear-gradient(to right, #635dc0, #3027ae); */
+  /* background-image: url('https://www.qatarairways.com/content/dam/images/renditions/horizontal-1/privilege-club/cards-circle/h1-ffp-cards-qsuite-crew.jpg'); */
+  background-repeat: no-repeat;
+  border-bottom-right-radius: 20%;
+  border-bottom-left-radius: 20%;
+  height: 50vh;
+  background-size: cover;
 }
+
 
 .dateInput {
   flex-flow: row-reverse;
@@ -131,13 +140,15 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   border-bottom: 1px solid black;
   margin-top: 12px;
 }
-.numberInput{
+
+.numberInput {
   cursor: pointer;
   background-color: #F8FAFC;
   border-bottom: 1px solid black;
 }
 
 .flightSearchBox {
+  margin-top: -20%;
   border-radius: 17px;
   /* padding-top: 17%; */
 }
@@ -151,7 +162,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   margin-left: 3vh;
   position: absolute;
   right: 3vw;
-  top: 16vh
+  top: 30vh
 }
 
 .tag {
@@ -219,15 +230,18 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     text-align: center;
     left: 41vw !important;
   }
-  .h1{
+
+  .h1 {
     font-size: 27px !important;
     font-family: Josefin Sans;
     text-align: center;
     margin-top: 0vh !important;
   }
-  .sectionOne{
+
+  .sectionOne {
     height: 7vh !important;
   }
+
   .bannerImage {
     background-image: url('../elements/flightbanner.jpg');
     background-repeat: no-repeat;
@@ -235,13 +249,17 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     padding: 200px 0;
     background-size: cover;
     object-fit: fill;
-  
+
   }
 
-  
-.changeIcon {
-display: none;
-}
+  .changeIcon {
+    display: none;
+  }
+
+
+  .homePageBanner {
+    display: none;
+  }
 
 }
 
@@ -250,7 +268,7 @@ display: none;
     height: 9vh;
     position: absolute;
     right: 6vw;
-    top: 40vh
+    top: 74vh
   }
 
   .tag {
@@ -262,7 +280,7 @@ display: none;
     padding-top: 0%;
   }
 
-  .h1{
+  .h1 {
     font-size: 15px;
     font-family: Josefin Sans;
     text-align: center;
@@ -299,21 +317,25 @@ display: none;
   object-fit: fill;
 
 }
-.sectionOne{
+
+.sectionOne {
   height: 78vh;
 }
-.left-section{
+
+.left-section {
   float: left;
   width: 50%;
   height: 100%;
 }
-.h1{
+
+.h1 {
   font-size: 68px;
   font-family: Josefin Sans;
   text-align: center;
   margin-top: 15vh;
 }
-.right-section{
+
+.right-section {
   float: left;
   width: 50%;
 }
@@ -336,4 +358,27 @@ display: none;
   width: 100%;
   padding: 10px;
   text-align: center;
+}
+
+.left {
+  width: 70%;
+  float: left ;
+}
+
+.right {
+  width: 20%;
+  float: right;
+}
+
+.linkcolor{
+  color: #335593;
+}
+
+.passengerDetails{
+  position: absolute;
+  height: 135px;
+  display: flex;
+  float: right;
+  right: 0;
+  top: 9  px;
 }

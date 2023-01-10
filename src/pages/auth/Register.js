@@ -55,11 +55,8 @@ const Register = () => {
   return (
 
     <>
-
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
-
         <div className="hidden md:block h-50 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
-
           <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
 
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
@@ -78,48 +75,23 @@ const Register = () => {
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
-              {/* <a className="flex justify-center font-bold text-4xl">
-                  </a> */}
-              <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
-
-
-
+              <a className="flex justify-center font-bold text-4xl">
+                <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
+              </a>
               <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
-
-
-
               <p className="mt-2 text-sm text-center leading-5 max-w">
-
-                Or
-
-                <Link to={{ pathname: '/login' }}>
-
-                  <p className="font-medium transition ease-in-out duration-150"> Login to your account </p>
-
+              OR
+                <Link to={{ pathname: '/login' }} className="linkcolor">
+                  <p className="font-medium transition ease-in-out duration-150 underline ">Login to your account </p>
                 </Link>
-
-
-
               </p>
-
             </div>
-
-
-
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-
               <form onSubmit={handleSubmit}>
-
                 <div className="flex items-left justify-between mt-6">
-
                   <div className="mb-3">
-
                     <label htmlFor="first" className="block text-sm font-medium leading-5"> First Name </label>
-
-
-
                     <div className="rounded-md shadow-sm">
-
                       <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
@@ -148,7 +120,7 @@ const Register = () => {
 
                 <div className="mb-3">
 
-                  <label htmlFor="email" className="block text-sm font-medium leading-5"> Email address </label>
+                  <label htmlFor="email" className="block text-sm font-medium leading-5"> Email Address </label>
 
 
 
@@ -352,11 +324,11 @@ const Register = () => {
 
 
 
-                  <div className="text-sm leading-5">
+                  {/* <div className="text-sm leading-5">
 
                     <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
-                  </div>
+                  </div> */}
 
                 </div>
 
