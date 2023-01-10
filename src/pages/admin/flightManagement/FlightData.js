@@ -34,10 +34,10 @@ const FlightData = ({ flights }) => {
                                 <p className="text-gray-900 whitespace-no-wrap">{Math.round(flight.distance)}</p>
                                 <p className="text-gray-600 whitespace-no-wrap">KM</p>
                             </td>
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {/* <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">₹8894</p>
                                 <p className="text-gray-600 whitespace-no-wrap"></p>
-                            </td>
+                            </td> */}
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <span
                                     className="relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold text-red-900 leading-tight"

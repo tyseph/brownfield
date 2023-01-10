@@ -1,3 +1,4 @@
+import { DataObjectOutlined } from "@mui/icons-material";
 import axios from "axios";
 
 const URL = "http://LIN59017635:8081"
@@ -34,16 +35,8 @@ export const getByAdminSearch = (obj) => {
 }
 
 export const postFlightData = (obj) => {
-    return axios.post(`${URL}/addFlight`, {
-        // sourceCode: obj.sourceCode,
-        // destinationCode: obj.destinationCode,
-        // timeOfDeparture: obj.timeOfDeparture,
-        // timeOfArrival: obj.timeOfArrival
-        sourceCode: "DEL",
-        destinationCode: "PNQ",
-        timeOfDeparture: "10:00:00",
-        timeOfArrival: "12:00:00"
-    })
+    console.log(obj)
+    return axios.post(`http://LIN59017635:8081/addFlight`, obj)
 }
 
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar

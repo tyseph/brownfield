@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FlightData from './FlightData';
 import SearchByText from './SearchByText';
 import SearchByTime from './SearchByTime';
@@ -16,18 +16,22 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
         des: ""
     });
 
+    useEffect(() => {
+
+    }, [input])
+
     const menuItems = [
         {
             value: "Morning",
-            code: "morningFlights"
+            code: "Morning"
         },
         {
             value: "Afternoon",
-            code: "afternoonFlights"
+            code: "Afternoon"
         },
         {
             value: "Night",
-            code: "nightFlights"
+            code: "Night"
         }
     ]
 
@@ -42,52 +46,7 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
     const handleSubmit = (e) => {
         console.log(input)
         searchFlight(input)
-        setInput({
-            flightId: "",
-            time: "",
-            src: "",
-            des: ""
-        })
-        // if (input.flightId !== "") {
-        //     searchFligthID(input.flightId)
-        //     // console.log(searchFligthID(input.flightId))
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        //     return;
-        // }
-        // if (input.time !== "") {
-        //     searchFlight(input.time)
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        //     return;
-        // }
-        // if (input.src !== "" && input.des !== "") {
-        //     let tmp = {
-        //         source: "",
-        //         destination: ""
-        //     }
-        //     tmp.source = input.src
-        //     tmp.destination = input.des
-        //     console.log(tmp)
-        //     searchFlightSrcDes(tmp)
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        // }
-        // else {
-        //     alert("No Filetrs Selected")
-        // }
+
     }
 
     return (
@@ -111,7 +70,14 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
                     </div>
                     <div className='flex flex-nowrap gap-1'>
                         <span className="block w-full rounded-md shadow-sm">
-                            <button onClick={clear} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
+                            <button onClick={() => {
+                                setInput({
+                                    flightId: "",
+                                    time: "",
+                                    src: "",
+                                    des: ""
+                                });
+                            }} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
                         </span>
                     </div>
                 </div>
@@ -152,11 +118,11 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
                                     >
                                         Distance/Time
                                     </th>
-                                    <th
+                                    {/* <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
                                         Fare
-                                    </th>
+                                    </th> */}
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >

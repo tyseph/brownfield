@@ -22,29 +22,18 @@ const FlightManagement = () => {
   const [airPorts, setAirPorts] = useState([])
   const [clear, setClear] = useState(false);
 
-  const [addFlight, setAddFlight] = useState({
-    sourceCode: "",
-    destinationCode: "",
-    timeOfDeparture: "10:00",
-    timeOfArrival: "12:00"
-  })
 
-  const handleOnChange = (e) => {
-    e.preventDefault()
-    setAddFlight({
-      ...addFlight,
-      [e.target.name]: e.target.value
-    })
-  }
+
 
   useEffect(() => {
     getAllFlights().then((res) => {
       setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
       setTasksCompleted(res.data.length)
     })
-  }, [clear])
+  }, [add])
 
   useEffect(() => {
+    // adminSearch()
     getAllAiriports().then((res) => {
       setAirPorts(res.data);
     })
@@ -52,15 +41,14 @@ const FlightManagement = () => {
 
   const adminSearch = (obj) => {
     getByAdminSearch(obj).then((res) => {
-      setFlights(res.data)
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
     })
   }
 
-  const insertFlightData = (e) => {
-    console.log(addFlight)
-    e.preventDefault()
-    postFlightData(addFlight).then((res) => {
-      alert(res.data)
+  const insertFlightData = (obj) => {
+    // e.preventDefault()
+    postFlightData(obj).then((res) => {
+      setAdd(false)
     })
   }
 
@@ -122,7 +110,7 @@ const FlightManagement = () => {
 
           {
             add ?
-              <AddFlight airPorts={airPorts} onChange={handleOnChange} addFlight={addFlight} insertFlightData={insertFlightData} /> :
+              <AddFlight airPorts={airPorts} insertFlightData={insertFlightData} /> :
               <FlightTable clear={() => setClear(!clear)} searchFlight={adminSearch} airPorts={airPorts} flights={flights} />
           }
         </div>
