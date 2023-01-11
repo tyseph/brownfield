@@ -13,12 +13,12 @@ const SearchResult = ({ res }) => {
 
     //   let flights = []
     useEffect(() => {
-        axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
-            console.log(res.data)
-            setFlights(res.data[0])
-        }).catch(err => {
-            console.log(err)
-        })
+        // axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
+        //     console.log(res.data)
+        //     setFlights(res.data[0])
+        // }).catch(err => {
+        //     console.log(err)
+        // })
     }, [])
     console.log(flights)
     return (

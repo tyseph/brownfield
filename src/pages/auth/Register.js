@@ -80,7 +80,7 @@ const Register = () => {
               </a>
               <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
               <p className="mt-2 text-sm text-center leading-5 max-w">
-              OR
+                OR
                 <Link to={{ pathname: '/login' }} className="linkcolor">
                   <p className="font-medium transition ease-in-out duration-150 underline ">Login to your account </p>
                 </Link>
@@ -282,13 +282,13 @@ const Register = () => {
 
                 <div className="mb-3">
 
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5"> Password </label>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5" > Password </label>
 
 
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" title="The password must be at least 8-characters and contain at least 1-lowercase 1-uppercase and 1-number " />
 
                   </div>
 
@@ -304,7 +304,7 @@ const Register = () => {
 
                   <div className="rounded-md shadow-sm">
 
-                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
+                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" title="The password must be at least 8-characters and contain at least 1-lowercase 1-uppercase and 1-number " />
 
                   </div>
 

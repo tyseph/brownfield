@@ -15,6 +15,10 @@ export const getFlightByTime = (time) => {
     return axios.get(`${URL}/${time}`)
 }
 
+export const getAllAiriports = (time) => {
+    return axios.get(`http://LIN59017635:8081/getAllAirports`);
+  };
+
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar
 // http://LIN59017635:8081/morningFlights
 

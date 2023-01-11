@@ -12,8 +12,8 @@ import SectionOne from './SectionOne';
 import '../../styles/Home.css'
 import axios from 'axios';
 import SearchResult from './SearchResult';
-import {getAllFlights} from '../../api/FlightManagementService'
-
+import { getAllAiriports } from '../../api/FlightManagementService'
+import plane from '../../elements/plane.png'
 
 
 const Home = () => {
@@ -28,50 +28,67 @@ const Home = () => {
   })
   const [flightData, setFlightData] = useState([])
 
-  const Airports = () =>{
-    getAllFlights().then(res=>{
+  var today = new Date().toISOString().split('T')[0];
+  console.log()
+  const Airports = () => {
+    getAllAiriports().then(res => {
       console.log(res)
       setFlightData(res.data)
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err)
     })
   }
 
- 
+
   const [data, setData] = useState({
-    "source": selectedFromCity,
-    "destination": selectedToCity,
-    "dateOfTravelling": '2022-01-05',
-    "noOfPassenger": 3
+    "source": '',
+    "destination": '',
+    "dateOfTravelling": '',
+    "noOfPassenger": '',
+    "dateOfReturn": ''
   })
 
 
   console.log(data)
 
+  const dataHandler = (e) => {
+    // console.log(e.target[0].value)
+    e.preventDefault()
+    setData(prev => ({
+      ...prev, [e.target.name]: e.target.value
+    }))
+
+
+  }
   const searchHandler = (e) => {
     e.preventDefault()
-    axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
-      console.log(res)
-      { <SearchResult props={res.data} /> }
-    }).catch(err => {
-      console.log(err)
-    })
-
-    // navigate("/flights")
+    console.log(data)
+    if (selectedFromCity === selectedToCity)
+      alert("Both City Cannot be same")
+    else {
+      axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
+        console.log(res)
+        { <SearchResult props={res.data} /> }
+      }).catch(err => {
+        console.log(err)
+      })
+      // console.log(data)
+      // navigate("/flights")
+    }
   }
   const handleFromCitySelect = (e) => {
     console.log(e.target.value);
     setSelectedFromCity(e.target.value);
-    setData({
-      source : selectedFromCity
-    })
+    // setData({
+    //   source: selectedFromCity
+    // })
   }
   // console.log(selectedFromCity);
   const handleToCitySelect = (e) => {
     setSelectedToCity(e.target.value);
-    setData({
-      destination : selectedToCity
-    })
+    // setData({
+    //   destination: selectedToCity
+    // })
   }
 
   const switchCity = () => {
@@ -79,17 +96,18 @@ const Home = () => {
     setSelectedFromCity(selectedToCity)
   }
 
-  console.log(selectedFromCity);
-  console.log(selectedToCity);
+  // console.log(selectedFromCity);
+  // console.log(selectedToCity);
 
-  
+
   const searchBarOpen = () => {
     setSearchBarOn(true)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     Airports()
-  },[])
+   
+  }, [])
   return (
     <div>
       <Navbar />
@@ -103,15 +121,15 @@ const Home = () => {
               <div className='flightSearchBox'>
                 {/* <pre className='tag'>
                   {`Where Would You like to go?`}</pre> */}
-                <img className='flightImage' src="https://www.freepnglogos.com/uploads/plane-png/plane-png-flights-airlines-msp-airport-1.png" height="80px" />
+                <img className='flightImage' src={plane} height="80px" />
                 <div className="flightsearch px-4 py-5 sm:p-6 ">
                   <div className="grid grid-cols-12 gap-3">
                     <div className="col-span-12 sm:col-span-12 md:mr-3 ">
-                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ONEWAY" id="ONEWAY" />
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ONEWAY" id="ONEWAY" onChange={dataHandler} />
                       <label for="ONEWAY" className='mr-3 sm:mr-4 text-sm text-white'>ONEWAY</label>
-                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ROUND TRIP" id="ROUND TRIP" />
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ROUND TRIP" id="ROUND TRIP" onChange={dataHandler} />
                       <label for="ROUND TRIP" className='mr-3 sm:mr-4 text-sm text-white'>ROUND TRIP</label>
-                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="MULTI CITY" id="MULTI CITY" />
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="MULTI CITY" id="MULTI CITY" onChange={dataHandler} />
                       <label for="MULTI CITY" className='mr-3 sm:mr-4 text-sm text-white'>MULTI CITY</label>
                     </div>
                   </div>
@@ -119,22 +137,24 @@ const Home = () => {
 
                   <div className="grid grid-cols-9 gap-3 relative mt-5 mb-5">
                     <div className="col-span-12 sm:col-span-4 md:mr-3 relative">
-                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                      <label name="source" className="block text-base   text-white font-bold">
                         From
                       </label>
                       <div className="dropdown-container text-base ">
                         <select required
+                          name='source'
                           value={selectedFromCity}
-                          onChange={(e) => handleFromCitySelect(e)}
+                          onChange={(e) => { handleFromCitySelect(e); dataHandler(e) }}
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
-                            {
-                              flightData.map(p=>{
-                                return(
-                                  <option value={p.source.code}>{p.source.city}</option>
-                          
-                                )
-                              })
-                             }
+
+                          {
+                            flightData.map(p => {
+                              return (
+                                <option value={p.code}>{p.code + " " + p.name}</option>
+
+                              )
+                            })
+                          }
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                         </div>
@@ -144,22 +164,23 @@ const Home = () => {
                       <img className='changeIcon' src={changeIcon} onClick={switchCity} />
                     </div>
                     <div className="col-span-12 sm:col-span-4 md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                      <label name="destination" className="block text-base   text-white font-bold">
                         To
                       </label>
                       <div className="dropdown-container text-base ">
                         <select required
+                          name='destination'
                           value={selectedToCity}
-                          onChange={(e) => handleToCitySelect(e)}
+                          onChange={(e) => { handleToCitySelect(e); dataHandler(e) }}
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
-                        {
-                              flightData.map(p=>{
-                                return(
-                                  <option value={p.destination.code}>{p.destination.city}</option>
-                          
-                                )
-                              })
-                             }
+                          {
+                            flightData.map(p => {
+                              return (
+                                <option value={p.code}>{p.code + " " + p.name}</option>
+
+                              )
+                            })
+                          }
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                         </div>
@@ -167,45 +188,37 @@ const Home = () => {
                     </div>
 
                     <div className="col-span-12 sm:col-span-3  md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                      <label name="dateOfTravelling" className="block text-base   text-white font-bold">
                         Departure
                       </label>
                       <input
                         type="date"
-                        name="departure"
-                        id="departure"
+                        name="dateOfTravelling"
+                        id="dateOfTravelling"
                         autoComplete="given-name"
                         className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
-
+                        onChange={dataHandler}
                       />
                     </div>
                     <div className="col-span-12 sm:col-span-3  md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                      <label name="dateOfReturn" className="block text-base   text-white font-bold">
                         Return
                       </label>
                       <input
                         type="date"
-                        name="return"
+                        name="dateOfReturn"
                         id="return"
                         autoComplete="given-name"
                         className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
-
+                        onChange={dataHandler}
                       />
                     </div>
                     <div className="col-span-12 sm:col-span-3  md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base   text-white font-bold">
+                      <label name="noOfPassenger" className="block text-base   text-white font-bold">
                         Adult
                       </label>
 
-                      {/* <input
-                        type="number"
-                        name="adult"
-                        id="adult"
-                        autoComplete="given-name"
-                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
-                      /> */}
-                      
-                      <select name='adult' className=" h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
+                      <select name='noOfPassenger' className=" h-10 mt-3 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
