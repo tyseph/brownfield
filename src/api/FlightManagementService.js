@@ -14,7 +14,7 @@ export const getFlightByTime = (time) => {
   return axios.get(`${flightManagementURL}/${time}`);
 };
 
-export const getAllAiriports = (time) => {
+export const getAllAiriports = () => {
   return axios.get(`${flightManagementURL}/getAllAirports`);
 };
 
@@ -28,7 +28,7 @@ export const getByAdminSearch = (obj) => {
     flightId: obj.flightId,
     source: obj.src,
     destination: obj.des,
-    time: obj.time,
+    time: obj.time
   });
 };
 

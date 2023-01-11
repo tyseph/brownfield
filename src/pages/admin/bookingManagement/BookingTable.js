@@ -1,33 +1,38 @@
-import { useState } from 'react';
-import FlightData from './FlightData';
-import SearchByText from './SearchByText';
-import SearchByTime from './SearchByTime';
+import { useEffect, useState } from 'react';
+import BookingData from './BookingData';
+import SearchByText from '../flightManagement/SearchByText';
+import SearchByTime from '../flightManagement/SearchByTime';
 import SearchIcon from '@mui/icons-material/Search';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import AllAirports from './AllAirports';
+import AllAirports from '../flightManagement/AllAirports';
 
-const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
+const BookingTable = ({ bookings, searchBooking, clear, airPorts}) => {
 
     const [input, setInput] = useState({
-        flightId: "",
+        bookingId: "",
         time: "",
         src: "",
-        des: ""
+        des: "",
+        date: ""
     });
+
+    useEffect(() => {
+
+    }, [input])
 
     const menuItems = [
         {
             value: "Morning",
-            code: "morningFlights"
+            code: "Morning"
         },
         {
             value: "Afternoon",
-            code: "afternoonFlights"
+            code: "Afternoon"
         },
         {
             value: "Night",
-            code: "nightFlights"
+            code: "Night"
         }
     ]
 
@@ -41,53 +46,8 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
 
     const handleSubmit = (e) => {
         console.log(input)
-        searchFlight(input)
-        setInput({
-            flightId: "",
-            time: "",
-            src: "",
-            des: ""
-        })
-        // if (input.flightId !== "") {
-        //     searchFligthID(input.flightId)
-        //     // console.log(searchFligthID(input.flightId))
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        //     return;
-        // }
-        // if (input.time !== "") {
-        //     searchFlight(input.time)
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        //     return;
-        // }
-        // if (input.src !== "" && input.des !== "") {
-        //     let tmp = {
-        //         source: "",
-        //         destination: ""
-        //     }
-        //     tmp.source = input.src
-        //     tmp.destination = input.des
-        //     console.log(tmp)
-        //     searchFlightSrcDes(tmp)
-        //     setInput({
-        //         flightId: "",
-        //         time: "",
-        //         src: "",
-        //         des: ""
-        //     })
-        // }
-        // else {
-        //     alert("No Filetrs Selected")
-        // }
+        searchBooking(input)
+
     }
 
     return (
@@ -95,8 +55,20 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
             <div className="">
                 <div className='flex flex-wrap justify-start gap-2' >
                     <div className='flex flex-wrap gap-2'>
-                        <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
-                        <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
+                        <SearchByText name="bookingId" value={input.bookingId} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Booking ID..." />
+                        <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time of day..." />
+                        <div className="rounded-md shadow-sm">
+
+                    <input id="dob" name="date" type="date" required className="appearance-none block w-full py-2 pr-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none w-full rounded-md bg-gray-900" onChange={handleOnChange} />
+
+
+                  </div>
+                  {/* <div className="rounded-md shadow-sm">
+
+<input id="dob" name="date" type="date" required className="py-2 pr-2 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none w-full rounded-md bg-gray-900" onChange={handleOnChange} />
+
+
+</div> */}
                     </div>
                     <div className='flex flex-wrap gap-1'>
                         <AllAirports name="src" value={input.src} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
@@ -111,7 +83,15 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
                     </div>
                     <div className='flex flex-nowrap gap-1'>
                         <span className="block w-full rounded-md shadow-sm">
-                            <button onClick={clear} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
+                            <button onClick={() => {
+                                setInput({
+                                    bookingId: "",
+                                    date: "",
+                                    time: "",
+                                    src: "",
+                                    des: ""
+                                });
+                            }} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
                         </span>
                     </div>
                 </div>
@@ -125,7 +105,12 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
-                                        Flight ID
+                                        Booking ID
+                                    </th>
+                                    <th
+                                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
+                                    >
+                                        Date
                                     </th>
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
@@ -135,37 +120,32 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
-                                        Departure
+                                        Destination
                                     </th>
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
-                                        Destination
+                                        Departure
                                     </th>
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
                                         Arrival
                                     </th>
-                                    <th
-                                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
-                                    >
-                                        Distance/Time
-                                    </th>
-                                    <th
+                                    {/* <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
                                         Fare
-                                    </th>
+                                    </th> */}
                                     <th
                                         className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                     >
-                                        Edit
+                                        View
                                     </th>
 
                                 </tr>
                             </thead>
-                            <FlightData flights={flights} />
+                            <BookingData bookings={bookings} />
                         </table>
                     </div>
                 </div>
@@ -174,4 +154,4 @@ const FlightTable = ({ flights, searchFlight, clear, airPorts }) => {
     )
 }
 
-export default FlightTable;
+export default BookingTable;
