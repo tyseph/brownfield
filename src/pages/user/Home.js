@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import changeIcon from '../../elements/exchangeWhite.png';
+import React, { useState, useSelector } from 'react';
+import changeIcon from '../../elements/exchange.png';
 import SearchIcon from '@mui/icons-material/Search';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
@@ -21,6 +21,7 @@ const Home = () => {
   const [searchByWay, setSearchByWay] = useState({
     value: ""
   })
+
   const optionList = [
     { value: "Delhi", label: "Delhi" },
     { value: "Mumbai", label: "Mumbai" },

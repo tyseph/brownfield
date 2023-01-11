@@ -1,20 +1,18 @@
 import axios from 'axios';
-
-const URL = "http://LIN59017635:8081"
-
+import {authURL} from './URL'
 
 export const userSignup = (userDetails) => {
     return axios({
-        'method': 'POST',
-        'url': `${URL}/home/registerUser`,
+        'method':'POST',
+        'url':`${authURL}/signup`,
         'data': userDetails
     })
 }
 
 export const userLogin = (authRequest) => {
     return axios({
-        'method': 'POST',
-        'url': `${URL}/login`,
-        'data': authRequest
-    })
+        'method':'POST',
+        'url':`${authURL}/login`,
+        'data':authRequest
+    })``
 }

@@ -1,43 +1,40 @@
-import { DataObjectOutlined } from "@mui/icons-material";
 import axios from "axios";
-
-const URL = "http://LIN59017635:8081"
+import { flightManagementURL } from "./URL";
 
 export const getAllFlights = () => {
-    // console.log("calledService")
-    return axios.get(`${URL}/getAllFlights`)
-}
+  // console.log("calledService")
+  return axios.get(`${flightManagementURL}/getAllFlights`);
+};
 
 export const getFlightByID = (id) => {
-    return axios.get(`${URL}/getFlight/${id}`)
-}
+  return axios.get(`${flightManagementURL}/getFlight/${id}`);
+};
 
 export const getFlightByTime = (time) => {
-    return axios.get(`${URL}/${time}`)
-}
+  return axios.get(`${flightManagementURL}/${time}`);
+};
 
 export const getAllAiriports = (time) => {
-    return axios.get(`${URL}/getAllAirports`)
-}
+  return axios.get(`${flightManagementURL}/getAllAirports`);
+};
 
 export const getFlightBySearch = (obj) => {
-    console.log(obj.source, obj.destination)
-    return axios.post(`${URL}/search`, obj)
-}
+  console.log(obj.source, obj.destination);
+  return axios.post(`${flightManagementURL}/search`, obj);
+};
 
 export const getByAdminSearch = (obj) => {
-    return axios.post(`${URL}/adminSearch`, {
-        flightId: obj.flightId,
-        source: obj.src,
-        destination: obj.des,
-        time: obj.time
-    })
-}
+  return axios.post(`${flightManagementURL}/adminSearch`, {
+    flightId: obj.flightId,
+    source: obj.src,
+    destination: obj.des,
+    time: obj.time,
+  });
+};
 
 export const postFlightData = (obj) => {
-    console.log(obj)
-    return axios.post(`http://LIN59017635:8081/addFlight`, obj)
-}
+  return axios.post(`${flightManagementURL}/addFlight`, obj);
+};
 
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar
 // http://LIN59017635:8081/morningFlights
@@ -47,4 +44,3 @@ export const postFlightData = (obj) => {
 
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar
 // http://LIN59017635:8081/nightFlights
-

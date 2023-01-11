@@ -1,6 +1,5 @@
-import { redirect } from "react-router-dom";
-import { userLogin } from "../../api/authenticationService";
 import { userSignup } from "../../api/authenticationService";
+import { LOGIN } from "./authTypes";
 
 
 export const signup = (userDetails) => { 
@@ -14,22 +13,12 @@ export const signup = (userDetails) => {
     }) 
 }
 
-export const login = (authDetails) => {
+export const login = (values) => {
 
-    userLogin(authDetails).then((response) => {
-        if (response.status === 200) {
-            localStorage.setItem('USER_KEY', response.data.token)
-            redirect("/")
-            console.log('successfully logged in')
-            
-        }
-        else {
-            console.log('something wrong, please try again')
-        }
-    })
-    .catch(() => {
-        
-    })
+    return {
+        type: LOGIN,
+        payload: values
+    }
 }
 
 export const logout = () => {
