@@ -36,6 +36,11 @@ export const postFlightData = (obj) => {
   return axios.post(`${flightManagementURL}/addFlight`, obj);
 };
 
+export const putUpdateFlightData = (flightId, obj) => {
+  return axios.post(`${flightManagementURL}/editFlight/${flightId}`, obj);
+}
+
+// http://LIN59017635:8081/editFlight/{flightId}
 // [12:18] Manikwar, Sangameshwar Dnyaneshwar
 // http://LIN59017635:8081/morningFlights
 

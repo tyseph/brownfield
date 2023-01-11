@@ -26,6 +26,7 @@ import {
   getAllFlights,
   getByAdminSearch,
   postFlightData,
+  putUpdateFlightData,
 } from "../../../api/FlightManagementService";
 
 import axios from "axios";
@@ -78,10 +79,15 @@ const FlightManagement = () => {
   };
 
   const insertFlightData = (obj) => {
-    // e.preventDefault()
-
     postFlightData(obj).then((res) => {
       setAdd(false);
+    });
+  };
+
+  const updateFlightData = (id, obj) => {
+    putUpdateFlightData(id, obj).then((res) => {
+      // setAdd(false);
+      console.log(res.data)
     });
   };
 
@@ -176,6 +182,7 @@ const FlightManagement = () => {
               searchFlight={adminSearch}
               airPorts={airPorts}
               flights={flights}
+              updateFlightData={updateFlightData}
             />
           )}
         </div>
