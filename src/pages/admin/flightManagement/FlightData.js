@@ -1,5 +1,4 @@
-const FlightData = ({ flights }) => {
-
+const FlightData = ({ flights, update }) => {
     return (
         <tbody>
             {
@@ -46,7 +45,7 @@ const FlightData = ({ flights }) => {
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">Edit</span>
+                                    <span onClick={() => update(flight.flightId, flight.source.code, flight.destination.code, flight.departureTime, flight.arrivalTime, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">Edit</span>
                                 </span>
                             </td>
                         </tr>
