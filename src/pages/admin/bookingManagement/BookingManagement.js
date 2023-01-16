@@ -16,6 +16,8 @@ import AdminHeader from "../adminComponents/AdminHeader";
 
 import BookingTable from "../bookingManagement/BookingTable";
 
+import { GetAllBookings } from "../../../redux/admin/adminActions";
+
 import { useEffect, useState } from "react";
 
 import {
@@ -26,6 +28,8 @@ import {
   getByAdminSearch
 } from "../../../api/BookingManagementService";
 import { getAllAiriports } from "../../../api/FlightManagementService";
+
+import { useDispatch, useSelector } from "react-redux";
 
 const BookingManagement = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
@@ -38,16 +42,19 @@ const BookingManagement = () => {
 
   const [clear, setClear] = useState(false);
 
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getAllBookings().then((res) => {
       if (res.status === 200) {
         setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
         console.log('inside get all users', res)
-        // dispatch(
-        //   GetAllFlights(
-        //     res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
-        //   )
-        // );
+        dispatch(
+          GetAllBookings(
+            res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
+          )
+        );
         setTasksCompleted(res.data.length);
       } else {
         console.log("could not get data");
