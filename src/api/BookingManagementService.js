@@ -18,11 +18,11 @@ export const getAllUsers = () => {
   };
 
 export const getByAdminSearch = (obj) => {
-    return axios.post(`${bookingManagementURL}/adminSearch`, {
+    return axios.post(`${bookingManagementURL}/adminBookingSearch`, {
       bookingId: obj.bookingId,
-      sourceCode: obj.src,
-      destinationCode: obj.des,
+      sourceCode: obj.sourceCode,
+      destinationCode: obj.destinationCode,
       date: obj.date,
-      time: obj.time,
+      time: obj.time
     });
   };
