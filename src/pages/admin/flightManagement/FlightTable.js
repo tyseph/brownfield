@@ -9,7 +9,7 @@ import AllAirports from './AllAirports';
 import UpdateFlight from './UpdateFlight';
 // import src from 'react-select/dist/declarations/src';
 
-const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
+const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear, toggleFlightStatus }) => {
 
     const [update, setUpdate] = useState({
         flightId: "",
@@ -55,7 +55,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
         searchFlight(input)
     }
 
-    const changeUpdate = (id, sourceCode, destinationCode, timeOfDeparture, timeOfArrival, state) => {
+    const changeUpdate = (id, sourceCode, destinationCode, timeOfDeparture, timeOfArrival, flightStatus, state) => {
         console.log(id)
         setUpdate({
             flightId: id,
@@ -63,17 +63,18 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
             destinationCode: destinationCode,
             timeOfDeparture: timeOfDeparture,
             timeOfArrival: timeOfArrival,
+            flightStatus: flightStatus,
             state: state
         })
     }
 
     return (
         <div className="p-2 mt-6">
-            {update.state ? <UpdateFlight update={update} changeUpdate={changeUpdate} airPorts={airPorts} updateFlightData={updateFlightData} /> :
+            {update.state ? <UpdateFlight clear={clear} update={update} changeUpdate={changeUpdate} airPorts={airPorts} updateFlightData={updateFlightData} /> :
                 <div className="">
                     <div className='flex flex-wrap justify-start gap-2' >
                         <div className='flex flex-wrap gap-2'>
-                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-10" icon={<SearchIcon className="w-5 h-5 search-icon left-3 absolute" />} placeholderText="Flight ID..." />
+                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-2" placeholderText="Flight ID..." />
                             <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                         </div>
                         <div className='flex flex-wrap gap-1'>
@@ -82,9 +83,11 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
                             <AllAirports name="des" value={input.des} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
                             {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
                         </div>
-                        <div className='flex flex-nowrap gap-1'>
+                        <div className='flex flex-nowrap'>
                             <span className="block w-full rounded-md shadow-sm">
-                                <button onClick={handleSubmit} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
+                                <button onClick={handleSubmit} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 ">
+                                    Search
+                                </button>
                             </span>
                         </div>
                         <div className='flex flex-nowrap gap-1'>
@@ -96,7 +99,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
                                         src: "",
                                         des: ""
                                     });
-                                }} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
+                                }} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 ">Clear</button>
                             </span>
                         </div>
                     </div>
@@ -138,11 +141,11 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
                                         >
                                             Distance/Time
                                         </th>
-                                        {/* <th
-                                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
-                                    >
-                                        Fare
-                                    </th> */}
+                                        <th
+                                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
+                                        >
+                                            Status
+                                        </th>
                                         <th
                                             className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                         >
@@ -151,7 +154,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts }) => {
 
                                     </tr>
                                 </thead>
-                                <FlightData update={changeUpdate} flights={flights} />
+                                <FlightData update={changeUpdate} toggleFlightStatus={toggleFlightStatus} flights={flights} />
                             </table>
                         </div>
                     </div>
