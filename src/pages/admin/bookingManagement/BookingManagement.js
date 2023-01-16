@@ -14,49 +14,40 @@ import AirplaneTicketIcon from "@mui/icons-material/AirplaneTicket";
 
 import AdminHeader from "../adminComponents/AdminHeader";
 
-import FlightTable from "./FlightTable";
+import BookingTable from "../bookingManagement/BookingTable";
 
 import { useEffect, useState } from "react";
 
-import AddFlight from "./AddFlight";
-import { GetAllFlights } from "../../../redux/admin/adminActions";
-
 import {
-  getAllAiriports,
-  getAllFlights,
-  getByAdminSearch,
-  postFlightData,
-  postUpdateFlightStatus,
-  putUpdateFlightData,
-} from "../../../api/FlightManagementService";
+  getAllBookings,
+  getBookingsByID,
+  getBookingsByDate,
+  getAllUsers,
+  getByAdminSearch
+} from "../../../api/BookingManagementService";
+import { getAllAiriports } from "../../../api/FlightManagementService";
 
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-
-const FlightManagement = () => {
+const BookingManagement = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
-
-  const [add, setAdd] = useState(false);
-
-  const [flights, setFlights] = useState([]);
 
   const [airPorts, setAirPorts] = useState([]);
 
+  const [bookings, setBookings] = useState([]);
+
+  const [users, setUsers] = useState([]);
+
   const [clear, setClear] = useState(false);
 
-  const flightState = useSelector((state) => state.admin);
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    getAllFlights().then((res) => {
+    getAllBookings().then((res) => {
       if (res.status === 200) {
-        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-        console.log(res.data)
-        dispatch(
-          GetAllFlights(
-            res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
-          )
-        );
+        setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
+        console.log('inside get all users', res)
+        // dispatch(
+        //   GetAllFlights(
+        //     res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
+        //   )
+        // );
         setTasksCompleted(res.data.length);
       } else {
         console.log("could not get data");
@@ -64,7 +55,7 @@ const FlightManagement = () => {
     });
 
     // console.log("CAlled")
-  }, [add, clear]);
+  }, []);
 
   useEffect(() => {
     // adminSearch()
@@ -74,45 +65,43 @@ const FlightManagement = () => {
     });
   }, []);
 
+  useEffect(() => {
+    // adminSearch()
+
+    getAllUsers().then((res) => {
+      setUsers(res.data);
+    });
+  }, []);
+
   const adminSearch = (obj) => {
+    console.log('inside adminSearch', obj)
     getByAdminSearch(obj).then((res) => {
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      console.log('this is the resp from booking', res.data)
+      setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
     });
   };
 
-  const insertFlightData = (obj) => {
-    postFlightData(obj).then((res) => {
-      setAdd(false);
-    });
-  };
+  // const insertFlightData = (obj) => {
+  //   // e.preventDefault()
 
-  const updateFlightData = (id, obj) => {
-    putUpdateFlightData(id, obj).then((res) => {
-      setClear(!clear)
-      // console.log(res.data)
-    });
-  };
-
-  const toggleFlightStatus = (id) => {
-    postUpdateFlightStatus(id).then((res) => {
-      setClear(!clear)
-      console.log(id, res.data)
-    })
-  }
+  //   postFlightData(obj).then((res) => {
+  //     setAdd(false);
+  //   });
+  // };
 
   const employeeData = [
     {
       id: 1,
 
-      name: "Flights",
+      name: "Bookings",
 
-      position: "Total Airports",
+      position: "Total Users",
 
       transactions: tasksCompleted,
 
       rise: true,
 
-      tasksCompleted: airPorts.length,
+      tasksCompleted: bookings.length,
 
       imgId: <FlightIcon />,
     },
@@ -156,7 +145,7 @@ const FlightManagement = () => {
           )
         )}
 
-        <div className="mt-2">
+        {/* <div className="mt-2">
           <div
             onClick={() => setAdd(!add)}
             className="button w-40 h-16 bg-gray-900 rounded-lg cursor-pointer select-none
@@ -175,30 +164,21 @@ const FlightManagement = () => {
               {!add ? "Add Flights" : "View All Flights"}
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="p-2 w-screen justify-center align-center">
-          {/* TABLE HERE */}
-
-          {add ? (
-            <AddFlight
-              airPorts={airPorts}
-              insertFlightData={insertFlightData}
-            />
-          ) : (
-            <FlightTable
+          
+            <BookingTable
               clear={() => setClear(!clear)}
-              searchFlight={adminSearch}
+              searchBooking={adminSearch}
+              users={users}
+              bookings={bookings}
               airPorts={airPorts}
-              flights={flights}
-              updateFlightData={updateFlightData}
-              toggleFlightStatus={toggleFlightStatus}
             />
-          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default FlightManagement;
+export default BookingManagement;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FlightData from './FlightData';
 import SearchByText from './SearchByText';
 import SearchByTime from './SearchByTime';
@@ -27,22 +27,18 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
         des: ""
     });
 
-    useEffect(() => {
-
-    }, [input])
-
     const menuItems = [
         {
             value: "Morning",
-            code: "Morning"
+            code: "morningFlights"
         },
         {
             value: "Afternoon",
-            code: "Afternoon"
+            code: "afternoonFlights"
         },
         {
             value: "Night",
-            code: "Night"
+            code: "nightFlights"
         }
     ]
 
