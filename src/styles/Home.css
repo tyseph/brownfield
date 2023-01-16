@@ -42,7 +42,7 @@
 }
 
 .flightsearch {
-  background-color: #0F172A;
+  /* background-color: #0F172A; */
   border-radius: 17px;
   /* border-top-left-radius: 17px; */
 }
@@ -261,6 +261,33 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     display: none;
   }
 
+  
+.colOne {
+  border-left: solid 5px #0f1821;
+  margin-left: 25vw !important;
+}
+
+.colTwo {
+  margin-left: 35vw !important;
+}
+
+.colThree {
+  margin-left: 45vw !important;
+}
+
+.colFour {
+  margin-left: 55vw !important;
+}
+
+.colFive {
+  margin-left: 65vw !important;
+}
+
+.colSix {
+  margin-left: 75vw !important;
+  border-right: solid 5px #0f1821;
+}
+
 }
 
 @media screen and (min-width: 769px) and (max-width: 1023px) {
@@ -286,6 +313,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     text-align: center;
     margin-top: 0vh;
   }
+  
 }
 
 @media screen and (min-height: 700px) and (max-height: 1029px) and (min-width: 300px) and (max-width: 1025px) {
@@ -362,7 +390,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 
 .left {
   width: 70%;
-  float: left ;
+  float: left;
 }
 
 .right {
@@ -370,15 +398,88 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   float: right;
 }
 
-.linkcolor{
+.linkcolor {
   color: #335593;
 }
 
-.passengerDetails{
+.passengerDetails {
   position: absolute;
   height: 135px;
   display: flex;
   float: right;
   right: 0;
-  top: 9  px;
+  top: 9 px;
+}
+
+
+
+.seatsDiv {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: left; */
+  /* cursor: pointer;
+  margin-left: 28px;
+  width: 100px; */
+}
+
+.seatsDivOne {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: left;
+  cursor: pointer;
+  margin-left: 28px;
+  width: 100px; */
+}
+
+.seatsDiv {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: right; */
+  /* cursor: pointer;
+  margin-left: 28px;
+  width: 100px; */
+}
+
+.seats {
+  text-align: center;
+  font-size: small;
+}
+
+.seats img {
+  height: 31px;
+}
+
+
+.colOne {
+  border-left: solid 5px #0f1821;
+  margin-left: 30vw;
+}
+
+.colTwo {
+  margin-left: 35vw;
+}
+
+.colThree {
+  margin-left: 45vw;
+}
+
+.colFour {
+  margin-left: 50vw;
+}
+
+.colFive {
+  margin-left: 60vw;
+}
+
+.colSix {
+  margin-left: 65vw;
+  border-right: solid 5px #0f1821;
+}
+
+.SeatsMain {
+  /* outline: 2px solid black; */
+}
+
+.seatDiv {
+  outline: 2px solid black;
 }

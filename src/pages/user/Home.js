@@ -5,7 +5,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
 import Navbar from './Navbar';
-import Select from "react-select";
 import Cover from './Cover';
 import ImageCards from './ImageCards';
 import SectionOne from './SectionOne';
@@ -31,12 +30,12 @@ const Home = () => {
   var today = new Date().toISOString().split('T')[0];
   console.log()
   const Airports = () => {
-    getAllAiriports().then(res => {
-      console.log(res)
-      setFlightData(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
+      getAllAiriports().then(res => {
+        console.log(res)
+        setFlightData(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
   }
 
 
@@ -44,7 +43,7 @@ const Home = () => {
     "source": '',
     "destination": '',
     "dateOfTravelling": '',
-    "noOfPassenger": '',
+    "noOfPassenger": 1,
     "dateOfReturn": ''
   })
 
@@ -66,7 +65,7 @@ const Home = () => {
     if (selectedFromCity === selectedToCity)
       alert("Both City Cannot be same")
     else {
-      axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
+      axios.post("http://LIN59017635:8081/search/userSearch", data).then(res => {
         console.log(res)
         { <SearchResult props={res.data} /> }
       }).catch(err => {
@@ -104,10 +103,20 @@ const Home = () => {
     setSearchBarOn(true)
   }
 
+  const returnHandler = () => {
+    console.log('khdksdlsmdl')
+   console.log( document.getElementsByName('way')[1])
+    console.log()
+    // document.querySelector('input[name="way"]:checked').value = "ROUND TRIP"
+    // console.log(document.querySelector('input[name="way"]:checked').value)
+  }
+
+
   useEffect(() => {
     Airports()
-   
   }, [])
+
+  // console.log(element);
   return (
     <div>
       <Navbar />
@@ -115,22 +124,20 @@ const Home = () => {
       <div className='homePage'>
         <div className='homePageBanner'>
         </div>
-        <div className="mt-0 md:col-span-2 md:mt-0 md:pt-2 md:pb-24 md:ml-20 md:mr-20 ml-6 mr-6" >
+        <div className="mt-0 md:col-span-2 md:mt-0 md:pt-2 md:pb-24 md:ml-20 md:mr-20 ml-6 mr-6 " >
           <form onSubmit={searchHandler}>
             <div className="sm:rounded-md rounded-md sm:pt-10 pt-20  pb-10  ">
               <div className='flightSearchBox'>
                 {/* <pre className='tag'>
                   {`Where Would You like to go?`}</pre> */}
                 <img className='flightImage' src={plane} height="80px" />
-                <div className="flightsearch px-4 py-5 sm:p-6 ">
+                <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-900">
                   <div className="grid grid-cols-12 gap-3">
                     <div className="col-span-12 sm:col-span-12 md:mr-3 ">
-                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ONEWAY" id="ONEWAY" onChange={dataHandler} />
+                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ONEWAY" id="ONEWAY" onChange={dataHandler} checked />
                       <label for="ONEWAY" className='mr-3 sm:mr-4 text-sm text-white'>ONEWAY</label>
                       <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="ROUND TRIP" id="ROUND TRIP" onChange={dataHandler} />
                       <label for="ROUND TRIP" className='mr-3 sm:mr-4 text-sm text-white'>ROUND TRIP</label>
-                      <input type="radio" className="radio mr-2 sm:mr-1" name="way" value="MULTI CITY" id="MULTI CITY" onChange={dataHandler} />
-                      <label for="MULTI CITY" className='mr-3 sm:mr-4 text-sm text-white'>MULTI CITY</label>
                     </div>
                   </div>
 
@@ -150,7 +157,7 @@ const Home = () => {
                           {
                             flightData.map(p => {
                               return (
-                                <option value={p.code}>{p.code + " " + p.name}</option>
+                                <option value={p.code}>{p.code + " - " + p.name}</option>
 
                               )
                             })
@@ -176,7 +183,7 @@ const Home = () => {
                           {
                             flightData.map(p => {
                               return (
-                                <option value={p.code}>{p.code + " " + p.name}</option>
+                                <option value={p.code}>{p.code + " - " + p.name}</option>
 
                               )
                             })
@@ -193,6 +200,7 @@ const Home = () => {
                       </label>
                       <input
                         type="date"
+                        min={today}
                         name="dateOfTravelling"
                         id="dateOfTravelling"
                         autoComplete="given-name"
@@ -200,26 +208,31 @@ const Home = () => {
                         onChange={dataHandler}
                       />
                     </div>
-                    <div className="col-span-12 sm:col-span-3  md:mr-3 ">
-                      <label name="dateOfReturn" className="block text-base   text-white font-bold">
-                        Return
-                      </label>
-                      <input
-                        type="date"
-                        name="dateOfReturn"
-                        id="return"
-                        autoComplete="given-name"
-                        className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
-                        onChange={dataHandler}
-                      />
-                    </div>
+                    {
+
+                      <div className="col-span-12 sm:col-span-3  md:mr-3 ">
+                        <label className="block text-base   text-white font-bold">
+                          Return
+                        </label>
+                        <input
+                          type="date"
+                          min={today}
+                          value={data.dateOfReturn}
+                          name="dateOfReturn"
+                          id="return"
+                          autoComplete="given-name"
+                          className="dateInput h-10 mt-1 block w-full rounded-md border-black sm:text-sm"
+                          onChange={(e) => { dataHandler(e); returnHandler(e) }}
+                        />
+                      </div>
+                    }
                     <div className="col-span-12 sm:col-span-3  md:mr-3 ">
                       <label name="noOfPassenger" className="block text-base   text-white font-bold">
                         Adult
                       </label>
 
                       <select name='noOfPassenger' className=" h-10 mt-3 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
-                        <option value="0">0</option>
+                        {/* <option value="0">0</option> */}
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -259,7 +272,7 @@ const Home = () => {
                   <div className='search-button mt-2'>
                     <button
                       type="submit"
-                      className="search-button bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 text-white py-2 px-4 rounded absolute">
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                       Search
                     </button>
                   </div>
@@ -273,7 +286,7 @@ const Home = () => {
 
       </div >
 
-      <SectionOne />
+      {/* <SectionOne /> */}
 
       <Cover />
 

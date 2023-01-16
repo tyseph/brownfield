@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { login } from "../../redux/auth/authActions";
 import { useNavigate } from "react-router-dom";
-
 import { connect } from 'react-redux'
 
 import flight from '../../elements/flight.jpg'
@@ -44,7 +43,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     console.log('hellp');
     e.preventDefault();
-    console.log(login(values))
+    login(values)
 
     // navigate("/")
   }
@@ -75,7 +74,7 @@ const Login = () => {
               <p className="mt-2 text-sm text-center leading-5 max-w">
                 OR<br/>
                 <Link to={{ pathname: '/register' }} className="linkcolor">
-                  <a className="font-medium transition ease-in-out duration-150 underline"> C7reate a new account </a>
+                  <a className="font-medium transition ease-in-out duration-150 underline"> Create a new account </a>
                 </Link>
               </p>
             </div>

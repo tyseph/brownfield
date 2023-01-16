@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const FlightBooking = () => {
@@ -5,12 +6,10 @@ const FlightBooking = () => {
     const [passengers, setPassengers] = useState({
         firstName: '',
         lastName: '',
-        dob: '',
-        age: '',
-        gender: ''
+        gender: '',
     });
 
-    const [passengerArray, setPassengersArray] = useState([])
+    const [passengerArray, setPassengerArray] = useState([])
     const numberOfPassenger = 2
     const [count, setCount] = useState(1)
     const passengerHandler = (e) => {
@@ -21,94 +20,164 @@ const FlightBooking = () => {
         console.log(passengers)
     }
 
-    const passenger = (e) => {
+    const addPassenger = (e) => {
         e.preventDefault()
-        if (count <= numberOfPassenger) {
-            setPassengersArray(old => [
-                ...old, passengers
-            ])
-            if (count < numberOfPassenger)
-                setCount(count + 1)
+        console.log(passengers.firstName)
+        if (passengers.firstName != "" && passengers.lastName != "" && passengers.gender != "") {
+            if (count <= numberOfPassenger) {
+                setPassengerArray(old => [
+                    ...old, passengers
+                ])
+                if (count < numberOfPassenger)
+                    setCount(count + 1)
 
-            setPassengers({
-                firstName: '',
-                lastName: '',
-                dob: '',
-                age: '',
-                gender: ''
-            })
+                setPassengers({
+                    firstName: '',
+                    lastName: '',
+                    gender: ''
+                })
 
-            var ele = document.querySelectorAll("input[type=radio]");
-            for (var i = 0; i < ele.length; i++) {
-                ele[i].checked = false;
+                var ele = document.querySelectorAll("input[type=radio]");
+                for (var i = 0; i < ele.length; i++) {
+                    ele[i].checked = false;
+                }
             }
         }
+        else{
+            alert("please enter all details")
+        }
+    }
+    const data = {
+        "flightId": 1,
+        "email": "hemant@email.com",
+        "mobileNo": "1234567980",
+        "dateOfTravelling": "2022-01-11",
+        "passengerInfo":
+            passengerArray
+
+    }
+    const passenger = (e) => {
+        e.preventDefault()
+        console.log(data)
+        axios.post("http://LIN59017635.corp.capgemini.com:8082/booking/bookFlight", data).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     console.log(passengerArray)
     return (
         <div>
             <section className="left">
-                <div class="rounded overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900   mt-5 ml-5 text-white ">
 
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2 text-gray-900">Flight Details</div>
-                        <p class="text-gray-700 text-base text-white">
+                    <div>
+                        <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center" >Flight Details</div>
+                        <p class="text-gray-700 text-base ml-4">
                             Mumbai to Delhi
                         </p>
-                        <p class="text-gray-700 text-base text-white pt-2">
+                        <p class="text-gray-700 text-base text-white pt-2 ml-4">
                             01/12/2023
                         </p>
-                        <span class="text-gray-700 text-base text-white pt-2 relative">
-                            Mumbai at 12:00
-                        </span>
-                        <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
-                            <img className="absolute top-1 right-40 mr-10" src="https://img.icons8.com/material-rounded/24/111111/airplane-take-off.png" />
-                            Delhi at 02:00
-                        </span>
-                        {/* <p class="text-gray-700 text-base text-white pt-2">
+                        <div className="mb-5">
+                            <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5   relative">
+                                Mumbai at 12:00
+                            </span>
+                            <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
+                                <img className="absolute top-1 right-40 mr-10" src="https://img.icons8.com/material-rounded/24/111111/airplane-take-off.png" />
+                                Delhi at 02:00
+                            </span>
+                            {/* <p class="text-gray-700 text-base text-white pt-2">
                          Delhi at 02:00
                         </p> */}
-
+                        </div>
                     </div>
 
                     <hr />
                 </div>
-                <div class="rounded overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
 
-                    <div class="px-6 py-4 relative">
-                        <div class="font-bold text-xl mb-2 text-gray-900">Passenger Details</div>
-                        {/* <img className=" passengerDetails" src={"https://cdn-icons-png.flaticon.com/512/2534/2534884.png"}/> */}
-                        <form onSubmit={(e) => passenger(e)}>
-                            <h1 className="text-black">Passenger {count}</h1>
-                            <input type="radio" className="radio mr-2 sm:mr-1 mt-2" name="gender" value="Male" id="Male" onChange={passengerHandler} required />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
+
+                    <div class="relative">
+                        <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passenger Details</div>
+
+                        <form>
+                            <h1 className="text-black ml-4">Passenger {count} / {numberOfPassenger}</h1>
+                            <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male" onChange={passengerHandler} required />
                             <label for="Male" className='mr-3 sm:mr-4 text-sm text-gray-900'>Male</label>
-                            <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="Female" id="Female" onChange={passengerHandler} required />
+                            <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="FEMALE" id="Female" onChange={passengerHandler} required />
                             <label for="Female" className='mr-3 sm:mr-4 text-sm text-gray-900'>Female</label><br />
-                            {/* <label for="fname" className="text-gray-900 mt-4">First name:</label><br/> */}
-                            <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10" id="Firstname" type="text" placeholder="Firstname" name="firstName" onChange={passengerHandler} value={passengers.firstName} required />
-                            {/* <label for="fname" className="text-gray-900 mt-4">First name:</label> */}
-                            <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10" id="Lastname" type="text" placeholder="Lastname" name="lastName" onChange={passengerHandler} value={passengers.lastName} required /><br />
-
-                            <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-5" id="DOB" type="date" placeholder="DOB" name="dob" onChange={passengerHandler} value={passengers.dob} required />
-                            <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10" id="Age" type="number" placeholder="Age" name="age" onChange={passengerHandler} value={passengers.age} required /><br />
-                           
-                           {
-                            count>passengerArray.length ? 
-                            <button type="submit" className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mt-3"> Submit </button>
-                            :
-                            <p className="text-gray-900">You Have Added { numberOfPassenger } passengers</p>
-                           }
-                        
+                            <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" id="Firstname" type="text" placeholder="Firstname" name="firstName" onChange={passengerHandler} value={passengers.firstName} required />
+                            <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700   mr-10 ml-4" id="Lastname" type="text" placeholder="Lastname" name="lastName" onChange={passengerHandler} value={passengers.lastName} required /><br />
+                            {
+                                count > passengerArray.length ?
+                                    <button onClick={(e) => addPassenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mt-3 ml-4 mb-4"> Add </button>
+                                    :
+                                    <p className="text-gray-900 mt-4 ml-4">You Have Added {numberOfPassenger} passengers</p>
+                            }
+                            <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
                         </form>
                     </div>
                     <hr />
                 </div>
-                <div class="rounded overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2 text-gray-900">Contact Details</div>
-                        <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10" type="number" placeholder="Mobile no." name="mobileno" required /><br />
-                        <input class="shadow appearance-none border rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-3" type="email" placeholder="emailId" name="emailId" required /><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 mb-5 text-white">
+                    <div >
+                        <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center ">Contact Details</div>
+                        <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" type="number" placeholder="Mobile no." name="mobileno" max="10" min="10" required />
+                        <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-3 mb-5" type="email" placeholder="emailId" name="emailId" required />
                     </div>
 
                 </div>
@@ -125,13 +194,43 @@ const FlightBooking = () => {
 
 
 
-            <section className="right">
-                <div class="rounded overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2 text-gray-900">All Fare Details</div>
-                        <p class="text-gray-700 text-base text-white">
-                            8090/- Rs
+            <section className="right mr-5">
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
+                    <div>
+                        <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">All Fare Details</div>
+                        <p class="text-gray-700 text-base ml-4 ">
+                            Base Fare
                         </p>
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+
+
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+                        <p class="text-gray-700 text-base ml-4 mb-5">
+                            Adult(s) (1x4440) = 4440
+                        </p>
+
                     </div>
 
                 </div>
