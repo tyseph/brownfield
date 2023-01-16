@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { getFlightByID } from "../../../api/FlightManagementService";
 import AllAirports from "./AllAirports";
 
-const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate }) => {
+const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear }) => {
 
     const [UpdateFlight, setUpdateFlight] = useState({
         sourceCode: update.sourceCode,
         destinationCode: update.destinationCode,
         timeOfDeparture: update.timeOfDeparture,
-        timeOfArrival: update.timeOfArrival
+        timeOfArrival: update.timeOfArrival,
+        flightStatus: update.flightStatus
     })
+
+    const [toggle, setToggle] = useState(update.flightStatus);
 
     // useEffect(() => {
     //     getFlightByID(update.id).then(res => console.log(res.data))
@@ -28,11 +31,10 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate }) => {
         e.preventDefault()
         if (UpdateFlight.sourceCode !== "" && UpdateFlight.destinationCode !== "") {
             updateFlightData(update.flightId, UpdateFlight)
+            // clear()
+            changeUpdate("", "", "", "", "", "", false)
         }
-        changeUpdate("", "", "", "", "", false)
     }
-
-
 
     return (
         <div className="w-full mt-6">
@@ -43,12 +45,12 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate }) => {
                 </label>
                 <div className="flex flex-wrap justify-around mb-6">
 
-                    <div className="relative">
+                    <div className="relative w-full md:w-1/5">
                         <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                             Flight ID
                         </label>
                         <div className="rounded-md shadow-sm">
-                            <input value={update.flightId} type="text" disabled className="block appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            <input value={update.flightId} type="text" disabled className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -123,6 +125,23 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate }) => {
                     </div>
                 </div> */}
                 <div className="flex flex-wrap justify-around mb-6">
+
+                    <div className="relative w-1/5">
+                        <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            Flight Status
+                        </label>
+                        <div className="rounded-md mt-2 shadow-sm">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" onClick={() => setUpdateFlight({
+                                    ...UpdateFlight,
+                                    flightStatus: !UpdateFlight.flightStatus
+                                })}
+                                    checked={UpdateFlight.flightStatus}
+                                    value={UpdateFlight.flightStatus} className="sr-only peer" />
+                                <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            </label></div>
+                    </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">

@@ -26,6 +26,7 @@ import {
   getAllFlights,
   getByAdminSearch,
   postFlightData,
+  postUpdateFlightStatus,
   putUpdateFlightData,
 } from "../../../api/FlightManagementService";
 
@@ -50,6 +51,7 @@ const FlightManagement = () => {
     getAllFlights().then((res) => {
       if (res.status === 200) {
         setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+        console.log(res.data)
         dispatch(
           GetAllFlights(
             res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
@@ -62,7 +64,7 @@ const FlightManagement = () => {
     });
 
     // console.log("CAlled")
-  }, [add]);
+  }, [add, clear]);
 
   useEffect(() => {
     // adminSearch()
@@ -86,10 +88,17 @@ const FlightManagement = () => {
 
   const updateFlightData = (id, obj) => {
     putUpdateFlightData(id, obj).then((res) => {
-      // setAdd(false);
-      console.log(res.data)
+      setClear(!clear)
+      // console.log(res.data)
     });
   };
+
+  const toggleFlightStatus = (id) => {
+    postUpdateFlightStatus(id).then((res) => {
+      setClear(!clear)
+      console.log(id, res.data)
+    })
+  }
 
   const employeeData = [
     {
@@ -185,6 +194,7 @@ const FlightManagement = () => {
               airPorts={airPorts}
               flights={flights}
               updateFlightData={updateFlightData}
+              toggleFlightStatus={toggleFlightStatus}
             />
           )}
         </div>

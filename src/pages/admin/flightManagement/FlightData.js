@@ -1,4 +1,8 @@
-const FlightData = ({ flights, update }) => {
+import { useEffect } from "react"
+import { postUpdateFlightStatus } from "../../../api/FlightManagementService"
+
+const FlightData = ({ flights, update, toggleFlightStatus }) => {
+
     return (
         <tbody>
             {
@@ -33,10 +37,27 @@ const FlightData = ({ flights, update }) => {
                                 <p className="text-gray-900 whitespace-no-wrap">{Math.round(flight.distance)}</p>
                                 <p className="text-gray-600 whitespace-no-wrap">KM</p>
                             </td>
-                            {/* <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">₹8894</p>
-                                <p className="text-gray-600 whitespace-no-wrap"></p>
-                            </td> */}
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                {/* <p className={`${flight.flightStatus ? "text-green-400" : "text-red-400"} text-extrabold whitespace-no-wrap`}></p> */}
+                                {/* <p className="text-gray-600 whitespace-no-wrap"></p> */}
+                                <label className="relative items-center cursor-pointer">
+                                    <input type="checkbox"
+                                        onClick={() => toggleFlightStatus(flight.flightId)}
+                                        checked={flight.flightStatus}
+                                        value={flight.flightStatus} className="sr-only peer" />
+                                    <div className="w-8 h-4 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[0px] after:left-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-600"></div>
+                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{flight.flightStatus ? "Active" : "Disabled"}</span>
+                                </label>
+                                {/* <span
+                                    className={`relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold ${!flight.flighStatus ? "text-green-900" : "text-red-900"} leading-tight`}
+                                >
+                                    <span
+                                        aria-hidden
+                                        className="inset-0 "
+                                    ></span>
+                                    <span className={`px-2 py-0.5 ${!flight.flighStatus ? "bg-green-400" : "bg-red-400"} rounded-xl transition duration-150 ease-out`}>{flight.flightStatus ? "Active" : "Disabled"}</span>
+                                </span> */}
+                            </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <span
                                     className="relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold text-red-900 leading-tight"
@@ -45,7 +66,7 @@ const FlightData = ({ flights, update }) => {
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span onClick={() => update(flight.flightId, flight.source.code, flight.destination.code, flight.departureTime, flight.arrivalTime, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">Edit</span>
+                                    <span onClick={() => update(flight.flightId, flight.source.code, flight.destination.code, flight.departureTime, flight.arrivalTime, flight.flightStatus, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">Update</span>
                                 </span>
                             </td>
                         </tr>
