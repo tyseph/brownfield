@@ -13,13 +13,19 @@ export const signup = (userDetails) => {
     }) 
 }
 
-export const login = (values) => {
-
-    return {
-        type: LOGIN,
-        payload: values
+export const login = (values) =>  async(dispatch) => {
+    try {
+        dispatch(
+            {
+                type: LOGIN,
+                payload: values
+            }
+        ) 
+    } catch {
+        console.log('ff')
     }
 }
+
 
 export const logout = () => {
     localStorage.clear();  
