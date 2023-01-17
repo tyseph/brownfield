@@ -58,9 +58,9 @@ const Register = () => {
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
-        <div className="hidden md:block h-50 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
+        <div className="hidden md:block h-full lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
 
-          <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
+          <img className="h-screen w-full absolute inset-0 object-contain" src={flight} />
 
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
 
@@ -72,15 +72,15 @@ const Register = () => {
 
 
 
-        <div className="flex items-center justify-center p-6 min-h-screen w-full">
+        <div className="flex items-center justify-center overflow-y-scroll p-6 h-screen w-full">
 
           <div className="w-full">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
-              {/* <a className="flex justify-center font-bold text-4xl">
-                  </a> */}
-              <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
+              <a className="flex justify-center font-bold text-4xl">
+                <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
+              </a>
 
 
 
@@ -88,13 +88,13 @@ const Register = () => {
 
 
 
-              <p className="mt-2 text-sm text-center leading-5 max-w">
+              <p className="mt-2 text-sm text-center leading-5">
 
                 Or
 
                 <Link to={{ pathname: '/login' }}>
 
-                  <p className="font-medium transition ease-in-out duration-150"> Login to your account </p>
+                  <p className="underline text-blue-600 underline-offset-1 font-medium transition ease-in-out duration-150s"> Login to your account </p>
 
                 </Link>
 
@@ -175,106 +175,12 @@ const Register = () => {
                   </div>
 
                 </div>
-
-
-
-
                 <div className="mb-3">
-
                   <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
-
-
                   <div className="rounded-md shadow-sm">
-
                     <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
-
-
                   </div>
                 </div>
-
-
-                {/* <Menu as="div" className="relative inline-block text-left">
-                  <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Gender </label>
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-          Choose
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          
-          <div className="py-1">
-            
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  MALE
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  FEMALE
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  OTHER
-                </a>
-              )}
-            </Menu.Item>
-            <form method="POST" action="#">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    type="submit"
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full px-4 py-2 text-left text-sm'
-                    )}
-                  >
-                    DON'T WANT TO MENTION
-                  </button>
-                )}
-              </Menu.Item>
-            </form>
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu> */}
-
                 <div className="flex justify-center">
                   <div className="mb-3 xl:w-96">
                     <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
