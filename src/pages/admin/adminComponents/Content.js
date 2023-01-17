@@ -7,43 +7,48 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import './componentscss.css'
 import AdminHeader from "./AdminHeader";
-
-const employeeData = [
-  {
-    id: 1,
-    name: 'Flights',
-    position: "Currently Running Flights",
-    transactions: 15,
-    rise: true,
-    tasksCompleted: 3,
-    imgId: <FlightIcon />,
-  },
-
-  {
-    id: 2,
-    name: 'Bookings',
-    position: "Today's Booking",
-    transactions: 1570,
-    rise: true,
-    tasksCompleted: 5,
-    imgId: <DashboardIcon />,
-  },
-
-  {
-    id: 3,
-    name: 'Revenue',
-    position: "Net Revenue",
-    transactions: 2600,
-    rise: true,
-    tasksCompleted: 1,
-    imgId: <AirplaneTicketIcon />,
-  },
-];
+import { useSelector } from "react-redux";
 
 const Content = ({ onSidebarHide }) => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
+
+  // const tmp = useSelector((state) => state.admin)
+  // console.log(tmp)
+
+  const employeeData = [
+    {
+      id: 1,
+      name: 'Flights',
+      position: "Currently Running Flights",
+      transactions: 15,
+      rise: true,
+      tasksCompleted: 3,
+      imgId: <FlightIcon />,
+    },
+
+    {
+      id: 2,
+      name: 'Bookings',
+      position: "Today's Booking",
+      transactions: 1570,
+      rise: true,
+      tasksCompleted: 5,
+      imgId: <DashboardIcon />,
+    },
+
+    {
+      id: 3,
+      name: 'Revenue',
+      position: "Net Revenue",
+      transactions: 2600,
+      rise: true,
+      tasksCompleted: 1,
+      imgId: <AirplaneTicketIcon />,
+    },
+  ];
+
   return (
     <div className="flex w-full">
       <div className="w-full h-screen hidden sm:block sm:w-20 xl:w-60 flex-shrink-0">

@@ -232,29 +232,7 @@ const Home = () => {
           </form>
         </div>
       </div >
-
-      {/* <SectionOne />
-
-      <Cover />
-
-      <Cards /> */}
-
     </div >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 };
 

@@ -8,9 +8,7 @@ import store from "./redux/store";
 const App = () => {
   return (
     <Provider store={store}>
-      {/* <Header /> */}
       <Routing />
-      {/* <Footer /> */}
     </Provider>
   );
 };
