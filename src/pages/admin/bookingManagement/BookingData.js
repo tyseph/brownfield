@@ -1,4 +1,4 @@
-const BookingData = ({ bookings }) => {
+const BookingData = ({ bookings, view }) => {
 
     return (
         <tbody>
@@ -54,7 +54,7 @@ const BookingData = ({ bookings }) => {
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
+                                    <span onClick = {() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
                                 </span>
                             </td>
                         </tr>
