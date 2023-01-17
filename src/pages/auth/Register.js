@@ -56,11 +56,11 @@ const Register = () => {
 
     <>
 
-      <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
+      <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
-        <div className="hidden md:block h-full lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
+        <div className="hidden md:block h-screen lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
 
-          <img className="h-screen w-full absolute inset-0 object-contain" src={flight} />
+          <img className="h-screen w-full object-contain" src={flight} />
 
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
 
@@ -72,55 +72,91 @@ const Register = () => {
 
 
 
-        <div className="flex items-center justify-center overflow-y-scroll p-6 h-screen w-full">
-
-          <div className="w-full">
-
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
-
-              <a className="flex justify-center font-bold text-4xl">
-                <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
-              </a>
+        <div className="flex items-center justify-center px-6 pt-20 h-screen sm:h-screen overflow-y-scroll w-full">
+          <div className="">
 
 
+            <div className="w-full py-4">
 
-              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
+              <div className="sm:mx-auto sm:w-full sm:max-w-md">
+
+                <a className="flex justify-center font-bold text-4xl">
+                  <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
+                </a>
 
 
 
-              <p className="mt-2 text-sm text-center leading-5">
-
-                Or
-
-                <Link to={{ pathname: '/login' }}>
-
-                  <p className="underline text-blue-600 underline-offset-1 font-medium transition ease-in-out duration-150s"> Login to your account </p>
-
-                </Link>
+                <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
 
 
 
-              </p>
+                <p className="mt-2 text-sm text-center leading-5">
 
-            </div>
+                  Or
+
+                  <Link to={{ pathname: '/login' }}>
+
+                    <a className="underline text-blue-600 underline-offset-1 font-medium transition ease-in-out duration-150s"> Login to your account </a>
+
+                  </Link>
 
 
 
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                </p>
 
-              <form onSubmit={handleSubmit}>
+              </div>
 
-                <div className="flex items-left justify-between mt-6">
+
+
+              <div className="sm:mx-auto sm:w-full sm:max-w-md">
+
+                <form onSubmit={handleSubmit}>
+
+                  <div className="flex items-left justify-between mt-6">
+
+                    <div className="mb-3">
+
+                      <label htmlFor="first" className="block text-sm font-medium leading-5"> First Name </label>
+
+
+
+                      <div className="rounded-md shadow-sm">
+
+                        <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+
+                      </div>
+
+                    </div>
+
+
+
+                    <div className="mb-3 ml-3">
+
+                      <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Last Name </label>
+
+
+
+                      <div className="rounded-md shadow-sm">
+
+                        <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
 
                   <div className="mb-3">
 
-                    <label htmlFor="first" className="block text-sm font-medium leading-5"> First Name </label>
+                    <label htmlFor="email" className="block text-sm font-medium leading-5"> Email address </label>
 
 
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="email" name="emailId" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
@@ -128,77 +164,44 @@ const Register = () => {
 
 
 
-                  <div className="mb-3 ml-3">
+                  <div className="mb-3">
 
-                    <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Last Name </label>
+                    <label htmlFor="phone" className="block text-sm font-medium leading-5"> Phone Number </label>
 
 
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="phone" name="contactNumber" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
                   </div>
-
-                </div>
-
-
-
-                <div className="mb-3">
-
-                  <label htmlFor="email" className="block text-sm font-medium leading-5"> Email address </label>
-
-
-
-                  <div className="rounded-md shadow-sm">
-
-                    <input id="email" name="emailId" type="email" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
-
+                  <div className="mb-3">
+                    <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
+                    <div className="rounded-md shadow-sm">
+                      <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                    </div>
                   </div>
 
-                </div>
-
-
-
-                <div className="mb-3">
-
-                  <label htmlFor="phone" className="block text-sm font-medium leading-5"> Phone Number </label>
-
-
-
-                  <div className="rounded-md shadow-sm">
-
-                    <input id="phone" name="contactNumber" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
-
-                  </div>
-
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
-                  <div className="rounded-md shadow-sm">
-                    <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <div className="mb-3 xl:w-96">
-                    <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
-                    <select className="form-select appearance-none
-      block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
+                  <div className="flex justify-center">
+                    <div className="mb-3 xl:w-full w-full">
+                      <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
+                      {/* <select className="form-select appearance-none
+                                  block
+                                  w-full
+                                  px-3
+                                  py-1.5
+                                  text-base
+                                  font-normal
+                                  text-gray-700
+                                  bg-white bg-clip-padding bg-no-repeat
+                                  border border-solid border-gray-300
+                                  rounded
+                                  transition
+                                  ease-in-out
+                                  m-0
+                                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
                       onChange={handleChange}
                       name="gender"
                       value={values.gender}
@@ -207,82 +210,93 @@ const Register = () => {
                       <option>MALE</option>
                       <option>FEMALE</option>
                       <option>OTHER</option>
-                    </select>
-                  </div>
-                </div>
-
-
-
-
-                <div className="mb-3">
-
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5"> Password </label>
-
-
-
-                  <div className="rounded-md shadow-sm">
-
-                    <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
-
+                    </select> */}
+                      <select onChange={handleChange} name="gender" onSelect={handleChange} value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state" >
+                        <option selected>Select Gender</option>
+                        <option>MALE</option>
+                        <option>FEMALE</option>
+                        <option>OTHER</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-900">
+                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 111.828 5.757 6.586 4.343 8z" /></svg>
+                      </div>
+                    </div>
                   </div>
 
-                </div>
 
 
 
-                <div className="">
+                  <div className="mb-3">
 
-                  <label htmlFor="confirm" className="block text-sm font-medium text-gray-700 leading-5">Confirm Password </label>
-
-
-
-                  <div className="rounded-md shadow-sm">
-
-                    <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
-
-                  </div>
-
-                </div>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5"> Password </label>
 
 
 
-                <div className="flex items-center justify-between mt-6">
+                    <div className="rounded-md shadow-sm">
 
-                  <div className="flex items-center">
+                      <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
-                    <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
-
-                    <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+                    </div>
 
                   </div>
 
 
 
-                  <div className="text-sm leading-5">
+                  <div className="">
 
-                    <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
+                    <label htmlFor="confirm" className="block text-sm font-medium text-gray-700 leading-5">Confirm Password </label>
+
+
+
+                    <div className="rounded-md shadow-sm">
+
+                      <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
+
+                    </div>
 
                   </div>
 
-                </div>
+
+
+                  <div className="flex items-center justify-between mt-6">
+
+                    <div className="flex items-center">
+
+                      <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
+
+                      <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+
+                    </div>
 
 
 
-                <div className="mt-6">
+                    <div className="text-sm leading-5">
 
-                  <span className="block w-full rounded-md shadow-sm">
+                      <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
-                    <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-sky-900 border border-transparent rounded-md hover:bg-#1F2937-500 focus:outline-none transition duration-150 ease-in-out">Register</button>
+                    </div>
 
-                  </span>
+                  </div>
 
-                </div>
 
-              </form>
+
+                  <div className="mt-6">
+
+                    <span className="block w-full rounded-md shadow-sm">
+
+                      <button type="submit" className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-sky-900 border border-transparent rounded-md hover:bg-#1F2937-500 focus:outline-none transition duration-150 ease-in-out">Register</button>
+
+                    </span>
+
+                  </div>
+
+                </form>
+
+              </div>
 
             </div>
-
           </div>
+
 
         </div>
 

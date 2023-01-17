@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../api/authenticationService";
 import { useSelector, useDispatch } from "react-redux";
 
-import flight from '../../elements/flight2.jpg'
+import flight from '../../elements/flight.jpg'
 const Login = () => {
 
   const inState = useSelector(state => state.auth)
@@ -79,7 +79,7 @@ const Login = () => {
 
         <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
 
-          <img className="h-full w-full object-contain" src={flight} />
+          <img className="h-screen w-full object-contain" src={flight} />
 
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
 
