@@ -1,14 +1,14 @@
-import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
-import './componentscss.css'
+// import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
+import "./componentscss.css";
 
-const Image = ({ path = '1', className = 'w-4 h-4' }) => {
-    return (
-      <img
-        src={`https://assets.codepen.io/3685267/${path}.jpg`}
-        alt=""
-        className={clsx(className, 'rounded-full')}
-      />
-    );
-  }
+const Image = ({ path = "1", className = "w-4 h-4" }) => {
+  return (
+    <img
+      src={`https://assets.codepen.io/3685267/${path}.jpg`}
+      alt=""
+      className={`${className} rounded-full`}
+    />
+  );
+};
 
-  export default Image;
+export default Image;

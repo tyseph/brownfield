@@ -6,8 +6,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AllAirports from "../flightManagement/AllAirports";
+import ViewBooking from './ViewBooking';
 
 const BookingTable = ({ bookings, searchBooking, airPorts }) => {
+
+  const [view, setView] = useState({
+    bookingId: "",
+    state: false
+})
+
   const [input, setInput] = useState({
     bookingId: "",
     time: "",
@@ -45,8 +52,17 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
     searchBooking(input);
   };
 
+  const viewBooking = (id, state) => {
+    console.log(id)
+    setView({
+        bookingId: id,
+        state: state
+    })
+}
+
   return (
     <div className="p-2 mt-6">
+      {view.state ? <ViewBooking view={view} viewBooking={viewBooking}  /> :
       <div className="">
         <div className="flex flex-wrap justify-start gap-2">
           <div className="flex flex-wrap gap-2">
@@ -170,11 +186,11 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                   </th>
                 </tr>
               </thead>
-              <BookingData bookings={bookings} />
+              <BookingData view={viewBooking} bookings={bookings} />
             </table>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
