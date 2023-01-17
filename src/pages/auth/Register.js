@@ -320,19 +320,19 @@ const Register = () => {
                     </div>
 
 
-
+{/* 
                     <div className="text-sm leading-5">
 
 
                       <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
-                    </div>
+                    </div> */}
 
-                  </div> */}
+                  </div> 
 
 
 
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
 
                     <span className="block w-full rounded-md shadow-sm">
 
@@ -340,7 +340,7 @@ const Register = () => {
 
                     </span>
 
-                  </div>
+                  </div> */}
 
                 </form>
 

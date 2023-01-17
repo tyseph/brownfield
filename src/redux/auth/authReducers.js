@@ -3,7 +3,8 @@ import { SIGNUP } from "./authTypes";
 import { LOGOUT } from "./authTypes";
 
 const initialState = {
-    username: ''
+    username: '',
+    role:''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -11,7 +12,8 @@ export const authReducer = (state = initialState, action) => {
 
         case LOGIN: return {
             ...state,
-            username: action.payload
+            username: action.payload,
+            role: action.payload
         };
 
         case SIGNUP: return action.payload;
