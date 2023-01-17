@@ -7,7 +7,7 @@ import BookingManagement from './bookingManagement/BookingManagement';
 
 const Dashboard = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
-  const [selected, setSelected] = useState('2');
+  const [selected, setSelected] = useState('0');
   // const navigate = useNavigate();
   const onMenuClick = (key) => {
     setSelected(key)

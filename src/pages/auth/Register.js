@@ -3,6 +3,9 @@ import flight from '../../elements/flightRegister.jpg'
 import { useState } from "react";
 import { signup } from "../../redux/auth/authActions";
 import { connect } from "react-redux"
+import { userSignup } from "../../api/authenticationService";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
 
@@ -24,7 +27,7 @@ const Register = () => {
   });
 
   const [confirmPassword, setConfirmPassword] = useState("")
-
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     e.persist();
@@ -42,9 +45,55 @@ const Register = () => {
 
     e.preventDefault();
     if (confirmPassword === values.password) {
-      signup(values)
-    } else {
-      console.log('password doesnt match')
+      userSignup(values).then((response) => {
+        if (response.status === 200 && confirmPassword === values.password) {
+          navigate("/login")
+          toast.success('Successfully registered!', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        } else {
+          console.log('something wrong')
+        }
+      })
+      .catch((err) => {
+        if(err && err.response) {
+          switch (err.response.status) {
+            case 404:
+            toast.error('Email id already exists. Please login!', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+                break;
+            default:
+          }
+        } else {
+          console.log('sdss')
+        }
+      })
+    } else if (confirmPassword !== values.password){
+      toast.error('Passwords donot match!', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   }
 
@@ -122,7 +171,7 @@ const Register = () => {
 
                       <div className="rounded-md shadow-sm">
 
-                        <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                        <input id="first" name="firstName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[a-zA-Z ]*$" onChange={handleChange} />
 
                       </div>
 
@@ -138,7 +187,7 @@ const Register = () => {
 
                       <div className="rounded-md shadow-sm">
 
-                        <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                        <input id="last" name="lastName" type="text" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[a-zA-Z ]*$" onChange={handleChange} />
 
                       </div>
 
@@ -172,7 +221,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="phone" name="contactNumber" type="number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="phone" name="contactNumber" type="tel" minlength={10} maxlength={10} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[0-9]*$" onChange={handleChange} />
 
                     </div>
 
@@ -234,7 +283,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="password" type="password" name="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="password" type="password" name="password" required minLength={8} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
@@ -250,7 +299,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="confirm" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
+                      <input id="confirm" type="password" name="confirmPassword" required minLength={8} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={onChangeConfirmPassword} />
 
                     </div>
 

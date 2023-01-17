@@ -4,6 +4,7 @@ import { login } from "../../redux/auth/authActions";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../api/authenticationService";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import flight from '../../elements/flight.jpg'
 const Login = () => {
@@ -50,22 +51,68 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
+    console.log(values)
     userLogin(values).then((response) => {
       if (response.status === 200) {
         localStorage.setItem('USER_KEY', response.data.token)
         dispatch(login(values))
-        navigate("/")
+        if(response.data.role === "User") {
+          navigate("/")
+        } else if (response.data.role === "Admin") {
+          navigate("/dashboard")
+        }
+        console.log(response)
         console.log('successfully logged in')
         console.log('in state', inState)
+        toast.success('Successfully logged in!', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
       else {
         console.log('something wrong, please try again')
       }
     })
-      .catch(() => {
-
+      .catch((err) => {
+        if (err && err.response) {
+          switch (err.response.status) {
+            case 400:console.log("400 status");
+            toast.error('Incorrect credentials', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+                break;
+            case 404:
+              console.log("404 status");
+              toast.error('No such user exists! Please signup first!', {
+                  position: "bottom-left",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  });
+                default:
+                
+          }
+        } else {
+          console.log('something wrong please try again')
+        }
       })
   }
 
