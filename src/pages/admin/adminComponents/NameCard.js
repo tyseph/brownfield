@@ -1,9 +1,9 @@
-import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
+// import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
 import Image from "./Image";
 import Icon from "./Icon";
-import { useSpring, animated } from '@react-spring/web';
-import './componentscss.css'
-import FlightIcon from '@mui/icons-material/Flight';
+import { useSpring, animated } from "@react-spring/web";
+import "./componentscss.css";
+import FlightIcon from "@mui/icons-material/Flight";
 
 const NameCard = ({
   name,
@@ -34,18 +34,17 @@ const NameCard = ({
           </div>
           <div className="text-md text-gray-400 mt-2">
             <span className="text-gray-400 ">{position}:</span>
-            <span className="ml-2">
-              {`${tasksCompleted}`}
-            </span></div>
+            <span className="ml-2">{`${tasksCompleted}`}</span>
+          </div>
         </div>
         <div className="flex mt-1 flex-col items-center">
           {/* Insert Icon here */}
           <animated.div
-            className={clsx(
-              rise ? 'text-green-500' : 'text-red-500',
-              'font-bold',
-              'text-xl',
-            )}
+            className={`
+              ${rise ? "text-green-500" : "text-red-500"}
+              font-bold
+              text-xl
+            `}
           >
             {transactions.interpolate((i) => `${i.toFixed(1)}`)}
           </animated.div>
@@ -54,6 +53,6 @@ const NameCard = ({
       </div>
     </div>
   );
-}
+};
 
-export default NameCard
+export default NameCard;

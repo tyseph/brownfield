@@ -1,14 +1,22 @@
-import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
+// import clsx from "https://cdn.skypack.dev/clsx@1.1.1";
 import SidebarIcons from "./SidebarIcons";
-import './componentscss.css'
+import "./componentscss.css";
 
-const MenuItem = ({ item: { id, title, notifications }, onClick, selected }) => {
+const MenuItem = ({
+  item: { id, title, notifications },
+  onClick,
+  selected,
+}) => {
   return (
     <div
-      className={clsx(
-        'w-full mt-6 flex items-center px-3 sm:px-0 xl:px-3 justify-start sm:justify-center xl:justify-start sm:mt-6 xl:mt-3 cursor-pointer',
-        selected === id ? 'sidebar-item-selected text-gray-200' : 'sidebar-item text-gray-700',
-      )}
+      className={`
+        w-full mt-6 flex items-center px-3 sm:px-0 xl:px-3 justify-start sm:justify-center xl:justify-start sm:mt-6 xl:mt-3 cursor-pointer
+        ${
+          selected === id
+            ? "sidebar-item-selected text-gray-200"
+            : "sidebar-item text-gray-700"
+        }
+      `}
       onClick={() => onClick(id)}
     >
       <SidebarIcons id={id} />
@@ -21,6 +29,6 @@ const MenuItem = ({ item: { id, title, notifications }, onClick, selected }) => 
       )}
     </div>
   );
-}
+};
 
 export default MenuItem;

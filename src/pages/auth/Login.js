@@ -24,7 +24,7 @@ const Login = () => {
       [e.target.name]: e.target.value
     }));
 
-    
+
   };
 
   // const handleClickShowPassword = () => {
@@ -48,25 +48,25 @@ const Login = () => {
   // dispatch(login(""))
 
   const navigate = useNavigate();
-  
+
   const handleSubmit = (e) => {
-    console.log('hellp');
+
     e.preventDefault();
     userLogin(values).then((response) => {
       if (response.status === 200) {
-          localStorage.setItem('USER_KEY', response.data.token)
-          dispatch(login(values))
-          navigate("/")
-          console.log('successfully logged in')
-          console.log('in state', inState)
+        localStorage.setItem('USER_KEY', response.data.token)
+        dispatch(login(values))
+        navigate("/")
+        console.log('successfully logged in')
+        console.log('in state', inState)
       }
       else {
-          console.log('something wrong, please try again')
+        console.log('something wrong, please try again')
       }
-  })
-  .catch(() => {
-      
-  })
+    })
+      .catch(() => {
+
+      })
   }
 
 
@@ -76,8 +76,12 @@ const Login = () => {
     <>
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
-        <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
-          <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
+
+
+        <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
+
+          <img className="h-screen w-full object-contain" src={flight} />
+
           {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
             <h1>Planes to take you everywhere</h1>
           </div> */}
@@ -93,9 +97,15 @@ const Login = () => {
 
               <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
               <p className="mt-2 text-sm text-center leading-5 max-w">
-                OR<br/>
-                <Link to={{ pathname: '/register' }} className="linkcolor">
-                  <a className="font-medium transition ease-in-out duration-150 underline"> Create a new account </a>
+
+                Or{" "}
+
+
+
+                <Link to={{ pathname: '/register' }}>
+
+                  <a className="underline text-blue-600 underline-offset-1 font-medium transition ease-in-out duration-150">create a new account </a>
+
                 </Link>
               </p>
             </div>
@@ -117,7 +127,10 @@ const Login = () => {
                 <div className="mt-6">
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700 leading-5"> Password </label>
                   <div className="mt-1 rounded-md shadow-sm">
+
+
                     <input id="password" name="password" type="password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+
                   </div>
                 </div>
 
@@ -150,7 +163,7 @@ const Login = () => {
 }
 
 // const mapStateToProps=(state)=>{
-  
+
 //   return {
 //       state
 // }}
