@@ -6,7 +6,7 @@ import Register from "../pages/auth/Register";
 import Dashboard from "../pages/admin/Dashboard";
 import FlightManagement from "../pages/admin/Flights"
 import Passengers from "../pages/admin/Passengers";
-import Bookings from "../pages/admin/Bookings"
+// import Bookings from "../pages/admin/Bookings"
 import SearchResult from "../pages/user/SearchResult";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import FlightBooking from "../pages/user/FlightBooking";
@@ -26,7 +26,7 @@ const Routing = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/flightmanagement" element={<FlightManagement />} />
-          <Route path="/bookings" element={<Bookings />} />
+          {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
           <Route path="/passengers" element={<Passengers />} />
           <Route path="/flights" element={<SearchResult />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />

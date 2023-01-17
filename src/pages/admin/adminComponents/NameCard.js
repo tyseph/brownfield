@@ -49,7 +49,7 @@ const NameCard = ({
           >
             {transactions.interpolate((i) => `${i.toFixed(1)}`)}
           </animated.div>
-          <div className="text-md text-gray-400 ">Last 1 month</div>
+          <div className="text-md text-gray-400 ">{name}</div>
         </div>
       </div>
     </div>

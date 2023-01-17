@@ -1,10 +1,10 @@
 import axios from 'axios';
-
+import {authURL} from './URL'
 
 export const userSignup = (userDetails) => {
     return axios({
         'method':'POST',
-        'url':`http://LIN51016635:8083/home/registerUser`,
+        'url':`${authURL}/signup`,
         'data': userDetails
     })
 }
@@ -12,13 +12,9 @@ export const userSignup = (userDetails) => {
 export const userLogin = (authRequest) => {
     return axios({
         'method':'POST',
-        'url':`http://LIN51016635:8083/home/login`,
+        'url':`${authURL}/login`,
         'data':authRequest
-    }).then(res=>{
-        console.log(res.data.token)
-    }).catch(err=>{
-        console.log(err)
-    })
+    })``
 }
 
 

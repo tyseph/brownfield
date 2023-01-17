@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
 ::-webkit-scrollbar {
   width: 0.5rem;
@@ -14,7 +14,7 @@
 }
 
 .bg-sky-900 {
-  background-color: #202938
+  background-color: #202938;
 }
 
 .form {
@@ -47,8 +47,7 @@
   /* border-top-left-radius: 17px; */
 }
 
-
-.carousel-open:checked+.carousel-item {
+.carousel-open:checked + .carousel-item {
   position: static;
   opacity: 100;
 }
@@ -58,9 +57,9 @@
   transition: opacity 0.6s ease-out;
 }
 
-#carousel-1:checked~.control-1,
-#carousel-2:checked~.control-2,
-#carousel-3:checked~.control-3 {
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
   display: block;
 }
 
@@ -76,30 +75,42 @@
   z-index: 10;
 }
 
-#carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
-#carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
-#carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
+#carousel-1:checked
+  ~ .control-1
+  ~ .carousel-indicators
+  li:nth-child(1)
+  .carousel-bullet,
+#carousel-2:checked
+  ~ .control-2
+  ~ .carousel-indicators
+  li:nth-child(2)
+  .carousel-bullet,
+#carousel-3:checked
+  ~ .control-3
+  ~ .carousel-indicators
+  li:nth-child(3)
+  .carousel-bullet {
   color: #2b6cb0;
   /*Set to match the Tailwind colour you want the active one to be */
 }
 
 .ci-1 {
   height: 500px;
-  background-image: url('../elements/banner.jpg');
+  background-image: url("../elements/banner.jpg");
   object-fit: cover;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%
+  height: 100%;
 }
 
 .ci-2 {
   height: 500px;
-  background-image: url(https://mdbootstrap.com/img/new/slides/054.jpg)
+  background-image: url(https://mdbootstrap.com/img/new/slides/054.jpg);
 }
 
 .ci-3 {
   height: 500px;
-  background-image: url(https://mdbootstrap.com/img/new/slides/052.jpg)
+  background-image: url(https://mdbootstrap.com/img/new/slides/052.jpg);
 }
 
 .carousel-item {
@@ -136,14 +147,14 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   flex-flow: row-reverse;
   /* padding: 8px; */
   cursor: pointer;
-  background-color: #F8FAFC;
+  background-color: #f8fafc;
   border-bottom: 1px solid black;
   margin-top: 12px;
 }
 
 .numberInput {
   cursor: pointer;
-  background-color: #F8FAFC;
+  background-color: #f8fafc;
   border-bottom: 1px solid black;
 }
 
@@ -154,7 +165,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 }
 
 .way {
-  margin-left: -1.5vh
+  margin-left: -1.5vh;
 }
 
 .flightImage {
@@ -175,9 +186,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   font-size: 68px;
   font-family: Josefin Sans;
   text-align: center;
-
 }
-
 
 @media screen and (max-width: 768px) and (max-height: 1240px) {
   .changeIcon {
@@ -243,7 +252,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   }
 
   .bannerImage {
-    background-image: url('../elements/flightbanner.jpg');
+    background-image: url("../elements/flightbanner.jpg");
     background-repeat: no-repeat;
     width: 100%;
     padding: 200px 0;
@@ -317,12 +326,11 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 }
 
 @media screen and (min-height: 700px) and (max-height: 1029px) and (min-width: 300px) and (max-width: 1025px) {
-
   .flightImage {
     height: 9vh;
     position: absolute;
     right: 1vw;
-    top: 30vh
+    top: 30vh;
   }
 }
 
@@ -337,13 +345,12 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 
 .bannerImage {
   /* background-image: url("https://i.pinimg.com/736x/33/a4/5e/33a45ef3ebf14e26b29ef408f7506a7e.jpg"); */
-  background-image: url('../elements/flightbanner.jpg');
+  background-image: url("../elements/flightbanner.jpg");
   background-repeat: no-repeat;
   width: 100%;
   padding: 200px 0;
   background-size: cover;
   object-fit: fill;
-
 }
 
 .sectionOne {
