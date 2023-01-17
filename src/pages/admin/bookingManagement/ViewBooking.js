@@ -3,14 +3,36 @@ import { getFlightByID } from "../../../api/FlightManagementService";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const ViewBooking = (view) => {
+const ViewBooking = ({ view }) => {
   const bookingDatas = useSelector((state) => state.admin.bookings);
-  console.log("Selcetor in view Booking", bookingDatas);
-  const bookingData = (e) => {
-    if(bookingDatas.e.bookingId === view.id) {
-      return e;
-  }
-}
+  const [current, setCurrent] = useState({
+    bookingId: "",
+    dateOfBooking: "",
+    dateOfTravelling: "",
+    email: "",
+    mobileNo: "",
+    noOfPassenger: "",
+  });
+  console.log("Selcetor in view Booking", view);
+  const bookingData = () => {
+    // if (bookingDatas.e.bookingId === view.id) {
+    //   return e;
+    // }
+  };
+  useEffect(() => {
+    for (let i = 0; i < bookingDatas.length; i++) {
+      if (bookingDatas[i].bookingId === view.bookingId) {
+        setCurrent({
+          bookingId: bookingDatas[i].bookingId,
+          dateOfBooking: bookingDatas[i].dateOfBooking,
+          dateOfTravelling: bookingDatas[i].dateOfTravelling,
+          email: bookingDatas[i].email,
+          mobileNo: bookingDatas[i].mobileNo,
+          noOfPassenger: bookingDatas[i].noOfPassenger,
+        });
+      }
+    }
+  }, []);
 
   // const bookingData = bookingDatas((e) => {
   //   if (e.bookingId === view.id) {
@@ -63,7 +85,7 @@ const ViewBooking = (view) => {
             </label>
             <div className="rounded-md shadow-sm">
               <input
-                value={bookingData.bookingId}
+                value={current.bookingId}
                 type="text"
                 disabled
                 className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -79,7 +101,10 @@ const ViewBooking = (view) => {
                 Date of Booking
               </label>
               <input
-                value={bookingData.dateOfBooking}
+                value={new Date(current.dateOfBooking).toLocaleDateString(
+                  "en-US",
+                  { year: "numeric", month: "long", day: "2-digit" }
+                )}
                 type="text"
                 disabled
                 className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -116,7 +141,10 @@ const ViewBooking = (view) => {
                 Date of Travelling
               </label>
               <input
-                value={bookingData.dateOfTravelling}
+                value={new Date(current.dateOfTravelling).toLocaleDateString(
+                  "en-US",
+                  { year: "numeric", month: "long", day: "2-digit" }
+                )}
                 type="text"
                 disabled
                 className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -180,7 +208,7 @@ const ViewBooking = (view) => {
               Email
             </label>
             <input
-              value={bookingData.email}
+              value={current.email}
               type="text"
               disabled
               className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -204,7 +232,7 @@ const ViewBooking = (view) => {
                 Mobile number
               </label>
               <input
-                value={bookingData.mobileNo}
+                value={current.mobileNo}
                 type="text"
                 disabled
                 className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -223,7 +251,7 @@ const ViewBooking = (view) => {
                 Number of passengers
               </label>
               <input
-                value={bookingData.noOfPassenger}
+                value={current.noOfPassenger}
                 type="text"
                 disabled
                 className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
