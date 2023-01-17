@@ -33,14 +33,15 @@ import {
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const FlightManagement = () => {
+const FlightManagement = ({ getFlights }) => {
   const [tasksCompleted, setTasksCompleted] = useState();
 
   const [add, setAdd] = useState(false);
 
   const [flights, setFlights] = useState([]);
 
-  const [airPorts, setAirPorts] = useState([]);
+  const [airPorts, setAirPorts] = useState(useSelector((state) => state.admin.airports));
+  // console.log(airPorts)
 
   const [clear, setClear] = useState(false);
 
@@ -48,34 +49,23 @@ const FlightManagement = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllFlights().then((res) => {
-      if (res.status === 200) {
-        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-        console.log(res.data)
-        dispatch(
-          GetAllFlights(
-            res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
-          )
-        );
-        setTasksCompleted(res.data.length);
-      } else {
-        console.log("could not get data");
-      }
-    });
-
-    // console.log("CAlled")
+    getFlights()
+    // setFlights(getFlights())
+    // console.log(getFlights())
+    console.log(flightState)
   }, [add, clear]);
 
-  useEffect(() => {
-    // adminSearch()
+  // useEffect(() => {
+  //   // adminSearch()
 
-    getAllAiriports().then((res) => {
-      setAirPorts(res.data);
-    });
-  }, []);
+  //   getAllAiriports().then((res) => {
+  //     setAirPorts(res.data);
+  //   });
+  // }, []);
 
   const adminSearch = (obj) => {
     getByAdminSearch(obj).then((res) => {
+      dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
       setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
     });
   };
@@ -112,7 +102,7 @@ const FlightManagement = () => {
 
       rise: true,
 
-      tasksCompleted: airPorts.length,
+      // tasksCompleted: useSelector((state) => state.admin.airPorts.length),
 
       imgId: <FlightIcon />,
     },

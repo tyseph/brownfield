@@ -34,7 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 const BookingManagement = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
 
-  const [airPorts, setAirPorts] = useState([]);
+  const [airPorts, setAirPorts] = useState(useSelector((state)=> state.admin.airports));
 
   const [bookings, setBookings] = useState([]);
 
@@ -64,13 +64,13 @@ const BookingManagement = () => {
     // console.log("CAlled")
   }, []);
 
-  useEffect(() => {
-    // adminSearch()
+  // useEffect(() => {
+  //   // adminSearch()
 
-    getAllAiriports().then((res) => {
-      setAirPorts(res.data);
-    });
-  }, []);
+  //   getAllAiriports().then((res) => {
+  //     setAirPorts(res.data);
+  //   });
+  // }, []);
 
   useEffect(() => {
     // adminSearch()

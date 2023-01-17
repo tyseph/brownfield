@@ -127,6 +127,7 @@ const Register = () => {
 
             <div className="w-full py-4">
 
+
               <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
                 <a className="flex justify-center font-bold text-4xl">
@@ -182,6 +183,7 @@ const Register = () => {
                     <div className="mb-3 ml-3">
 
                       <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1"> Last Name </label>
+
 
 
 
@@ -321,11 +323,12 @@ const Register = () => {
 
                     <div className="text-sm leading-5">
 
+
                       <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
                     </div>
 
-                  </div>
+                  </div> */}
 
 
 

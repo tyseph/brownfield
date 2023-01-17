@@ -22,8 +22,8 @@ const App = () => {
     theme="light"
     />
       {/* <Header /> */}
+
       <Routing />
-      {/* <Footer /> */}
     </Provider>
   );
 };
