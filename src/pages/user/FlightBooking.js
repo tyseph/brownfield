@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {getFlightByID} from "../../api/FlightManagementService"
 
-const FlightBooking = () => {
+const FlightBooking = (res) => {
 
     const [passengers, setPassengers] = useState({
         firstName: '',
@@ -9,9 +10,11 @@ const FlightBooking = () => {
         gender: '',
     });
 
+    console.log(res)
+    const [flightData, setFlightData] = useState({});
     const [passengerArray, setPassengerArray] = useState([])
-    const numberOfPassenger = 2
-    const [count, setCount] = useState(1)
+    const numberOfPassenger = res.FlightBooking.numberOfPassenger
+    const [count, setCount] = useState(numberOfPassenger)
     const passengerHandler = (e) => {
         e.preventDefault()
         setPassengers(prev => ({
@@ -66,7 +69,17 @@ const FlightBooking = () => {
         })
     }
 
-    console.log(passengerArray)
+    console.log(passengerArray) 
+
+    useEffect(()=>{
+        getFlightByID(res.FlightBooking.id).then(res=>{
+            setFlightData(res.data)
+        }).catch(err=>{
+            console.log(err)
+        })
+    },[])
+
+    console.log(flightData)
     return (
         <div>
             <section className="left">
@@ -75,18 +88,18 @@ const FlightBooking = () => {
                     <div>
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center" >Flight Details</div>
                         <p class="text-gray-700 text-base ml-4">
-                            Mumbai to Delhi
+                           {/* {flightData.source.city} to {flightData.destination.city} */}
                         </p>
                         <p class="text-gray-700 text-base text-white pt-2 ml-4">
-                            01/12/2023
+                           {res.FlightBooking.dateOfTravelling}
                         </p>
                         <div className="mb-5">
                             <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5   relative">
-                                Mumbai at 12:00
+                            {/* {flightData.source.city} at {flightData.departureTime} */}
                             </span>
                             <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
                                 <img className="absolute top-1 right-40 mr-10" src="https://img.icons8.com/material-rounded/24/111111/airplane-take-off.png" />
-                                Delhi at 02:00
+                                {/* {flightData.destination.city} at {flightData.arrivalTime} */}
                             </span>
                             {/* <p class="text-gray-700 text-base text-white pt-2">
                          Delhi at 02:00
@@ -131,7 +144,7 @@ const FlightBooking = () => {
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passenger Details</div>
 
                         <form>
-                            <h1 className="text-black ml-4">Passenger {count} / {numberOfPassenger}</h1>
+                            <h1 className="text-black ml-4">Passenger {count} / {res.FlightBooking.numberOfPassenger}</h1>
                             <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male" onChange={passengerHandler} required />
                             <label for="Male" className='mr-3 sm:mr-4 text-sm text-gray-900'>Male</label>
                             <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="FEMALE" id="Female" onChange={passengerHandler} required />

@@ -5,15 +5,21 @@ import FlightTable from "../admin/flightManagement/FlightTable";
 import SearchByText from "../admin/flightManagement/SearchByText";
 import SearchByTime from "../admin/flightManagement/SearchByTime";
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchFlight from "./SearchFlight";
 import { getAllAiriports } from "../../api/FlightManagementService";
 
-const SearchResult = ({ res }) => {
+const SearchResult = (res) => {
 
 
     const [flightData, setFlightData] = useState([])
-
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log(res)
+    console.log(location)
+    useEffect(() => {
+        // setFlightData(location)
+    }, [])
 
     const dataHandler = (e) => {
         // console.log(e.target[0].value)
@@ -28,12 +34,14 @@ const SearchResult = ({ res }) => {
 
     var today = new Date().toISOString().split('T')[0];
     const [data, setData] = useState({
-        "source": "BOM",
-        "destination": "PNQ",
-        "dateOfTravelling": "2022-12-01",
-        "noOfPassenger": 9,
-        "dateOfReturn": ''
+        "source": res.SearchResult.source,
+        "destination": res.SearchResult.destination,
+        "dateOfTravelling": res.SearchResult.dateOfTravelling,
+        "noOfPassenger": res.SearchResult.noOfPassenger,
+        "dateOfReturn": res.SearchResult.dateOfReturn
     })
+
+    console.log(data)
 
 
     const [airport, setAirport] = useState([])
@@ -41,7 +49,7 @@ const SearchResult = ({ res }) => {
     const handleOnChange = (e) => {
         e.preventDefault();
         setData({
-           ...data,
+            ...data,
             [e.target.name]: e.target.value
         })
     }
@@ -69,6 +77,16 @@ const SearchResult = ({ res }) => {
         //   destination: selectedToCity
         // })
     }
+
+    const book = (e) => {
+        console.log(e.target.value);
+        res.SetFlightBooking({
+            "id": e.target.value,
+            "dateOfTravelling": res.SearchResult.dateOfTravelling,
+            "numberOfPassenger" : data.noOfPassenger
+        })
+        navigate(`/${e.target.value}/flightbooking`)
+    }
     // const data = {
     //     "source": "BOM",
     //     "destination": "PNQ",
@@ -77,63 +95,50 @@ const SearchResult = ({ res }) => {
     // }
 
     //   let flights = []
+    // useEffect(() => {
+    //     axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
+    //         console.log(res.data.flights)
+    //         setFlights(res.data.flights)
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
+    // }, [])
+
     useEffect(() => {
-        axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
-            console.log(res.data.flights)
-            setFlights(res.data.flights)
+        getAllAiriports().then(res => {
+            console.log(res)
+            setAirport(res.data)
         }).catch(err => {
             console.log(err)
         })
     }, [])
 
-    useEffect(()=>{
-        getAllAiriports().then(res => {
+    useEffect(() => {
+        axios.post("http://LIN59017635.corp.capgemini.com:8081/search/search", data).then(res => {
             console.log(res)
-            setAirport(res.data)
-          }).catch(err => {
+            setFlights(res.data)
+        }).catch(err => {
             console.log(err)
-          })
-    },[])
-
+        })
+    }, [])
 
     console.log(flights)
+
     return (
         <div>
             <div className='flex flex-wrap justify-start gap-2 searchnav bg-gray-900 pt-5 pl-5 pr-5 pb-2' >
                 <div className='flex flex-wrap gap-9'>
-                    {/* <div className="dropdown-container text-base ">
-                        <select required
-                            name='source'
-                            value={selectedFromCity}
-                            onChange={(e) => { handleFromCitySelect(e); dataHandler(e) }}
-                            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
-
-                            {
-                                flightData.map(p => {
-                                    return (
-                                        <option value={p.code}>{p.code + " " + p.name}</option>
-
-                                    )
-                                })
-                            }
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
-                        </div>
-                    </div> */}
                     <SearchFlight gap="pl-12" airport={airport} onChange={handleOnChange} placeholder="Flight Code..." />
-                    {/* <SwapHorizIcon className='mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2' /> */}
                     <SearchFlight gap="pl-12" airport={airport} onChange={handleOnChange} placeholder="Destination Code..." />
-                    {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
                     <input className="bg-gray-900 text-white" type="date" min={today} />
                     <input className="bg-gray-900 text-white" type="date" min={today} />
                     <select name='noOfPassenger' className="bg-gray-900 text-white w-44 mr-20">
-                        {/* <option value="0">0</option> */}
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
-                      </select>
+                    </select>
                 </div>
                 <div className='flex flex-nowrap gap-1'>
                     <span className="block w-full rounded-md shadow-sm">
@@ -202,23 +207,24 @@ const SearchResult = ({ res }) => {
                                 flights.map(p => {
                                     return (
                                         <tr className="mt-9">
-                                            <td className="text-center">{p.flight.flightId}</td>
-                                            <td className="text-center">{p.flight.source.city}</td>
-                                            <td className="text-center">{p.flight.departureTime}</td>
-                                            <td className="text-center">{p.flight.destination.city}</td>
-                                            <td className="text-center">{p.flight.arrivalTime}</td>
-                                            <td className="text-center">{Math.round(p.flight.distance)}{" KM"}</td>
+                                            <td className="text-center">{p.flightId}</td>
+                                            <td className="text-center">{p.source.city}</td>
+                                            <td className="text-center">{p.departureTime}</td>
+                                            <td className="text-center">{p.destination.city}</td>
+                                            <td className="text-center">{p.arrivalTime}</td>
+                                            <td className="text-center">{Math.round(p.distance)}{" KM"}</td>
                                             <td className="text-center">{p.fare}</td>
                                             <td className="text-center">
-                                                <Link to={`/${p.flight.flightId}/flightbooking`}>
-                                                    <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">Book</button>
-                                                </Link>
+                                                {/* <Link to={`/${p.flight.flightId}/flightbooking`}> */}
+                                                <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded" value={p.flightId} onClick={(e) => book(e)}>Book</button>
+                                                {/* </Link> */}
                                             </td>
                                         </tr>
                                     )
 
                                 })
                             }
+
                         </tbody>
                     </table>
                 </div>

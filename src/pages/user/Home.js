@@ -15,7 +15,7 @@ import { getAllAiriports } from '../../api/FlightManagementService'
 import plane from '../../elements/plane.png'
 
 
-const Home = () => {
+const Home = (props) => {
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false)
@@ -25,6 +25,7 @@ const Home = () => {
   const [searchByWay, setSearchByWay] = useState({
     value: ""
   })
+  const [searchDetails, setSearchDetails] = useState([])
   const [flightData, setFlightData] = useState([])
 
   var today = new Date().toISOString().split('T')[0];
@@ -38,17 +39,19 @@ const Home = () => {
       })
   }
 
+  const [filterData, setFilterdata] = useState([]);
+
 
   const [data, setData] = useState({
-    "source": '',
-    "destination": '',
-    "dateOfTravelling": '',
+    "source": 'BOM',
+    "destination": 'PNQ',
+    "dateOfTravelling": '12-02-2023',
     "noOfPassenger": 1,
     "dateOfReturn": ''
   })
 
 
-  console.log(data)
+  // console.log(data)
 
   const dataHandler = (e) => {
     // console.log(e.target[0].value)
@@ -65,14 +68,15 @@ const Home = () => {
     if (selectedFromCity === selectedToCity)
       alert("Both City Cannot be same")
     else {
-      axios.post("http://LIN59017635:8081/search/userSearch", data).then(res => {
-        console.log(res)
-        { <SearchResult props={res.data} /> }
-      }).catch(err => {
-        console.log(err)
-      })
-      // console.log(data)
-      // navigate("/flights")
+      // axios.post("http://LIN59017635.corp.capgemini.com:8081/search/userSearch", data).then(res => {
+      //   console.log(res)
+      //   { <SearchResult props={res.data} /> }
+      //   setFilterdata(res.data)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
+      props.SetSearchDetails(data)
+      navigate("/flights")
     }
   }
   const handleFromCitySelect = (e) => {
@@ -128,8 +132,6 @@ const Home = () => {
           <form onSubmit={searchHandler}>
             <div className="sm:rounded-md rounded-md sm:pt-10 pt-20  pb-10  ">
               <div className='flightSearchBox'>
-                {/* <pre className='tag'>
-                  {`Where Would You like to go?`}</pre> */}
                 <img className='flightImage' src={plane} height="80px" />
                 <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-900">
                   <div className="grid grid-cols-12 gap-3">
@@ -232,7 +234,6 @@ const Home = () => {
                       </label>
 
                       <select name='noOfPassenger' className=" h-10 mt-3 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
-                        {/* <option value="0">0</option> */}
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -240,32 +241,7 @@ const Home = () => {
                         <option value="5">5</option>
                       </select>
                     </div>
-                    {/* <div className="col-span-12 sm:col-span-1  md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base text-white text-white font-bold">
-                        Children
-                      </label>
-                      <select name='children' className="sm:pl-10 h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div> */}
-                    {/* <div className="col-span-12 sm:col-span-1  md:mr-3 ">
-                      <label htmlFor="first-name" className="block text-base text-white text-white font-bold">
-                        Infant
-                      </label>
-                      <select name='infant' className="sm:pl-10 h-10 mt-3 block w-full rounded-md border-black sm:text-sm">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div> */}
+                   
 
                   </div>
 
