@@ -1,5 +1,5 @@
 // flight actions
-import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS } from "./adminTypes"
+import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS, GET_ALL_USERS } from "./adminTypes"
 import { GET_ALL_BOOKINGS } from "./adminTypes"
 
 export const GetAllFlights = (flights) => {
@@ -27,5 +27,12 @@ export const GetAllAirports = (airports) => {
     return {
         type: GET_ALL_AIRPORTS,
         payload: airports
+    }
+}
+
+export const GetAllUsers = (users) => {
+    return {
+        type: GET_ALL_USERS,
+        payload: users
     }
 }

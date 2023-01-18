@@ -31,10 +31,10 @@ import {
 } from "../../../api/FlightManagementService";
 
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 
-const FlightManagement = ({ getFlights }) => {
-  const [tasksCompleted, setTasksCompleted] = useState();
+const FlightManagement = () => {
+  const [tasksCompleted, setTasksCompleted] = useState(0);
 
   const [add, setAdd] = useState(false);
 
@@ -45,28 +45,32 @@ const FlightManagement = ({ getFlights }) => {
 
   const [clear, setClear] = useState(false);
 
-  const flightState = useSelector((state) => state.admin);
+  // const flightState = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getFlights()
-    // setFlights(getFlights())
-    // console.log(getFlights())
-    console.log(flightState)
-  }, [add, clear]);
-
-  // useEffect(() => {
-  //   // adminSearch()
-
-  //   getAllAiriports().then((res) => {
-  //     setAirPorts(res.data);
-  //   });
-  // }, []);
+    // alert("onecs")
+    getAllFlights().then((res) => {
+      if (res.status === 200) {
+        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+        console.log(res.data)
+        dispatch(
+          GetAllFlights(
+            res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
+          )
+        );
+        setTasksCompleted(res.data.length);
+      } else {
+        console.log("could not get data");
+      }
+    });
+  }, [clear, add]);
 
   const adminSearch = (obj) => {
     getByAdminSearch(obj).then((res) => {
-      dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
+      // dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
+      // setClear(!clear)
     });
   };
 
@@ -102,7 +106,7 @@ const FlightManagement = ({ getFlights }) => {
 
       rise: true,
 
-      // tasksCompleted: useSelector((state) => state.admin.airPorts.length),
+      tasksCompleted: useStore().getState().admin.airports.length,
 
       imgId: <FlightIcon />,
     },

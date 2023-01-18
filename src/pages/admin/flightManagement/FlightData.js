@@ -42,7 +42,7 @@ const FlightData = ({ flights, update, toggleFlightStatus }) => {
                                 {/* <p className="text-gray-600 whitespace-no-wrap"></p> */}
                                 <label className="relative items-center cursor-pointer">
                                     <input type="checkbox"
-                                        onClick={() => toggleFlightStatus(flight.flightId)}
+                                        onChange={() => toggleFlightStatus(flight.flightId)}
                                         checked={flight.flightStatus}
                                         value={flight.flightStatus} className="sr-only peer" />
                                     <div className="w-8 h-4 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[0px] after:left-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-600"></div>

@@ -76,7 +76,7 @@ const ViewBooking = ({ view }) => {
           View Booking Data
         </label>
         <div className="flex flex-wrap justify-around mb-6">
-          <div className="relative w-full md:w-1/5">
+          <div className="relative w-1/5 md:w-1/5">
             <label
               className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
               htmlFor="grid-zip"
@@ -88,7 +88,7 @@ const ViewBooking = ({ view }) => {
                 value={current.bookingId}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-20 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
             </div>
           </div>
@@ -107,7 +107,7 @@ const ViewBooking = ({ view }) => {
                 )}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-40 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
               {/* <select name="sourceCode" value={UpdateFlight.sourceCode} id="source" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
                                 <option selected disabled>Source code...</option>
@@ -120,7 +120,7 @@ const ViewBooking = ({ view }) => {
                                 }
                             </select> */}
               {/* <AllAirports name="sourceCode" value={UpdateFlight.sourceCode} gap="pl-12" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." /> */}
-              <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
+              {/* <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                 <svg
                   className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ const ViewBooking = ({ view }) => {
                 >
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
-              </div>
+              </div> */}
             </div>
             {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
           </div>
@@ -147,7 +147,7 @@ const ViewBooking = ({ view }) => {
                 )}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-40 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
               {/* <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option selected disabled>Destination code...</option>
@@ -159,7 +159,7 @@ const ViewBooking = ({ view }) => {
                                     })
                                 }
                             </select> */}
-              <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
+              {/* <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
                 <svg
                   className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +167,7 @@ const ViewBooking = ({ view }) => {
                 >
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
-              </div>
+              </div> */}
             </div>
             {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
           </div>

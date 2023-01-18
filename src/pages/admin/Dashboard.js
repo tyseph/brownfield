@@ -6,8 +6,9 @@ import FlightManagement from './flightManagement/FlightManagement';
 import BookingManagement from './bookingManagement/BookingManagement';
 import { getAllAiriports, getAllFlights } from '../../api/FlightManagementService';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllAirports, GetAllFlights } from '../../redux/admin/adminActions';
+import { GetAllAirports, GetAllBookings, GetAllFlights, GetAllUsers } from '../../redux/admin/adminActions';
 import { useSelect } from '@mui/base';
+import { getAllBookings, getAllUsers } from '../../api/BookingManagementService';
 
 const Dashboard = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
@@ -19,11 +20,43 @@ const Dashboard = () => {
     console.log('clicked', key)
   }
 
+  // console.log(useSelector((state) => state.admin))
+
   useEffect(() => {
     getAllAiriports().then((res) => {
+      // console.log(res.data)
       dispatch(GetAllAirports(res.data))
     })
   }, [])
+
+
+  useEffect(() => {
+    getFlights()
+    getBookings()
+  }, [])
+
+  const getBookings = () => {
+    getAllBookings().then((res) => {
+      if (res.status === 200) {
+        // setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
+        // console.log('inside get all users', res)
+        dispatch(
+          GetAllBookings(
+            res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
+          )
+        );
+        // setTasksCompleted(res.data.length);
+      } else {
+        console.log("could not get data");
+      }
+    });
+  }
+
+  // const getUsers = () => {
+  //   getAllUsers().then((res) => {
+  //     dispatch(GetAllUsers(res.data));
+  //   });
+  // }
 
   const getFlights = () => {
     let tmp;
@@ -36,7 +69,7 @@ const Dashboard = () => {
             res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
           )
         );
-        tmp = res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
+        // tmp = res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
         // setTasksCompleted(res.data.length);
       } else {
         console.log("could not get data");
@@ -63,7 +96,7 @@ const Dashboard = () => {
         /> : null
       }
       {
-        selected === "1" ? <FlightManagement getFlights={getFlights} /> : null
+        selected === "1" ? <FlightManagement /> : null
       }
       {
         selected === "2" ? <BookingManagement /> : null

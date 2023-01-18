@@ -92,14 +92,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                         </div>
                         <div className='flex flex-nowrap gap-1'>
                             <span className="block w-full rounded-md shadow-sm">
-                                <button onClick={() => {
-                                    setInput({
-                                        flightId: "",
-                                        time: "",
-                                        src: "",
-                                        des: ""
-                                    });
-                                }} type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 ">Clear</button>
+                                <button onClick={() => clear()} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250">Clear</button>
                             </span>
                         </div>
                     </div>

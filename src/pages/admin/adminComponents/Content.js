@@ -7,34 +7,39 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import './componentscss.css'
 import AdminHeader from "./AdminHeader";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
+import { useState } from "react";
 
 const Content = ({ onSidebarHide }) => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
+  // const [data, setData] = useState(useSelector((state) => state.admin))
+  useSelector((state) => state.admin)
   // const tmp = useSelector((state) => state.admin)
   // console.log(tmp)
+  const store = useStore()
+  // console.log(data)
 
   const employeeData = [
     {
       id: 1,
       name: 'Flights',
-      position: "Currently Running Flights",
-      transactions: 15,
+      position: "All Airports",
+      transactions: store.getState().admin.flights.length,
       rise: true,
-      tasksCompleted: 3,
+      tasksCompleted: store.getState().admin.airports.length,
       imgId: <FlightIcon />,
     },
 
     {
       id: 2,
       name: 'Bookings',
-      position: "Today's Booking",
-      transactions: 1570,
+      position: "Total Users",
+      transactions: store.getState().admin.bookings.length,
       rise: true,
-      tasksCompleted: 5,
+      tasksCompleted: store.getState().admin.users.length,
       imgId: <DashboardIcon />,
     },
 
@@ -42,7 +47,7 @@ const Content = ({ onSidebarHide }) => {
       id: 3,
       name: 'Revenue',
       position: "Net Revenue",
-      transactions: 2600,
+      transactions: 19000,
       rise: true,
       tasksCompleted: 1,
       imgId: <AirplaneTicketIcon />,

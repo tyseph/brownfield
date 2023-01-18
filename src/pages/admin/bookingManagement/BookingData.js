@@ -1,5 +1,7 @@
 const BookingData = ({ bookings, view }) => {
 
+    // console.log(bookings)
+
     return (
         <tbody>
             {
@@ -54,7 +56,7 @@ const BookingData = ({ bookings, view }) => {
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span onClick = {() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
+                                    <span onClick={() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
                                 </span>
                             </td>
                         </tr>

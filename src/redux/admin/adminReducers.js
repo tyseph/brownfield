@@ -1,4 +1,4 @@
-import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS } from "./adminTypes";
+import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS, GET_ALL_USERS } from "./adminTypes";
 import { ADD_FLIGHT } from "./adminTypes";
 
 import { GET_ALL_BOOKINGS } from "./adminTypes";
@@ -6,7 +6,8 @@ import { GET_ALL_BOOKINGS } from "./adminTypes";
 const initialState = {
     flights: {},
     bookings: {},
-    airports: {}
+    airports: {},
+    users: {}
 }
 
 export const adminReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ export const adminReducer = (state = initialState, action) => {
         case GET_ALL_AIRPORTS: return {
             ...state,
             airports: action.payload
+        };
+
+        case GET_ALL_USERS: return {
+            ...state,
+            users: action.payload
         };
 
         default: return state;
