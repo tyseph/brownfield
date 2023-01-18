@@ -332,7 +332,7 @@ const Register = () => {
 
 
 
-                  {/* <div className="mt-6">
+                  <div className="mt-6">
 
                     <span className="block w-full rounded-md shadow-sm">
 
@@ -340,7 +340,7 @@ const Register = () => {
 
                     </span>
 
-                  </div> */}
+                  </div>
 
                 </form>
 
