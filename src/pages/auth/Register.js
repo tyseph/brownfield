@@ -320,15 +320,15 @@ const Register = () => {
                     </div>
 
 
-
+{/* 
                     <div className="text-sm leading-5">
 
 
                       <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
 
-                    </div>
+                    </div> */}
 
-                  </div> */}
+                  </div> 
 
 
 
