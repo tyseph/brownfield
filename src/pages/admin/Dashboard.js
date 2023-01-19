@@ -14,6 +14,8 @@ const Dashboard = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
   const [selected, setSelected] = useState('0');
 
+  const dispatch = useDispatch()
+
   // const navigate = useNavigate();
   const onMenuClick = (key) => {
     setSelected(key)
