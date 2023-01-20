@@ -23,7 +23,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
     date: "",
   });
 
-  useEffect(() => { }, [input]);
+  useEffect(() => { }, [input, view]);
 
   const menuItems = [
     {
@@ -60,9 +60,15 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
     })
   }
 
+  const goBack = () => {
+    setView({
+      state: false
+    })
+  }
+
   return (
     <div className="p-2 mt-6">
-      {view.state ? <ViewBooking view={view} viewBooking={viewBooking} /> :
+      {view.state ? <ViewBooking view={view} viewBooking={viewBooking} goBack={goBack} /> :
         <div className="">
           <div className="flex flex-wrap justify-start gap-2">
             <div className="flex flex-wrap gap-2">
@@ -162,7 +168,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                       Booking ID
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                      Date
+                      Travelling date
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
                       Source

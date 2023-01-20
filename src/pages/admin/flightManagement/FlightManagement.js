@@ -52,12 +52,14 @@ const FlightManagement = () => {
     // alert("onecs")
     getAllFlights().then((res) => {
       if (res.status === 200) {
-        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-        console.log(res.data)
+        setFlights(res.data)
+        // setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+        // console.log(res.data)
         dispatch(
-          GetAllFlights(
-            res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
-          )
+          // GetAllFlights(
+          //   res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
+          // )
+          GetAllFlights(res.data)
         );
         setTasksCompleted(res.data.length);
       } else {
@@ -68,7 +70,8 @@ const FlightManagement = () => {
 
   const adminSearch = (obj) => {
     getByAdminSearch(obj).then((res) => {
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
+      setFlights(res.data)
+      // setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
       // dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
       // setClear(!clear)
     });
@@ -90,7 +93,7 @@ const FlightManagement = () => {
   const toggleFlightStatus = (id) => {
     postUpdateFlightStatus(id).then((res) => {
       setClear(!clear)
-      console.log(id, res.data)
+      // console.log(id, res.data)
     })
   }
 

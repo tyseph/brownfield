@@ -13,9 +13,6 @@ export const getBookingsByDate = (date) => {
   return axios.get(`${bookingManagementURL}/getBookingByDate/${date}`);
 };
 
-export const getAllUsers = () => {
-  return axios.get(`${bookingManagementURL}/getAllUsers`);
-};
 
 export const getByAdminSearch = (obj) => {
   return axios.post(`${bookingManagementURL}/adminBookingSearch`, {
@@ -26,3 +23,14 @@ export const getByAdminSearch = (obj) => {
     time: obj.time
   });
 };
+
+export const getTotalRevenue = () => {
+  return axios.get(`${bookingManagementURL}/getTotalRevenue`);
+};
+
+// http://lin59017635:8089/booking/getTotalRevenue
+
+
+export const GetRevenueByDate = () => {
+  return axios.get(`${bookingManagementURL}/getTotalRevenueByDate`)
+}

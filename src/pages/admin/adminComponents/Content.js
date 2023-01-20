@@ -10,11 +10,12 @@ import AdminHeader from "./AdminHeader";
 import { useSelector, useStore } from "react-redux";
 import { useState } from "react";
 
-const Content = ({ onSidebarHide }) => {
+const Content = ({ onSidebarHide, revenue, user, graph }) => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
+  // console.log(user)
   // const [data, setData] = useState(useSelector((state) => state.admin))
   useSelector((state) => state.admin)
   // const tmp = useSelector((state) => state.admin)
@@ -39,7 +40,7 @@ const Content = ({ onSidebarHide }) => {
       position: "Total Users",
       transactions: store.getState().admin.bookings.length,
       rise: true,
-      tasksCompleted: store.getState().admin.users.length,
+      tasksCompleted: user.length,
       imgId: <DashboardIcon />,
     },
 
@@ -47,7 +48,7 @@ const Content = ({ onSidebarHide }) => {
       id: 3,
       name: 'Revenue',
       position: "Net Revenue",
-      transactions: 19000,
+      transactions: revenue,
       rise: true,
       tasksCompleted: 1,
       imgId: <AirplaneTicketIcon />,
@@ -59,6 +60,9 @@ const Content = ({ onSidebarHide }) => {
       <div className="w-full h-screen hidden sm:block sm:w-20 xl:w-60 flex-shrink-0">
         .
       </div>
+      {/* <div onClick={onSidebarHide}>
+        SAJAL
+      </div> */}
       <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
         <AdminHeader />
         {employeeData.map(
@@ -84,9 +88,9 @@ const Content = ({ onSidebarHide }) => {
           ),
         )}
 
-        <div className="w-full p-2 lg:w-2/3">
-          <div className="rounded-lg bg-gray-900 sm:h-80 h-60">
-            <Graph />
+        <div className="w-full p-2 lg:w-full">
+          <div className="rounded-lg bg-gray-900 sm:h-auto h-60">
+            <Graph revenue={revenue} graph={graph} />
           </div>
         </div>
       </div>

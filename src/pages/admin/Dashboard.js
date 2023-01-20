@@ -8,13 +8,19 @@ import { getAllAiriports, getAllFlights } from '../../api/FlightManagementServic
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllAirports, GetAllBookings, GetAllFlights, GetAllUsers } from '../../redux/admin/adminActions';
 import { useSelect } from '@mui/base';
-import { getAllBookings, getAllUsers } from '../../api/BookingManagementService';
+import { getAllBookings, GetRevenueByDate, getTotalRevenue } from '../../api/BookingManagementService';
+import { getAllUser } from '../../api/UserDetailsService';
+import axios from 'axios';
 
 const Dashboard = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
   const [selected, setSelected] = useState('0');
+  const [revenue, setRevenue] = useState(0)
+  const [graph, setGraph] = useState([])
+  const [user, setUser] = useState([])
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
   // const navigate = useNavigate();
   const onMenuClick = (key) => {
     setSelected(key)
@@ -34,6 +40,9 @@ const Dashboard = () => {
   useEffect(() => {
     getFlights()
     getBookings()
+    getRevenue()
+    getUsers()
+    getGraph()
   }, [])
 
   const getBookings = () => {
@@ -53,12 +62,22 @@ const Dashboard = () => {
     });
   }
 
-  // const getUsers = () => {
-  //   getAllUsers().then((res) => {
-  //     dispatch(GetAllUsers(res.data));
-  //   });
-  // }
+  const getRevenue = () => {
+    getTotalRevenue().then((res) => {
+      setRevenue(res.data)
+    })
+  }
 
+  const getGraph = () => {
+    GetRevenueByDate().then((res) => {
+      setGraph(res.data)
+      console.log(res.data)
+    })
+  }
+
+  const getUsers = () => {
+    getAllUser().then((res) => setUser(res.data))
+  }
   const getFlights = () => {
     let tmp;
     getAllFlights().then((res) => {
@@ -91,8 +110,11 @@ const Dashboard = () => {
       />
       {
         selected === "0" ? <Content
+          revenue={revenue}
+          graph={graph}
+          user={user}
           onSidebarHide={() => {
-            onSetShowSidebar(!showSidebar);
+            onSetShowSidebar(false);
           }}
         /> : null
       }
@@ -100,11 +122,11 @@ const Dashboard = () => {
         selected === "1" ? <FlightManagement /> : null
       }
       {
-        selected === "2" ? <BookingManagement /> : null
+        selected === "2" ? <BookingManagement noOfUser={user} /> : null
       }
-      {
+      {/* {
         selected === "3" ? <div className='text-gray-300 text-xl'>Passenger Details</div> : null
-      }
+      } */}
 
     </div >
   );

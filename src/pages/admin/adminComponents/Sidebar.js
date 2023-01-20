@@ -14,7 +14,7 @@ const sidebarItems = [
     { id: '0', title: 'Dashboard', notifications: false },
     { id: '1', title: 'Flight Management', notifications: false },
     { id: '2', title: 'View Bookings', notifications: false },
-    { id: '3', title: 'Passenger Details', notifications: false },
+    // { id: '3', title: 'Passenger Details', notifications: false },
   ],
   [
     { id: '4', title: 'Tasks', notifications: false },
@@ -37,7 +37,7 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
     <div
       className={
         `fixed inset-y-0 left-0 bg-gray-900 w-full sm:w-20 xl:w-60 sm:flex flex-col z-10
-        ${showSidebar ? 'flex' : 'hidden'}`}
+        ${showSidebar ? '' : 'hidden'}`}
     >
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-top">
@@ -97,11 +97,11 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
           <div className="block sm:hidden xl:block ml-2 font-bold ">
             Brownfield Admin
           </div>
-          <div className="flex-grow block sm:hidden xl:block" />
+          {/* <div className="flex-grow block sm:hidden xl:block" />
           <Icon
             path="res-react-dash-options"
             className="block sm:hidden xl:block w-3 h-3"
-          />
+          /> */}
         </div>
       </div>
     </div>

@@ -15,7 +15,9 @@ export const getFlightByTime = (time) => {
 };
 
 export const getAllAiriports = () => {
+  // return axios.get(`${flightManagementURL}/getAllAirports`);
   return axios.get(`${flightManagementURL}/getAllAirports`);
+
 };
 
 export const getFlightBySearch = (obj) => {

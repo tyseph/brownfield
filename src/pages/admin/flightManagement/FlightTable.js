@@ -20,8 +20,9 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
         state: false
     })
 
+
     const [input, setInput] = useState({
-        flightId: "",
+        flightId: null,
         time: "",
         src: "",
         des: ""
@@ -51,12 +52,12 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
     }
 
     const handleSubmit = (e) => {
-        console.log(input)
+        // console.log(input)
         searchFlight(input)
     }
 
     const changeUpdate = (id, sourceCode, destinationCode, timeOfDeparture, timeOfArrival, flightStatus, state) => {
-        console.log(id)
+        // console.log(id)
         setUpdate({
             flightId: id,
             sourceCode: sourceCode,
@@ -74,7 +75,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                 <div className="">
                     <div className='flex flex-wrap justify-start gap-2' >
                         <div className='flex flex-wrap gap-2'>
-                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-2" placeholderText="Flight ID..." />
+                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-2" placeholderText="F-BF-" />
                             <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                         </div>
                         <div className='flex flex-wrap gap-1'>
@@ -92,7 +93,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                         </div>
                         <div className='flex flex-nowrap gap-1'>
                             <span className="block w-full rounded-md shadow-sm">
-                                <button onClick={() => clear()} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250">Clear</button>
+                                <button onClick={() => clear()} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250">Get All</button>
                             </span>
                         </div>
                     </div>
