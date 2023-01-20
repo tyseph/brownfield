@@ -9,6 +9,10 @@ import { toast } from "react-toastify";
 
 const Register = () => {
 
+  var today = new Date().toISOString().split('T')[0];
+  console.log(today)
+  
+
   const [values, setValues] = useState({
     firstName: "",
 
@@ -42,7 +46,7 @@ const Register = () => {
   }
 
   const handleSubmit = (e) => {
-
+    console.log(values)
     e.preventDefault();
     if (confirmPassword === values.password) {
       userSignup(values).then((response) => {
@@ -223,7 +227,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="phone" name="contactNumber" type="tel" minlength={10} maxlength={10} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[0-9]*$" onChange={handleChange} />
+                      <input id="phone" name="contactNumber" type="tel" minLength={10} maxLength={10} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[0-9]*$" onChange={handleChange} />
 
                     </div>
 
@@ -231,7 +235,7 @@ const Register = () => {
                   <div className="mb-3">
                     <label htmlFor="dob" className="block text-sm font-medium leading-5 ml-1"> DOB </label>
                     <div className="rounded-md shadow-sm">
-                      <input id="dob" name="dateOfBirth" type="date" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="dob" name="dateOfBirth" type="date" max='2015-12-12' required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
                     </div>
                   </div>
 
