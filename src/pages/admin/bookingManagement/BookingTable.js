@@ -168,7 +168,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                       Booking ID
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                      Date
+                      Travelling date
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
                       Source

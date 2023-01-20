@@ -31,7 +31,7 @@ import { getAllAiriports } from "../../../api/FlightManagementService";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const BookingManagement = () => {
+const BookingManagement = ({ noOfUser }) => {
   const [tasksCompleted, setTasksCompleted] = useState();
 
   const [airPorts, setAirPorts] = useState(useSelector((state) => state.admin.airports));
@@ -106,7 +106,7 @@ const BookingManagement = () => {
 
       rise: true,
 
-      tasksCompleted: bookings.length,
+      tasksCompleted: noOfUser.length,
 
       imgId: <FlightIcon />,
     },

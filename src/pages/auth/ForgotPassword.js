@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import flight from '../../elements/flight.jpg'
+import { toast } from 'react-toastify'
 
 const ForgotPassword = () => {
     const [emailId, setEmailId] = useState('')
@@ -44,8 +45,33 @@ const ForgotPassword = () => {
         axios.post(`http://LIN51016635:8083/forgot-password?emailId=${emailId}`, emailId).then(res => {
             console.log(res)
             setOtp(res.data)
+            toast.success('OTP to reset password sent. Please check your email!', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
         }).catch(err => {
-            console.log(err.response.data.message)
+            switch(err.response.status) {
+                case 400:
+                    toast.error('No such user exists. Please enter a valid email or register first!', {
+                        position: "bottom-left",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
+                break;
+                default:
+            }
+            console.log('gg', err.response.data.message)
         })
 
     }
@@ -55,10 +81,30 @@ const ForgotPassword = () => {
         console.log(otp + " " + userOtp);
         if (otp == userOtp) {
             console.log("correct");
+            toast.success('OTP matched. Please set a new password!', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             setShowPassword(true)
             setShowSubmit(false)
         }
         else
+        toast.error('OTP did not match. Please check your email for an OTP!', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
             console.log("not correct");
     }
 

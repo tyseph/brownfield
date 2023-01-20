@@ -33,7 +33,7 @@ const ViewBooking = ({ view, goBack }) => {
     flightStatus: "",
   })
 
-  console.log("Selcetor in view Booking", view);
+  // console.log("Selcetor in view Booking", view);
   const bookingData = () => {
     // if (bookingDatas.e.bookingId === view.id) {
     //   return e;
@@ -114,7 +114,16 @@ const ViewBooking = ({ view, goBack }) => {
         >
           View Booking Data
         </label>
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Booking details
+        </label>
+
         <div className="flex flex-wrap justify-center mb-6">
+
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
@@ -244,6 +253,13 @@ const ViewBooking = ({ view, goBack }) => {
 
         {/* <hr className="border border-4 border-gray-200" /> */}
         <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Fare details
+        </label>
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
@@ -419,6 +435,15 @@ const ViewBooking = ({ view, goBack }) => {
         "Maharashtra" */}
 
         <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Flight details
+        </label>
+
+
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label

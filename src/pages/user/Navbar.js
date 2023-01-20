@@ -1,7 +1,18 @@
 import React from "react";
 import logo from '../../elements/brownfieldlogo.png'
+import { useNavigate } from "react-router-dom";
+
+
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+    
+        localStorage.clear()
+        navigate('/login')
+    }
+
     return (
         <nav class="nav flex items-center justify-end flex-wrap bg-slate-900 p-6">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -26,7 +37,7 @@ const Navbar = () => {
                     </a>
                 </div>
                 <div>
-                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3">Logout</a>
+                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a>
                 </div>
             </div>
         </nav>
