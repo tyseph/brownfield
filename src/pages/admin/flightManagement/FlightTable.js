@@ -22,7 +22,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
 
 
     const [input, setInput] = useState({
-        flightId: null,
+        flightId: undefined,
         time: "",
         src: "",
         des: ""

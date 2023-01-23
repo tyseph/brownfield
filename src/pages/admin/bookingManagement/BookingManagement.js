@@ -49,7 +49,7 @@ const BookingManagement = ({ noOfUser }) => {
     getAllBookings().then((res) => {
       if (res.status === 200) {
         setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
-        console.log('inside get all users', res.data)
+        // console.log('inside get all users', res.data)
         dispatch(
           GetAllBookings(
             res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
@@ -79,9 +79,9 @@ const BookingManagement = ({ noOfUser }) => {
   // }, []);
 
   const adminSearch = (obj) => {
-    console.log('inside adminSearch', obj)
+    // console.log('inside adminSearch', obj)
     getByAdminSearch(obj).then((res) => {
-      console.log('this is the resp from booking', res.data)
+      // console.log('this is the resp from booking', res.data)
       setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
     });
   };
