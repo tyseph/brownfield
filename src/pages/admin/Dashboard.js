@@ -98,6 +98,10 @@ const Dashboard = () => {
     // return tmp;
   }
 
+  const select  = useSelector(state => state.auth.username)
+
+  console.log('checking',select)
+
   return (
     <div className="flex">
       <Sidebar

@@ -56,12 +56,15 @@ const Login = () => {
     userLogin(values).then((response) => {
       if (response.status === 200) {
         localStorage.setItem('USER_KEY', response.data.token)
-        dispatch(login(values))
-        if(response.data.role === "User") {
-          navigate("/")
-        } else if (response.data.role === "Admin") {
+        console.log(response.data)
+        dispatch(login(values.username))
           navigate("/dashboard")
-        }
+
+        // if(response.data.role === "User") {
+        //   navigate("/")
+        // } else if (response.data.role === "Admin") {
+        //   navigate("/dashboard")
+        // }
         console.log(response)
         console.log('successfully logged in')
         console.log('in state', inState)

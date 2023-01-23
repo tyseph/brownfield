@@ -13,7 +13,7 @@ const BookingData = ({ bookings, view }) => {
                                 {/* <p className="text-gray-600 whitespace-no-wrap">USD</p> */}
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">{new Date(booking.dateOfTravelling).toLocaleDateString('en-US', { year: '2-digit', month: '2-digit', day: '2-digit' })}</p>
+                                <p className="text-gray-900 whitespace-no-wrap">{new Date(booking.dateOfTravelling).toLocaleDateString('en-IN', { year: '2-digit', month: '2-digit', day: '2-digit' })}</p>
 
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

@@ -72,13 +72,13 @@ const Home = (props) => {
     if (selectedFromCity === selectedToCity)
       alert("Both City Cannot be same")
     else {
-      // axios.post("http://LIN59017635.corp.capgemini.com:8081/search/userSearch", data).then(res => {
-      //   console.log(res)
-      //   { <SearchResult props={res.data} /> }
-      //   setFilterdata(res.data)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+      axios.post("http://LIN59017635:8081/search/userSearch", data).then(res => {
+        console.log(res)
+        { <SearchResult props={res.data} /> }
+        setFilterdata(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
       props.SetSearchDetails(data)
       navigate("/flights")
     }
