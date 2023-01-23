@@ -2,19 +2,28 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FlightData from '../admin/flightManagement/FlightData';
 import FlightTable from "../admin/flightManagement/FlightTable";
+import { useDispatch } from "react-redux"
 import SearchByText from "../admin/flightManagement/SearchByText";
 import SearchByTime from "../admin/flightManagement/SearchByTime";
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchFlight from "./SearchFlight";
-import { getAllAiriports } from "../../api/FlightManagementService";
+import { getAllAiriports, getFlightBySearch } from "../../api/FlightManagementService";
+import { getAllFlights } from "../../redux/user/userActions";
 
-const SearchResult = ({ res }) => {
-
+const SearchResult = (res) => {
 
     const [flightData, setFlightData] = useState([])
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log(res.SearchResult.source)
+    // console.log(location)
+    useEffect(() => {
+        // setFlightData(location)
+        console.log(res)
+    }, [])
 
-
+    const dispatch = useDispatch();
     const dataHandler = (e) => {
         // console.log(e.target[0].value)
         e.preventDefault()
@@ -28,22 +37,26 @@ const SearchResult = ({ res }) => {
 
     var today = new Date().toISOString().split('T')[0];
     const [data, setData] = useState({
-        "source": "BOM",
-        "destination": "PNQ",
-        "dateOfTravelling": "2022-12-01",
-        "noOfPassenger": 9,
-        "dateOfReturn": ''
+        "source": res.SearchResult.source,
+        "destination": res.SearchResult.destination,
+        "dateOfTravelling": res.SearchResult.dateOfTravelling,
+        "noOfPassenger": res.SearchResult.noOfPassenger,
+        "dateOfReturn": res.SearchResult.dateOfReturn
     })
+
+    console.log(data)
 
 
     const [airport, setAirport] = useState([])
 
     const handleOnChange = (e) => {
         e.preventDefault();
+        console.log(e.target.name)
         setData({
-           ...data,
+            ...data,
             [e.target.name]: e.target.value
         })
+        console.log(data)
     }
 
     // const handleSubmit = (e) => {
@@ -57,94 +70,81 @@ const SearchResult = ({ res }) => {
 
     const handleFromCitySelect = (e) => {
         console.log(e.target.value);
-        setSelectedFromCity(e.target.value);
-        // setData({
-        //   source: selectedFromCity
-        // })
+        setSelectedFromCity(e.target.value)
     }
-    // console.log(selectedFromCity);
     const handleToCitySelect = (e) => {
         setSelectedToCity(e.target.value);
-        // setData({
-        //   destination: selectedToCity
-        // })
     }
-    // const data = {
-    //     "source": "BOM",
-    //     "destination": "PNQ",
-    //     "dateOfTravelling": "2022-12-01",
-    //     "noOfPassenger": 9
-    // }
 
-    //   let flights = []
-    useEffect(() => {
-        axios.post("http://LIN59017635:8081/userSearch", data).then(res => {
-            console.log(res.data.flights)
+    const filter = (e) => {
+        e.preventDefault()
+        getFlightBySearch(data).then(res => {
+            console.log(res)
             setFlights(res.data.flights)
+            dispatch(getAllFlights(res.data.flights))
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const book = (e, fare) => {
+        console.log(fare);
+        res.SetFlightBooking({
+            "id": e.target.value,
+            "dateOfTravelling": res.SearchResult.dateOfTravelling,
+            "numberOfPassenger": data.noOfPassenger,
+            "fare": fare,
+            data,
+            flights
+        })
+
+        navigate(`/${e.target.value}/flightbooking`)
+    }
+    useEffect(() => {
+        getAllAiriports().then(res => {
+            console.log(res)
+            setAirport(res.data)
         }).catch(err => {
             console.log(err)
         })
     }, [])
 
-    useEffect(()=>{
-        getAllAiriports().then(res => {
+    useEffect(() => {
+        getFlightBySearch(data).then(res => {
             console.log(res)
-            setAirport(res.data)
-          }).catch(err => {
+            setFlights(res.data.flights)
+            dispatch(getAllFlights(res.data.flights))
+        }).catch(err => {
             console.log(err)
-          })
-    },[])
-
+        })
+    }, [])
 
     console.log(flights)
+
     return (
         <div>
-            <div className='flex flex-wrap justify-start gap-2 searchnav bg-gray-900 pt-5 pl-5 pr-5 pb-2' >
-                <div className='flex flex-wrap gap-9'>
-                    {/* <div className="dropdown-container text-base ">
-                        <select required
-                            name='source'
-                            value={selectedFromCity}
-                            onChange={(e) => { handleFromCitySelect(e); dataHandler(e) }}
-                            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" >
-
-                            {
-                                flightData.map(p => {
-                                    return (
-                                        <option value={p.code}>{p.code + " " + p.name}</option>
-
-                                    )
-                                })
-                            }
+            <div className='flex flex-wrap justify-start gap-1 searchnav bg-gray-900 pt-5 pl-5 pr-5 pb-2 ' >
+                <form onSubmit={filter}>
+                    <div className='flex flex-wrap gap-9'>
+                        <SearchFlight gap="pl-12" name="source" airport={airport} onChange={handleOnChange} className="text-white" placeholder={res.SearchResult.source} />
+                        <SearchFlight gap="pl-12" name="destination" airport={airport} onChange={handleOnChange} placeholder={res.SearchResult.destination} />
+                        <input className="bg-gray-900 text-white border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfTravelling" type="date" min={today} onChange={handleOnChange} />
+                        <input className="bg-gray-900 text-white border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} onChange={handleOnChange} />
+                        <select name='noOfPassenger' className="bg-gray-900 text-white w-44 mr-15 border-solid border border-white rounded-md" onChange={handleOnChange}>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
-                        </div>
-                    </div> */}
-                    <SearchFlight gap="pl-12" airport={airport} onChange={handleOnChange} placeholder="Flight Code..." />
-                    {/* <SwapHorizIcon className='mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2' /> */}
-                    <SearchFlight gap="pl-12" airport={airport} onChange={handleOnChange} placeholder="Destination Code..." />
-                    {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
-                    <input className="bg-gray-900 text-white" type="date" min={today} />
-                    <input className="bg-gray-900 text-white" type="date" min={today} />
-                    <select name='noOfPassenger' className="bg-gray-900 text-white w-44 mr-20">
-                        {/* <option value="0">0</option> */}
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                </div>
-                <div className='flex flex-nowrap gap-1'>
-                    <span className="block w-full rounded-md shadow-sm">
-                        <button type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
-                    </span>
-                </div>
-                <div className='flex flex-nowrap gap-1'>
-                    <span className="block w-full rounded-md shadow-sm">
-                        <button type="submit" className="flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Clear</button>
-                    </span>
-                </div>
+                        <button type="submit" className="px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
+                    </div>
+                    <div className='flex flex-nowrap '>
+                        <span className="block rounded-md shadow-sm">
+                        </span>
+                    </div>
+                </form>
             </div>
             <div className="py-4 overflow-auto">
                 <div
@@ -210,15 +210,16 @@ const SearchResult = ({ res }) => {
                                             <td className="text-center">{Math.round(p.flight.distance)}{" KM"}</td>
                                             <td className="text-center">{p.fare}</td>
                                             <td className="text-center">
-                                                <Link to={`/${p.flight.flightId}/flightbooking`}>
-                                                    <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">Book</button>
-                                                </Link>
+                                                {/* <Link to={`/${p.flight.flightId}/flightbooking`}> */}
+                                                <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded" value={p.flight.flightId} onClick={(e) => book(e, p.fare)}>Book</button>
+                                                {/* </Link> */}
                                             </td>
                                         </tr>
                                     )
 
                                 })
                             }
+
                         </tbody>
                     </table>
                 </div>
