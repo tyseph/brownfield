@@ -1,6 +1,8 @@
 import { userDetailsURL } from "./URL";
 import axios from "axios";
 
-export const getAllUsers = () => {
-    return axios.post(`${userDetailsURL}/adminSearch`);
-  };
+export const getAllUser = () => {
+  return axios.get(`${userDetailsURL}/getAllUser`);
+};
+
+

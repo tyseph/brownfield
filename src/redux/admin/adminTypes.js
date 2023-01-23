@@ -9,3 +9,5 @@ export const GET_ALL_FLIGHTS = "GET_ALL_FLIGHTS"
 export const ADD_FLIGHT = "ADD_FLIGHT"
 export const DELETE_FLIGHT = "DELETE_FLIGHT"
 export const UPDATE_FLIGHT = "UPDATE_FLIGHT";
+
+export const GET_ALL_AIRPORTS = "GET_ALL_AIRPORTS"

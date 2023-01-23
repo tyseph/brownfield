@@ -1,5 +1,7 @@
 const BookingData = ({ bookings, view }) => {
 
+    // console.log(bookings)
+
     return (
         <tbody>
             {
@@ -11,7 +13,7 @@ const BookingData = ({ bookings, view }) => {
                                 {/* <p className="text-gray-600 whitespace-no-wrap">USD</p> */}
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">{new Date(booking.dateOfBooking).toLocaleDateString('en-US', { year: '2-digit', month: '2-digit', day: '2-digit' })}</p>
+                                <p className="text-gray-900 whitespace-no-wrap">{new Date(booking.dateOfTravelling).toLocaleDateString('en-US', { year: '2-digit', month: '2-digit', day: '2-digit' })}</p>
 
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -54,7 +56,7 @@ const BookingData = ({ bookings, view }) => {
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span onClick = {() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
+                                    <span onClick={() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
                                 </span>
                             </td>
                         </tr>
