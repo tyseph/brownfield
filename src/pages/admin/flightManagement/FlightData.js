@@ -3,10 +3,6 @@ import { postUpdateFlightStatus } from "../../../api/FlightManagementService"
 
 const FlightData = ({ flights, update, toggleFlightStatus }) => {
 
-    {
-        console.log(flights)
-    }
-
     return (
         <tbody>
             {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getFlightByID } from "../../../api/FlightManagementService";
 import AllAirports from "./AllAirports";
 
@@ -17,7 +18,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
     // useEffect(() => {
     //     getFlightByID(update.id).then(res => console.log(res.data))
     // }, [])
-    console.log(UpdateFlight, update)
+    // console.log(UpdateFlight, update)
 
     const handleOnChange = (e) => {
         e.preventDefault()
@@ -31,6 +32,16 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
         e.preventDefault()
         if (UpdateFlight.sourceCode !== "" && UpdateFlight.destinationCode !== "") {
             updateFlightData(update.flightId, UpdateFlight)
+            toast.success(`FlightId ${update.flightId} Updated Successfully`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             // clear()
             changeUpdate("", "", "", "", "", "", false)
         }
@@ -82,7 +93,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                             </label>
                             <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" onChange={handleOnChange} onSelect={handleOnChange} required
                                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option selected disabled>Destination code...</option>
+                                <option disabled>Destination code...</option>
                                 {
                                     airPorts.map((item, index) => {
                                         return (

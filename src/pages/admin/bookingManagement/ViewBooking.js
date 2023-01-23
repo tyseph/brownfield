@@ -42,7 +42,7 @@ const ViewBooking = ({ view, goBack }) => {
   useEffect(() => {
     for (let i = 0; i < bookingDatas.length; i++) {
       if (bookingDatas[i].bookingId === view.bookingId) {
-        console.log(bookingDatas[i])
+        // console.log(bookingDatas[i])
         setCurrent({
           bookingId: bookingDatas[i].bookingId,
           dateOfBooking: bookingDatas[i].dateOfBooking,

@@ -32,6 +32,7 @@ import {
 
 import axios from "axios";
 import { useDispatch, useSelector, useStore } from "react-redux";
+import { toast } from "react-toastify";
 
 const FlightManagement = () => {
   const [tasksCompleted, setTasksCompleted] = useState(0);
@@ -78,8 +79,20 @@ const FlightManagement = () => {
   };
 
   const insertFlightData = (obj) => {
+    // let tmp;
     postFlightData(obj).then((res) => {
       setAdd(false);
+      // console.log(res.data.flightId)
+      toast.success(`Flight with ID ${res.data.flightId} added successfully`, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     });
   };
 
@@ -92,6 +105,16 @@ const FlightManagement = () => {
 
   const toggleFlightStatus = (id) => {
     postUpdateFlightStatus(id).then((res) => {
+      toast.success(`FlightId ${id} Updated Successfully`, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       setClear(!clear)
       // console.log(id, res.data)
     })

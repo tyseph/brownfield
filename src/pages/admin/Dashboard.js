@@ -71,7 +71,7 @@ const Dashboard = () => {
   const getGraph = () => {
     GetRevenueByDate().then((res) => {
       setGraph(res.data)
-      console.log(res.data)
+      // console.log(res.data)
     })
   }
 

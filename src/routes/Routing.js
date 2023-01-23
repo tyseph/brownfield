@@ -15,6 +15,7 @@ import PDFFile from "../pages/user/PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import ReactPDF from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
+import Payments from "../pages/PaymentGateway";
 
 const Routing = () => {
   return (
@@ -32,6 +33,7 @@ const Routing = () => {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/:id/flightbooking" element={<FlightBooking />} />
           <Route path="/seats" element={<Seats />} />
+          <Route path="/payment" element={<Payments />} />
 
           {/* <Route path="/pdf" element={
             <PDFDownloadLink document={<PDFFile />} fileName="FORM">

@@ -74,7 +74,7 @@ const PDFFile = () => {
             
                 <View style={styles.section}>
                 <Image style={styles.image}  src={logo} alt="images" />
-                    <Text style={styles.text}>Airlines                         BOARDINGPASS</Text>
+                    <Text style={styles.text}>Airlines BOARDINGPASS</Text>
                     <Text style={styles.para}>Name :           Aman Jain  </Text>
                     <Text style={styles.para}>Flight No. :     1234</Text>
                     <Text style={styles.para}>From :            CSMT</Text>
