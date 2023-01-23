@@ -1,16 +1,28 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getFlightByID } from "../../api/FlightManagementService"
+import { useDispatch, useSelector } from "react-redux"
+import { addBooking, getFlightById } from "../../redux/user/userActions";
+import { useNavigate } from "react-router-dom"
 
-const FlightBooking = () => {
+const FlightBooking = (res) => {
 
     const [passengers, setPassengers] = useState({
         firstName: '',
         lastName: '',
         gender: '',
     });
+    const dispatch = useDispatch();
+    const flight = useSelector((state) => state.user.flight)
 
+    const navigate = useNavigate()
+    console.log(res.FlightBooking.data.dateOfTravelling)
+
+    console.log(res)
+    const [flightData, setFlightData] = useState({});
     const [passengerArray, setPassengerArray] = useState([])
-    const numberOfPassenger = 2
+    const numberOfPassenger = res.FlightBooking.numberOfPassenger
+    // const numberOfPassenger = 5
     const [count, setCount] = useState(1)
     const passengerHandler = (e) => {
         e.preventDefault()
@@ -43,30 +55,61 @@ const FlightBooking = () => {
                 }
             }
         }
-        else{
+        else {
             alert("please enter all details")
         }
     }
+    const [email, setEmail] = useState('')
+    const [mobileNo, setMobileNo] = useState()
     const data = {
-        "flightId": 1,
-        "email": "hemant@email.com",
-        "mobileNo": "1234567980",
-        "dateOfTravelling": "2022-01-11",
-        "passengerInfo":
-            passengerArray
-
+        "flightId": flightData.flightId,
+        "email": email,
+        "mobileNo": mobileNo,
+        "dateOfTravelling": "2023-02-09",
+        "passengerInfo": passengerArray,
+        "fare": {
+            "travelCharges": 1000,
+            "seatReserveCharges": 250,
+            "ancillaryCharges": 100,
+            "taxes": 0,
+            "totalFare": 1350
+        }
     }
-    const passenger = (e) => {
+
+    const contactData = (e) => {
         e.preventDefault()
         console.log(data)
-        axios.post("http://LIN59017635.corp.capgemini.com:8082/booking/bookFlight", data).then(res => {
+        axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
             console.log(res)
+            dispatch(addBooking(res.data))
         }).catch(err => {
             console.log(err)
         })
+        navigate("/seats")
+    }
+
+    console.log(data)
+    const passenger = (e) => {
+        e.preventDefault()
+        console.log("qwertyuiop")
+        console.log(data)
+       
     }
 
     console.log(passengerArray)
+
+    useEffect(() => {
+        getFlightByID(res.FlightBooking.id).then(res => {
+            setFlightData(res.data)
+            console.log(res.data)
+            dispatch(getFlightById(res.data))
+            
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
+
+    console.log(data)
     return (
         <div>
             <section className="left">
@@ -75,18 +118,18 @@ const FlightBooking = () => {
                     <div>
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center" >Flight Details</div>
                         <p class="text-gray-700 text-base ml-4">
-                            Mumbai to Delhi
+                            {res.FlightBooking.data.source} to {res.FlightBooking.data.destination}
                         </p>
                         <p class="text-gray-700 text-base text-white pt-2 ml-4">
-                            01/12/2023
+                            {res.FlightBooking.data.dateOfTravelling}
                         </p>
                         <div className="mb-5">
                             <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5   relative">
-                                Mumbai at 12:00
+                                {res.FlightBooking.data.source} at {res.FlightBooking.flights[0].flight.departureTime}
                             </span>
                             <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
                                 <img className="absolute top-1 right-40 mr-10" src="https://img.icons8.com/material-rounded/24/111111/airplane-take-off.png" />
-                                Delhi at 02:00
+                                {res.FlightBooking.data.destination} at {res.FlightBooking.flights[0].flight.arrivalTime}
                             </span>
                             {/* <p class="text-gray-700 text-base text-white pt-2">
                          Delhi at 02:00
@@ -131,7 +174,7 @@ const FlightBooking = () => {
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passenger Details</div>
 
                         <form>
-                            <h1 className="text-black ml-4">Passenger {count} / {numberOfPassenger}</h1>
+                            <h1 className="text-black ml-4">Passenger {count} / {res.FlightBooking.numberOfPassenger}</h1>
                             <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male" onChange={passengerHandler} required />
                             <label for="Male" className='mr-3 sm:mr-4 text-sm text-gray-900'>Male</label>
                             <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="FEMALE" id="Female" onChange={passengerHandler} required />
@@ -144,7 +187,7 @@ const FlightBooking = () => {
                                     :
                                     <p className="text-gray-900 mt-4 ml-4">You Have Added {numberOfPassenger} passengers</p>
                             }
-                            <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
+                            {/* <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button> */}
                         </form>
                     </div>
                     <hr />
@@ -176,12 +219,16 @@ const FlightBooking = () => {
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 mb-5 text-white">
                     <div >
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center ">Contact Details</div>
-                        <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" type="number" placeholder="Mobile no." name="mobileno" max="10" min="10" required />
-                        <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-3 mb-5" type="email" placeholder="emailId" name="emailId" required />
+                        <form>
+                            <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" type="number" placeholder="Mobile no." name="mobileno" onChange={(e) => setMobileNo(e.target.value)} required />
+                            <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-3 mb-5 ml-4" type="email" placeholder="emailId" name="emailId" onChange={(e) => setEmail(e.target.value)} required />
+                        </form>
                     </div>
 
                 </div>
 
+                <button onClick={contactData} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
+                       
             </section>
 
 
@@ -201,35 +248,11 @@ const FlightBooking = () => {
                         <p class="text-gray-700 text-base ml-4 ">
                             Base Fare
                         </p>
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
+                        <p className="text-gray-700 text-base ml-4 mb-5">
+
+                            Adult(s)   {numberOfPassenger} x {res.FlightBooking.fare} = {res.FlightBooking.fare * numberOfPassenger}
                         </p>
 
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-
-
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
-                        <p class="text-gray-700 text-base ml-4 mb-5">
-                            Adult(s) (1x4440) = 4440
-                        </p>
 
                     </div>
 

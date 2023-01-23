@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
+import { useSelector } from "react-redux";
+
 
 const Seats = () => {
     const colOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -11,6 +13,7 @@ const Seats = () => {
 
 
     const [booked, setBooked] = useState([]);
+    const data = useSelector((state)=>state.user.booking)
     const numberOfPassenger = 3
     const seatarr = []
     var bgcolor = ''
@@ -42,7 +45,7 @@ const Seats = () => {
     }
 
     useEffect(() => {
-        axios.get("http://LIN59017635.corp.capgemini.com:8082/booking/getBookedSeats/1/2023-01-11").then(res => {
+        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookingById/1").then(res => {
             setBooked(res.data)
             console.log(booked)
         }).catch(err => {

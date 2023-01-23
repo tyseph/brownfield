@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { useState } from "react";
 import Home from "../pages/user/Home";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
@@ -18,20 +18,25 @@ import { PDFViewer } from '@react-pdf/renderer';
 import Payments from "../pages/PaymentGateway";
 
 const Routing = () => {
+
+  
+  const [searchDetails, setSearchDetails] = useState({})
+  const [flightBooking, setFlightBooking] = useState({})
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home SetSearchDetails={setSearchDetails} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/flightmanagement" element={<FlightManagement />} />
           {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
           <Route path="/passengers" element={<Passengers />} />
-          <Route path="/flights" element={<SearchResult />} />
+          <Route path="/flights" element={<SearchResult SearchResult={searchDetails} SetFlightBooking={setFlightBooking} />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/:id/flightbooking" element={<FlightBooking />} />
+          <Route path="/:id/flightbooking" element={<FlightBooking FlightBooking={flightBooking} />} />
           <Route path="/seats" element={<Seats />} />
           <Route path="/payment" element={<Payments />} />
 
