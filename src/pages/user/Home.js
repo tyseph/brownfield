@@ -4,6 +4,8 @@ import changeIcon from '../../elements/exchangeWhite.png';
 import SearchIcon from '@mui/icons-material/Search';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
+import {useDispatch} from "react-redux"
+import { getAllAirport} from '../../redux/user/userActions';
 import Navbar from './Navbar';
 import Cover from './Cover';
 import ImageCards from './ImageCards';
@@ -14,9 +16,7 @@ import SearchResult from './SearchResult';
 import { getAllAiriports } from '../../api/FlightManagementService'
 import plane from '../../elements/plane.png'
 
-
 const Home = (props) => {
-
   const navigate = useNavigate();
   const [open, setOpen] = useState(false)
   const [searchBarOn, setSearchBarOn] = useState(false)
@@ -25,18 +25,22 @@ const Home = (props) => {
   const [searchByWay, setSearchByWay] = useState({
     value: ""
   })
+
+  const dispatch = useDispatch()
   const [searchDetails, setSearchDetails] = useState([])
   const [flightData, setFlightData] = useState([])
 
   var today = new Date().toISOString().split('T')[0];
   console.log()
-  const Airports = () => {
-      getAllAiriports().then(res => {
-        console.log(res)
-        setFlightData(res.data)
-      }).catch(err => {
-        console.log(err)
-      })
+
+  const Airports = () => {  
+    getAllAiriports().then(res => {
+      console.log(res)
+      setFlightData(res.data)
+      dispatch(getAllAirport(res.data))
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   const [filterData, setFilterdata] = useState([]);
@@ -109,7 +113,7 @@ const Home = (props) => {
 
   const returnHandler = () => {
     console.log('khdksdlsmdl')
-   console.log( document.getElementsByName('way')[1])
+    console.log(document.getElementsByName('way')[1])
     console.log()
     // document.querySelector('input[name="way"]:checked').value = "ROUND TRIP"
     // console.log(document.querySelector('input[name="way"]:checked').value)
@@ -241,7 +245,7 @@ const Home = (props) => {
                         <option value="5">5</option>
                       </select>
                     </div>
-                   
+
 
                   </div>
 

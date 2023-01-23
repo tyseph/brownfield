@@ -20,7 +20,7 @@ export const getAllAiriports = () => {
 
 export const getFlightBySearch = (obj) => {
   console.log(obj.source, obj.destination);
-  return axios.post(`${flightManagementURL}/search`, obj);
+  return axios.post(`${flightManagementURL}/userSearch`, obj);
 };
 
 export const getByAdminSearch = (obj) => {
