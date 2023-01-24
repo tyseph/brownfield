@@ -18,7 +18,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav class="nav flex items-center justify-end flex-wrap bg-slate-900 p-6">
+        <nav class="nav flex items-center justify-end flex-wrap bg-gray-800 p-6">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <img class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" src={logo} />
                 <span class="font-semibold text-xl tracking-tight">Airlines</span>

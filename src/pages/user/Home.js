@@ -76,7 +76,7 @@ const Home = (props) => {
 
   const searchHandler = (e) => {
     e.preventDefault()
-    console.log(data)
+    // console.log(data)
     if (selectedFromCity === selectedToCity)
       alert("Both City Cannot be same")
     else {
@@ -84,7 +84,7 @@ const Home = (props) => {
         alert("Input return date")
       }
       else {
-        axios.post("http://LIN59017635:8081/search/userSearch", data).then(res => {
+        axios.post("http://LIN59017635:8089/search/userSearch", data).then(res => {
           // console.log(data)
           // console.log(res.data)
           { <SearchResult props={res.data} /> }
@@ -155,7 +155,7 @@ const Home = (props) => {
             <img className='flightImage hidden sm:block  w-48 h-36 absolute right-2 mt-20 mr-10' src={plane} />
             <div className="sm:rounded-md rounded-md  ">
               <div className='flightSearchBox pt-20'>
-                <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-900">
+                <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-800">
                   <div className="grid grid-cols-9 mt-3">
                     <div className="col-span-12 sm:col-span-12 md:mr-3">
                       <label name="way" className="block text-base text-white font-bold">
@@ -286,6 +286,8 @@ const Home = (props) => {
                   </div>
                 </div>
                 {/* <ImageCards /> */}
+                {/* <Cards /> */}
+
               </div>
             </div>
           </form>
@@ -298,7 +300,7 @@ const Home = (props) => {
 
       < Cover />
 
-      {/* <Cards /> */}
+      <Cards />
 
     </div >
   );

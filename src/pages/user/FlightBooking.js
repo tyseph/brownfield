@@ -46,7 +46,8 @@ const FlightBooking = (res) => {
                 setPassengers({
                     firstName: '',
                     lastName: '',
-                    gender: ''
+                    gender: '',
+                    seatNo: ""
                 })
 
                 var ele = document.querySelectorAll("input[type=radio]");
@@ -109,7 +110,7 @@ const FlightBooking = (res) => {
         })
     }, [])
 
-    console.log(data)
+    // console.log(data)
     return (
         <div>
             <section className="left">
