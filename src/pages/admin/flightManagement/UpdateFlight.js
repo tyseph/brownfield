@@ -152,7 +152,8 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                                     value={UpdateFlight.flightStatus} className="sr-only peer" />
                                 <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
-                            </label></div>
+                            </label>
+                        </div>
                     </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">

@@ -11,7 +11,7 @@ const Register = () => {
 
   var today = new Date().toISOString().split('T')[0];
   console.log(today)
-  
+
 
   const [values, setValues] = useState({
     firstName: "",
@@ -61,33 +61,33 @@ const Register = () => {
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+          });
         } else {
           console.log('something wrong')
         }
       })
-      .catch((err) => {
-        if(err && err.response) {
-          switch (err.response.status) {
-            case 404:
-            toast.error('Email id already exists. Please login!', {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+        .catch((err) => {
+          if (err && err.response) {
+            switch (err.response.status) {
+              case 404:
+                toast.error('Email id already exists. Please login!', {
+                  position: "bottom-left",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
                 });
                 break;
-            default:
+              default:
+            }
+          } else {
+            console.log('sdss')
           }
-        } else {
-          console.log('sdss')
-        }
-      })
-    } else if (confirmPassword !== values.password){
+        })
+    } else if (confirmPassword !== values.password) {
       toast.error('Passwords donot match!', {
         position: "bottom-left",
         autoClose: 5000,
@@ -97,7 +97,7 @@ const Register = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
   }
 
@@ -114,12 +114,6 @@ const Register = () => {
         <div className="hidden md:block h-screen lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-800 shadow-2xl">
 
           <img className="h-screen w-full object-contain" src={flight} />
-
-          {/* <div className="absolute inline-block p-4 min-w-full text-white text-4xl lg:text-6xl mt-20 ml-20 bg-gray-600 bg-opacity-50">
-
-            <h1>Planes to take you everywhere</h1>
-
-          </div> */}
 
         </div>
 
@@ -242,30 +236,7 @@ const Register = () => {
                   <div className="flex justify-center">
                     <div className="mb-3 xl:w-full w-full">
                       <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
-                      {/* <select className="form-select appearance-none
-                                  block
-                                  w-full
-                                  px-3
-                                  py-1.5
-                                  text-base
-                                  font-normal
-                                  text-gray-700
-                                  bg-white bg-clip-padding bg-no-repeat
-                                  border border-solid border-gray-300
-                                  rounded
-                                  transition
-                                  ease-in-out
-                                  m-0
-                                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
-                      onChange={handleChange}
-                      name="gender"
-                      value={values.gender}
-                    >
-                      <option selected>Open this select menu ▼</option>
-                      <option>MALE</option>
-                      <option>FEMALE</option>
-                      <option>OTHER</option>
-                    </select> */}
+
                       <select onChange={handleChange} name="gender" onSelect={handleChange} value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state" >
                         <option selected>Select Gender</option>
                         <option>MALE</option>
@@ -324,15 +295,9 @@ const Register = () => {
                     </div>
 
 
-{/* 
-                    <div className="text-sm leading-5">
 
+                  </div>
 
-                      <p className="font-medium transition ease-in-out duration-150"> Forgot your password? </p>
-
-                    </div> */}
-
-                  </div> 
 
 
 

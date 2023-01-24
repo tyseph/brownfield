@@ -8,7 +8,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-    
+
         localStorage.clear()
         // navigate('/login')
     }
@@ -42,22 +42,22 @@ const Navbar = () => {
                 </div> */}
 
                 <div>
-                    {localStorage.getItem('USER_KEY') != null ? 
-                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a> :
-                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogin}>Login</a>
-                    
-                }
-                    
+                    {localStorage.getItem('USER_KEY') != null ?
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a> :
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogin}>Login</a>
+
+                    }
+
                 </div>
                 {localStorage.getItem('USER_KEY') == null ?
-                <div>
-                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/register')}>SignUp</a>
-                </div> :
-                null
+                    <div>
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/register')}>SignUp</a>
+                    </div> :
+                    null
                 }
             </div>
         </nav>
-    )   
+    )
 }
 
 export default Navbar;

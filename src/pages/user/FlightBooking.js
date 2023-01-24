@@ -93,7 +93,7 @@ const FlightBooking = (res) => {
         e.preventDefault()
         console.log("qwertyuiop")
         console.log(data)
-       
+
     }
 
     console.log(passengerArray)
@@ -103,7 +103,7 @@ const FlightBooking = (res) => {
             setFlightData(res.data)
             console.log(res.data)
             dispatch(getFlightById(res.data))
-            
+
         }).catch(err => {
             console.log(err)
         })
@@ -124,7 +124,7 @@ const FlightBooking = (res) => {
                             {res.FlightBooking.data.dateOfTravelling}
                         </p>
                         <div className="mb-5">
-                            <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5   relative">
+                            <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5 relative">
                                 {res.FlightBooking.data.source} at {res.FlightBooking.flights[0].flight.departureTime}
                             </span>
                             <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
@@ -228,7 +228,7 @@ const FlightBooking = (res) => {
                 </div>
 
                 <button onClick={contactData} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
-                       
+
             </section>
 
 
