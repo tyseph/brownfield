@@ -71,7 +71,7 @@ const Dashboard = () => {
   const getGraph = () => {
     GetRevenueByDate().then((res) => {
       setGraph(res.data)
-      console.log(res.data)
+      // console.log(res.data)
     })
   }
 
@@ -97,6 +97,10 @@ const Dashboard = () => {
     });
     // return tmp;
   }
+
+  const select  = useSelector(state => state.auth.username)
+
+  console.log('checking',select)
 
   return (
     <div className="flex">

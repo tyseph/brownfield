@@ -17,3 +17,10 @@ export const userLogin = (authRequest) => {
     })
 }
 
+export const checkToken = (token) => {
+    return axios({
+        'method': 'POST',
+        'url': `${authURL}/isValidateToken`,
+        'data': token
+    })
+}

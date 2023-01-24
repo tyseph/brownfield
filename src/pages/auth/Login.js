@@ -56,7 +56,9 @@ const Login = () => {
     userLogin(values).then((response) => {
       if (response.status === 200) {
         localStorage.setItem('USER_KEY', response.data.token)
-        dispatch(login(values))
+        console.log(response.data)
+        dispatch(login(values.username))
+
         if(response.data.role === "User") {
           navigate("/")
         } else if (response.data.role === "Admin") {
@@ -77,7 +79,16 @@ const Login = () => {
           });
       }
       else {
-        console.log('something wrong, please try again')
+        toast.error('Something went wrong. Please try again!', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     })
       .catch((err) => {
@@ -111,7 +122,16 @@ const Login = () => {
                 
           }
         } else {
-          console.log('something wrong please try again')
+          toast.error('Something went wrong. Please try again!', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
       })
   }

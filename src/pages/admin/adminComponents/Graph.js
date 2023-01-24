@@ -30,10 +30,10 @@ const Graph = ({ revenue, graph }) => {
       // sales: Math.floor(Math.random() * 500),
     };
   });
-  console.log(graphData)
+  // console.log(graphData)
 
   const CustomTooltip = () => (
-    <div className="rounded-xl overflow-hidden tooltip-head">
+    < div className="rounded-xl overflow-hidden tooltip-head" >
       <div className="flex items-center justify-between p-2">
         <div className="">Total Revenue</div>
         <Icon path="res-react-dash-options" className="w-2 h-2" />
@@ -42,7 +42,7 @@ const Graph = ({ revenue, graph }) => {
         <div className="text-white font-bold">{revenue}</div>
         {/* <div className="">Revenue from 230 sales</div> */}
       </div>
-    </div>
+    </div >
   );
 
 
@@ -54,7 +54,7 @@ const Graph = ({ revenue, graph }) => {
           <div className="flex-grow" />
 
           <Icon path="res-react-dash-graph-range" className="w-4 h-4" />
-          <div className="ml-2">Last 8 Days</div>
+          <div className="ml-2">Last 15 Days</div>
           {/* <div className="ml-6 w-5 h-5 flex justify-center items-center rounded-full icon-background">
             ?
           </div> */}

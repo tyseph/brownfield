@@ -43,7 +43,7 @@
 
 .flightsearch {
   /* background-color: #0F172A; */
-  border-radius: 17px;
+  border-radius: 15px;
   /* border-top-left-radius: 17px; */
 }
 
@@ -139,9 +139,9 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   border-bottom-right-radius: 20%;
   border-bottom-left-radius: 20%;
   height: 50vh;
+  position: absolute;
   background-size: cover;
 }
-
 
 .dateInput {
   flex-flow: row-reverse;
@@ -149,7 +149,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   cursor: pointer;
   background-color: #f8fafc;
   border-bottom: 1px solid black;
-  margin-top: 12px;
+  /* margin-top: 12px; */
 }
 
 .numberInput {
@@ -158,23 +158,23 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   border-bottom: 1px solid black;
 }
 
-.flightSearchBox {
-  margin-top: -20%;
-  border-radius: 17px;
-  /* padding-top: 17%; */
+@media screen and (min-width: 700px) and (min-height: 500) {
+  /* .flightSearchBox {
+    margin-top: -20%;
+    border-radius: 15px;
+    /* padding-top: 17%; */
 }
-
-.way {
+*/ .way {
   margin-left: -1.5vh;
 }
 
-.flightImage {
+/* .flightImage {
   height: 110px;
   margin-left: 3vh;
   position: absolute;
   right: 3vw;
-  top: 30vh
-}
+  top: 30vh;
+} */
 
 .tag {
   color: white;
@@ -188,7 +188,7 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   text-align: center;
 }
 
-@media screen and (max-width: 768px) and (max-height: 1240px) {
+@media screen and (max-width: 768px) and (max-height: 700px) {
   .changeIcon {
     margin-top: 1vh;
     height: 27px;
@@ -230,11 +230,6 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     font-size: large;
   }
 
-  .flightSearchBox {
-    border-radius: 17px;
-    padding-top: 0%;
-  }
-
   .search-button {
     text-align: center;
     left: 41vw !important;
@@ -258,63 +253,60 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     padding: 200px 0;
     background-size: cover;
     object-fit: fill;
-
   }
 
   .changeIcon {
     display: none;
   }
 
-
   .homePageBanner {
     display: none;
   }
 
-  
-.colOne {
-  border-left: solid 5px #0f1821;
-  margin-left: 25vw !important;
+  .colOne {
+    border-left: solid 5px #0f1821;
+    margin-left: 25vw !important;
+  }
+
+  .colTwo {
+    margin-left: 35vw !important;
+  }
+
+  .colThree {
+    margin-left: 45vw !important;
+  }
+
+  .colFour {
+    margin-left: 55vw !important;
+  }
+
+  .colFive {
+    margin-left: 65vw !important;
+  }
+
+  .colSix {
+    margin-left: 75vw !important;
+    border-right: solid 5px #0f1821;
+  }
 }
 
-.colTwo {
-  margin-left: 35vw !important;
-}
-
-.colThree {
-  margin-left: 45vw !important;
-}
-
-.colFour {
-  margin-left: 55vw !important;
-}
-
-.colFive {
-  margin-left: 65vw !important;
-}
-
-.colSix {
-  margin-left: 75vw !important;
-  border-right: solid 5px #0f1821;
-}
-
-}
-
-@media screen and (min-width: 769px) and (max-width: 1023px) {
-  .flightImage {
+@media screen and (min-width: 769px) and (min-height: 1023px) {
+  /* .flightImage {
     height: 9vh;
     position: absolute;
     right: 6vw;
-    top: 68vh
-  }
+    top: 30vh;
+  } */
 
   .tag {
     display: none;
   }
 
-  .flightSearchBox {
-    border-radius: 17px;
+  /* .flightSearchBox {
+    margin-top: -20px;
+    border-radius: 15px;
     padding-top: 0%;
-  }
+  } */
 
   .h1 {
     font-size: 15px;
@@ -322,16 +314,15 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
     text-align: center;
     margin-top: 0vh;
   }
-  
 }
 
 @media screen and (min-height: 700px) and (max-height: 1029px) and (min-width: 300px) and (max-width: 1025px) {
-  .flightImage {
+  /* .flightImage {
     height: 9vh;
     position: absolute;
     right: 1vw;
     top: 30vh;
-  }
+  } */
 }
 
 .search-button {
@@ -418,8 +409,6 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   top: 9 px;
 }
 
-
-
 .seatsDiv {
   /* max-width: 120px; */
   /* margin-left: 15vh; */
@@ -455,7 +444,6 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 .seats img {
   height: 31px;
 }
-
 
 .colOne {
   border-left: solid 5px #0f1821;

@@ -8,8 +8,12 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-    
+
         localStorage.clear()
+        // navigate('/login')
+    }
+
+    const handleLogin = () => {
         navigate('/login')
     }
 
@@ -25,7 +29,7 @@ const Navbar = () => {
                 </button>
             </div>
             <div class="w-full block flex-grow lg:flex justify-end lg:items-center lg:w-auto">
-                <div class="text-sm lg:mt-0 ">
+                {/* <div class="text-sm lg:mt-0 ">
                     <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-8">
                         Docs
                     </a>
@@ -35,10 +39,22 @@ const Navbar = () => {
                     <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-8">
                         Blog
                     </a>
-                </div>
+                </div> */}
+
                 <div>
-                    <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a>
+                    {localStorage.getItem('USER_KEY') != null ?
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a> :
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogin}>Login</a>
+
+                    }
+
                 </div>
+                {localStorage.getItem('USER_KEY') == null ?
+                    <div>
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/register')}>SignUp</a>
+                    </div> :
+                    null
+                }
             </div>
         </nav>
     )

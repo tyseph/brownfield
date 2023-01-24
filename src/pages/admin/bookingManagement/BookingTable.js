@@ -53,7 +53,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
   };
 
   const viewBooking = (id, state) => {
-    console.log(id)
+    // console.log(id)
     setView({
       bookingId: id,
       state: state

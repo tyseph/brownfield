@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getFlightByID } from "../../../api/FlightManagementService";
 import AllAirports from "./AllAirports";
 
@@ -17,7 +18,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
     // useEffect(() => {
     //     getFlightByID(update.id).then(res => console.log(res.data))
     // }, [])
-    console.log(UpdateFlight, update)
+    // console.log(UpdateFlight, update)
 
     const handleOnChange = (e) => {
         e.preventDefault()
@@ -31,6 +32,16 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
         e.preventDefault()
         if (UpdateFlight.sourceCode !== "" && UpdateFlight.destinationCode !== "") {
             updateFlightData(update.flightId, UpdateFlight)
+            toast.success(`FlightId ${update.flightId} Updated Successfully`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             // clear()
             changeUpdate("", "", "", "", "", "", false)
         }
@@ -82,7 +93,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                             </label>
                             <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" onChange={handleOnChange} onSelect={handleOnChange} required
                                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option selected disabled>Destination code...</option>
+                                <option disabled>Destination code...</option>
                                 {
                                     airPorts.map((item, index) => {
                                         return (
@@ -141,7 +152,8 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                                     value={UpdateFlight.flightStatus} className="sr-only peer" />
                                 <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
-                            </label></div>
+                            </label>
+                        </div>
                     </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">

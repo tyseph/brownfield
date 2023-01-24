@@ -133,7 +133,7 @@ const FlightBooking = (res) => {
                             {res.FlightBooking.data.dateOfTravelling}
                         </p>
                         <div className="mb-5">
-                            <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5   relative">
+                            <span class="text-gray-700 text-base text-white pt-2 ml-4 mb-5 relative">
                                 {res.FlightBooking.data.source} at {res.FlightBooking.flights[0].flight.departureTime}
                             </span>
                             <span class="text-gray-700 text-base text-white pt-2 ml-44 relative">
@@ -148,34 +148,9 @@ const FlightBooking = (res) => {
 
                     <hr />
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                
+                
+                
 
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
 
@@ -208,23 +183,6 @@ const FlightBooking = (res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 mb-5 text-white">
                     <div >
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center ">Contact Details</div>
@@ -238,6 +196,7 @@ const FlightBooking = (res) => {
 
                 </div>
 
+                <button onClick={contactData} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
 
             </section>
 
@@ -277,6 +236,44 @@ const FlightBooking = (res) => {
                     </div>
 
                 </div>
+                {passengerArray.length > 0 ? 
+                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
+
+                <div class="relative">
+                    <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passengers Added</div>
+
+                    <form>
+                        {passengerArray.map((item, index) => {
+                            return (
+                                <p class="text-gray-700 text-base ml-4">
+                            {index +1}. {item.firstName} {item.lastName}, {item.gender}
+                        </p>
+                            )
+                        })}
+                        {/* <p class="text-gray-700 text-base ml-4">
+                            {passengerArray[0].firstName} {passengerArray[0].lastName}, {passengerArray[0].gender}
+                        </p> */}
+
+
+                        {/* <h1 className="text-black ml-4">Passenger {count}</h1> */}
+                        {/* <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male"/>
+                        <label for="Male" className='mr-3 sm:mr-4 text-sm text-gray-900'>Male</label>
+                        <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="FEMALE" id="Female"/>
+                        <label for="Female" className='mr-3 sm:mr-4 text-sm text-gray-900'>Female</label><br />
+                        <text class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" id="Firstname" type="text" placeholder="Firstname" name="firstName" value={passengers.firstName}/>
+                        <text class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700   mr-10 ml-4" id="Lastname" type="text" placeholder="Lastname" name="lastName" value={passengers.lastName}/><br /> */}
+                        {/* {
+                            count > passengerArray.length ?
+                                <button onClick={(e) => addPassenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mt-3 ml-4 mb-4"> Add </button>
+                                :
+                                <p className="text-gray-900 mt-4 ml-4">You Have Added {numberOfPassenger} passengers</p>
+                        } */}
+                        {/* <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button> */}
+                    </form>
+                </div>
+                <hr />
+            </div>    
+            : null}
             </section>
         </div>
     )

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import AllAirports from "./AllAirports";
+import { toast } from "react-toastify";
+
 
 const AddFlight = ({ airPorts, insertFlightData }) => {
 
@@ -20,7 +22,7 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
 
     const handleClick = (e) => {
         e.preventDefault()
-        if (addFlight.sourceCode !== "" && addFlight.destinationCode !== "") {
+        if (addFlight.sourceCode !== "" && addFlight.destinationCode !== "" && addFlight.destinationCode !== addFlight.sourceCode) {
             insertFlightData(addFlight)
             setAddFlight({
                 sourceCode: "",
@@ -28,6 +30,18 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
                 timeOfDeparture: "12:00",
                 timeOfArrival: "14:00"
             })
+        }
+        else {
+            toast.error('Please Enter Correct Details', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 

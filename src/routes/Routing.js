@@ -15,6 +15,9 @@ import PDFFile from "../pages/user/PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import ReactPDF from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
+import Payments from "../pages/PaymentGateway";
+import ProtectedRoute from "../ProtectedRoutes";
+import ProtectedAdminRoute from "../ProtectedAdminRoutes";
 
 const Routing = () => {
 
@@ -29,14 +32,17 @@ const Routing = () => {
           <Route path="/" element={<Home SetSearchDetails={setSearchDetails} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          
+          <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+          
           <Route path="/flightmanagement" element={<FlightManagement />} />
           {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
           <Route path="/passengers" element={<Passengers />} />
           <Route path="/flights" element={<SearchResult SearchResult={searchDetails} SetFlightBooking={setFlightBooking} />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/:id/flightbooking" element={<FlightBooking FlightBooking={flightBooking} />} />
-          <Route path="/seats" element={<Seats />} />
+          <Route path="/:id/flightbooking" element={<ProtectedRoute><FlightBooking FlightBooking={flightBooking} /></ProtectedRoute>} />
+          <Route path="/seats" element={<ProtectedRoute><Seats /></ProtectedRoute>} />
+          <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
 
           {/* <Route path="/pdf" element={
             <PDFDownloadLink document={<PDFFile />} fileName="FORM">

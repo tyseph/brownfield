@@ -1,15 +1,15 @@
 import React from "react";
 
-const SearchFlight = ({airport, placeholder,name ,onChange}) => {
+const SearchFlight = ({ airport, placeholder, name, onChange }) => {
     // console.log(airport)
     return (
-        <div className="relative inline-block mt-4 xl:mt-0 md:mt-0 lg:mt-0 sxl:mt-0 text-left text-white border-solid border border-white rounded-md  ">
-            <select onChange={onChange} name={name} defaultValue="" placeholder="Select time" className="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-white font-bold bg-gray-900" id="grid-state" >
+        <div className="relative inline-block mt-4 xl:mt-0 md:mt-0 lg:mt-0 sxl:mt-0 text-left text-gray-900 bg-gray-200 rounded-md  ">
+            <select onChange={onChange} name={name} defaultValue="" placeholder="Select time" className="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-gray-900 font-bold bg-gray-200" id="grid-state" >
                 <option>{placeholder}</option>
                 {
                     airport.map((item) => {
                         return (
-                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg text-white font-semibold block px-4 py-2 text-md">{item.code} -  {item.city}</option>
+                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg text-gray-900 font-semibold block px-4 py-2 text-md">{item.code}{": "}{item.city}</option>
                         )
                     })
                 }
