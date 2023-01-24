@@ -31,10 +31,10 @@ import { getAllAiriports } from "../../../api/FlightManagementService";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const BookingManagement = () => {
+const BookingManagement = ({ noOfUser }) => {
   const [tasksCompleted, setTasksCompleted] = useState();
 
-  const [airPorts, setAirPorts] = useState([]);
+  const [airPorts, setAirPorts] = useState(useSelector((state) => state.admin.airports));
 
   const [bookings, setBookings] = useState([]);
 
@@ -49,7 +49,7 @@ const BookingManagement = () => {
     getAllBookings().then((res) => {
       if (res.status === 200) {
         setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
-        console.log('inside get all users', res)
+        console.log('inside get all users', res.data)
         dispatch(
           GetAllBookings(
             res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
@@ -64,21 +64,19 @@ const BookingManagement = () => {
     // console.log("CAlled")
   }, []);
 
-  useEffect(() => {
-    // adminSearch()
+  // useEffect(() => {
+  //   // adminSearch()
 
-    getAllAiriports().then((res) => {
-      setAirPorts(res.data);
-    });
-  }, []);
+  //   getAllAiriports().then((res) => {
+  //     setAirPorts(res.data);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    // adminSearch()
-
-    getAllUsers().then((res) => {
-      setUsers(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getAllUsers().then((res) => {
+  //     setUsers(res.data);
+  //   });
+  // }, []);
 
   const adminSearch = (obj) => {
     console.log('inside adminSearch', obj)
@@ -108,7 +106,7 @@ const BookingManagement = () => {
 
       rise: true,
 
-      tasksCompleted: bookings.length,
+      tasksCompleted: noOfUser.length,
 
       imgId: <FlightIcon />,
     },
@@ -174,14 +172,14 @@ const BookingManagement = () => {
         </div> */}
 
         <div className="p-2 w-screen justify-center align-center">
-          
-            <BookingTable
-              clear={() => setClear(!clear)}
-              searchBooking={adminSearch}
-              users={users}
-              bookings={bookings}
-              airPorts={airPorts}
-            />
+
+          <BookingTable
+            clear={() => setClear(!clear)}
+            searchBooking={adminSearch}
+            users={users}
+            bookings={bookings}
+            airPorts={airPorts}
+          />
         </div>
       </div>
     </div>

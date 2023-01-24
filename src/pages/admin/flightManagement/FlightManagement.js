@@ -31,52 +31,49 @@ import {
 } from "../../../api/FlightManagementService";
 
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 
 const FlightManagement = () => {
-  const [tasksCompleted, setTasksCompleted] = useState();
+  const [tasksCompleted, setTasksCompleted] = useState(0);
 
   const [add, setAdd] = useState(false);
 
   const [flights, setFlights] = useState([]);
 
-  const [airPorts, setAirPorts] = useState([]);
+  const [airPorts, setAirPorts] = useState(useSelector((state) => state.admin.airports));
+  // console.log(airPorts)
 
   const [clear, setClear] = useState(false);
 
-  const flightState = useSelector((state) => state.admin);
+  // const flightState = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // alert("onecs")
     getAllFlights().then((res) => {
       if (res.status === 200) {
-        setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
-        console.log(res.data)
+        setFlights(res.data)
+        // setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+        // console.log(res.data)
         dispatch(
-          GetAllFlights(
-            res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
-          )
+          // GetAllFlights(
+          //   res.data.sort(({ flightId: a }, { flightId: b }) => a - b)
+          // )
+          GetAllFlights(res.data)
         );
         setTasksCompleted(res.data.length);
       } else {
         console.log("could not get data");
       }
     });
-
-    // console.log("CAlled")
-  }, [add, clear]);
-
-  useEffect(() => {
-    // adminSearch()
-
-    getAllAiriports().then((res) => {
-      setAirPorts(res.data);
-    });
-  }, []);
+  }, [clear, add]);
 
   const adminSearch = (obj) => {
     getByAdminSearch(obj).then((res) => {
-      setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b));
+      setFlights(res.data)
+      // setFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b))
+      // dispatch(GetAllFlights(res.data.sort(({ flightId: a }, { flightId: b }) => a - b)))
+      // setClear(!clear)
     });
   };
 
@@ -96,7 +93,7 @@ const FlightManagement = () => {
   const toggleFlightStatus = (id) => {
     postUpdateFlightStatus(id).then((res) => {
       setClear(!clear)
-      console.log(id, res.data)
+      // console.log(id, res.data)
     })
   }
 
@@ -112,7 +109,7 @@ const FlightManagement = () => {
 
       rise: true,
 
-      tasksCompleted: airPorts.length,
+      tasksCompleted: useStore().getState().admin.airports.length,
 
       imgId: <FlightIcon />,
     },

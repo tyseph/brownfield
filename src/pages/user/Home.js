@@ -273,21 +273,6 @@ const Home = (props) => {
       <Cards />
 
     </div >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 };
 

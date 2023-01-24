@@ -3,7 +3,7 @@ import { getFlightByID } from "../../../api/FlightManagementService";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const ViewBooking = ({ view }) => {
+const ViewBooking = ({ view, goBack }) => {
   const bookingDatas = useSelector((state) => state.admin.bookings);
   const [current, setCurrent] = useState({
     bookingId: "",
@@ -11,9 +11,29 @@ const ViewBooking = ({ view }) => {
     dateOfTravelling: "",
     email: "",
     mobileNo: "",
-    noOfPassenger: "",
+    passengerInfo: []
   });
-  console.log("Selcetor in view Booking", view);
+
+  const [fare, setFare] = useState({
+    ancillaryCharges: "100",
+    fareId: "",
+    seatReserveCharges: "250",
+    taxes: "",
+    totalFare: "",
+    travelCharges: "",
+  })
+
+  const [flight, setFlight] = useState({
+    flightId: "",
+    departureTime: "",
+    source: "",
+    arrivalTime: "",
+    destination: "",
+    distance: "",
+    flightStatus: "",
+  })
+
+  // console.log("Selcetor in view Booking", view);
   const bookingData = () => {
     // if (bookingDatas.e.bookingId === view.id) {
     //   return e;
@@ -22,14 +42,33 @@ const ViewBooking = ({ view }) => {
   useEffect(() => {
     for (let i = 0; i < bookingDatas.length; i++) {
       if (bookingDatas[i].bookingId === view.bookingId) {
+        console.log(bookingDatas[i])
         setCurrent({
           bookingId: bookingDatas[i].bookingId,
           dateOfBooking: bookingDatas[i].dateOfBooking,
           dateOfTravelling: bookingDatas[i].dateOfTravelling,
           email: bookingDatas[i].email,
           mobileNo: bookingDatas[i].mobileNo,
-          noOfPassenger: bookingDatas[i].noOfPassenger,
+          passengerInfo: bookingDatas[i].passengerInfo,
         });
+        setFare({
+          ancillaryCharges: bookingDatas[i].fare.ancillaryCharges,
+          fareId: bookingDatas[i].fare.fareId,
+          seatReserveCharges: bookingDatas[i].fare.seatReserveCharges,
+          taxes: bookingDatas[i].fare.taxes,
+          totalFare: bookingDatas[i].fare.totalFare,
+          travelCharges: bookingDatas[i].fare.travelCharges,
+        })
+        setFlight({
+          flightId: bookingDatas[i].flight.flightId,
+          departureTime: bookingDatas[i].flight.departureTime,
+          source: bookingDatas[i].flight.source.name,
+          arrivalTime: bookingDatas[i].flight.arrivalTime,
+          destination: bookingDatas[i].flight.destination.name,
+          distance: bookingDatas[i].flight.distance,
+        })
+
+
       }
     }
   }, []);
@@ -67,16 +106,25 @@ const ViewBooking = ({ view }) => {
   };
 
   return (
-    <div className="w-full mt-6">
-      <form className="w-full bg-gray-900 p-8 rounded-lg">
+    <div className="w-full ">
+      <center className="w-full bg-gray-900 p-8 rounded-lg">
         <label
           className="block uppercase text-center tracking-wide text-zinc-100 text-2xl font-bold mb-6"
           htmlFor="grid-zip"
         >
           View Booking Data
         </label>
-        <div className="flex flex-wrap justify-around mb-6">
-          <div className="relative w-full md:w-1/5">
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Booking details
+        </label>
+
+        <div className="flex flex-wrap justify-center mb-6">
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
               htmlFor="grid-zip"
@@ -88,7 +136,7 @@ const ViewBooking = ({ view }) => {
                 value={current.bookingId}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
             </div>
           </div>
@@ -107,30 +155,9 @@ const ViewBooking = ({ view }) => {
                 )}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
-              {/* <select name="sourceCode" value={UpdateFlight.sourceCode} id="source" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
-                                <option selected disabled>Source code...</option>
-                                {
-                                    airPorts.map((item, index) => {
-                                        return (
-                                            <option key={index} value={item.code}>{item.code}{":  "}{item.name}</option>
-                                        )
-                                    })
-                                }
-                            </select> */}
-              {/* <AllAirports name="sourceCode" value={UpdateFlight.sourceCode} gap="pl-12" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." /> */}
-              <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
             </div>
-            {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
           </div>
           <div className="w-full md:w-1/3 px-3">
             <div className="relative">
@@ -147,60 +174,15 @@ const ViewBooking = ({ view }) => {
                 )}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
-              {/* <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option selected disabled>Destination code...</option>
-                                {
-                                    airPorts.map((item, index) => {
-                                        return (
-                                            <option key={index} value={item.code}>{item.code}{":  "}{item.name}</option>
-                                        )
-                                    })
-                                }
-                            </select> */}
-              <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
+
             </div>
             {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
           </div>
         </div>
-        {/* <div className="flex flex-wrap text-center p-2 mx-6 mb-6">
-
-                    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
-                                {dataSource.name}
-                            </label>
-                            <p className="text-zinc-100 text-xs italic">{dataSource.city}{", "}{dataSource.state}</p>
-                        </div>
-                    </div>
-                    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-lg font-bold" htmlFor="grid-zip">
-                                1820
-                            </label>
-                            <p className="text-zinc-100 text-xs italic">KM</p>
-                        </div>
-                    </div>
-                    <div className="w-full md:w-1/3 px-3">
-                        <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
-                                {dataDestination.name}
-                            </label>
-                            <p className="text-zinc-100 text-xs italic">{dataDestination.city}{", "}{dataDestination.state}</p>
-                        </div>
-                    </div>
-                </div> */}
-        <div className="flex flex-wrap justify-around mb-6">
-          <div className="relative w-1/5">
+        <div className="flex flex-wrap justify-center mb-6">
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
               className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
               htmlFor="grid-zip"
@@ -211,7 +193,86 @@ const ViewBooking = ({ view }) => {
               value={current.email}
               type="text"
               disabled
-              className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            />
+
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                Mobile number
+              </label>
+              <input
+                value={current.mobileNo}
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                Passenger details
+              </label>
+              {/* <input
+                value={current.passengerInfo.length}
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              /> */}
+              <select name="passenger" id="passenger" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <option selected disabled>{current.passengerInfo.length}</option>
+                {
+                  current.passengerInfo.map((item, index) => {
+                    return (
+                      <option disabled key={index} value={item.passengerId}>{item.passengerId}{": "}{item.firstName}{" "}{item.lastName}{", "}{item.gender[0]}{", "}{item.seatNo}</option>
+                    )
+                  })
+                }
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 fw-extrabold mr-20 flex items-center px-2 text-zinc-900">
+                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              </div>
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+        </div>
+
+        {/* <hr className="border border-4 border-gray-200" /> */}
+        <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Fare details
+        </label>
+        <div className="flex flex-wrap justify-center mb-6">
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              htmlFor="grid-zip"
+            >
+              Fare Id
+            </label>
+            <input
+              value={fare.fareId}
+              type="text"
+              disabled
+              className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             />
             {/* <div className="rounded-md mt-2 shadow-sm">
                             <label className="relative inline-flex items-center cursor-pointer">
@@ -229,16 +290,16 @@ const ViewBooking = ({ view }) => {
                 className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
                 htmlFor="grid-zip"
               >
-                Mobile number
+                seat Reservation Charges
               </label>
               <input
-                value={current.mobileNo}
+                value={`₹ ${fare.seatReserveCharges}`}
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
               {/* <div className="rounded-md shadow-sm">
-                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                             </div> */}
             </div>
           </div>
@@ -248,37 +309,283 @@ const ViewBooking = ({ view }) => {
                 className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
                 htmlFor="grid-zip"
               >
-                Number of passengers
+                Travel Charges
               </label>
-              <input
-                value={current.noOfPassenger}
+              <input value={`₹ ${fare.travelCharges}`}
+
                 type="text"
                 disabled
-                className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               />
               {/* <div className="rounded-md shadow-sm">
-                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                             </div> */}
             </div>
           </div>
         </div>
+
+        <div className="flex flex-wrap justify-center mb-6">
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              htmlFor="grid-zip"
+            >
+              Auxillary Charges
+            </label>
+            <input
+              value={`₹ ${fare.ancillaryCharges}`}
+              type="text"
+              disabled
+              className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            />
+            {/* <div className="rounded-md mt-2 shadow-sm">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox"
+                                    checked={UpdateFlight.flightStatus}
+                                    value={UpdateFlight.flightStatus} className="sr-only peer" />
+                                <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            </label></div> */}
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                taxes
+              </label>
+              <input
+                value={`₹ ${fare.taxes}`}
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                Toatal fare
+              </label>
+              <input value={`₹ ${fare.totalFare}`}
+
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+        </div>
+
+
+        {/* arrivalTime
+        :
+        "18:55:00"
+        departureTime
+        :
+        "08:45:00"
+        destination
+        :
+        {code: 'PNQ', name: 'Pune Airport', city: 'Pune', state: 'Maharashtra', country: 'India', …}
+        distance
+        :
+        124.76574933826953
+        flightId
+        :
+        498
+        flightStatus
+        :
+        true
+        source
+        :
+        city
+        :
+        "Mumbai"
+        code
+        :
+        "BOM"
+        country
+        :
+        "India"
+        elev
+        :
+        36
+        lat
+        :
+        19.0932
+        lon
+        :
+        72.8654
+        name
+        :
+        "Chhatrapati Shivaji International Airport"
+        state
+        :
+        "Maharashtra" */}
+
+        <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+
+        <label
+          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          htmlFor="grid-zip"
+        >
+          Flight details
+        </label>
+
+
+        <div className="flex flex-wrap justify-center mb-6">
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              htmlFor="grid-zip"
+            >
+              Flight Id
+            </label>
+            <input
+              value={flight.flightId}
+              type="text"
+              disabled
+              className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            />
+            {/* <div className="rounded-md mt-2 shadow-sm">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox"
+                                    checked={UpdateFlight.flightStatus}
+                                    value={UpdateFlight.flightStatus} className="sr-only peer" />
+                                <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            </label></div> */}
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                departureTime Time
+              </label>
+              <input
+                value={flight.departureTime}
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                source
+              </label>
+              <input
+                value={flight.source}
+
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center mb-6">
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              htmlFor="grid-zip"
+            >
+              Distance
+            </label>
+            <input
+              value={`${Math.round(flight.distance)} KM`}
+              type="text"
+              disabled
+              className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            />
+            {/* <div className="rounded-md mt-2 shadow-sm">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox"
+                                    checked={UpdateFlight.flightStatus}
+                                    value={UpdateFlight.flightStatus} className="sr-only peer" />
+                                <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            </label></div> */}
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                Arrival time
+              </label>
+              <input
+                value={flight.arrivalTime}
+
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfDeparture}  name="timeOfDeparture" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 px-3 md:mb-0">
+            <div className="relative">
+              <label
+                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                htmlFor="grid-zip"
+              >
+                Destination
+              </label>
+              <input
+                value={flight.destination}
+
+
+                type="text"
+                disabled
+                className="block cursor-not-allowed appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              {/* <div className="rounded-md shadow-sm">
+                                <input value={UpdateFlight.timeOfArrival}  name="timeOfArrival" type="time" required className="block appearance-none w-3/5 bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            </div> */}
+            </div>
+          </div>
+        </div>
+
         <center className="justify-center flex flex-wrap gap-4 align-center">
           <span className="block rounded-md shadow-sm">
-            <button
-              onClick={handleClick}
-              className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 "
-            >
-              Update
-            </button>
+            {/* <button onClick={handleClick} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Update</button> */}
           </span>
           <span className="block rounded-md shadow-sm">
-            <button className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-red-900 hover:bg-sky-600 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">
-              Cancel
-            </button>
+            <button onClick={goBack} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-red-900 hover:bg-sky-600 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Cancel</button>
           </span>
         </center>
-      </form>
-    </div>
+      </center>
+    </div >
   );
 };
 

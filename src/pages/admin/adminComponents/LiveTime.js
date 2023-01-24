@@ -101,7 +101,7 @@ const LiveTime = () => {
                                 strokeWidth="6"
                             />
                         </svg> */}
-                        <div className="text-gray-500 align-items-center justify-content-center text-xs">
+                        <div className="text-gray-500 align-items-center justify-content-center pt-4 text-xs">
                             {/* {date.getHours()}{':'}{date.getMinutes()}{":"}{date.getSeconds()}{" hours"} */}
                             {date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
 

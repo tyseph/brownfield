@@ -39,13 +39,13 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
     return (
         <div className="w-full mt-6">
 
-            <form className="w-full bg-gray-900 p-8 rounded-lg">
+            <center className="w-full bg-gray-900 p-8 rounded-lg">
                 <label className="block uppercase text-center tracking-wide text-zinc-100 text-2xl font-bold mb-6" htmlFor="grid-zip">
                     Update Flight data
                 </label>
-                <div className="flex flex-wrap justify-around mb-6">
+                <div className="flex flex-wrap justify-center mb-6">
 
-                    <div className="relative w-full md:w-1/5">
+                    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                             Flight ID
                         </label>
@@ -80,7 +80,8 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                             <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                                 Destination Airport Code
                             </label>
-                            <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" onChange={handleOnChange} onSelect={handleOnChange} required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" onChange={handleOnChange} onSelect={handleOnChange} required
+                                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option selected disabled>Destination code...</option>
                                 {
                                     airPorts.map((item, index) => {
@@ -126,7 +127,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                 </div> */}
                 <div className="flex flex-wrap justify-around mb-6">
 
-                    <div className="relative w-1/5">
+                    <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
                             Flight Status
                         </label>
@@ -172,7 +173,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                         <button onClick={() => changeUpdate()} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-red-900 hover:bg-sky-600 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Cancel</button>
                     </span>
                 </center>
-            </form >
+            </center >
         </div >
     )
 }
