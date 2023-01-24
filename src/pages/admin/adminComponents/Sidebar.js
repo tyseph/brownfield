@@ -8,6 +8,7 @@ import MenuItem from "./MenuItem";
 import Image from "./Image";
 import './componentscss.css'
 import LiveTime from "./LiveTime";
+import { Navigate } from 'react-router-dom';
 
 const sidebarItems = [
   [
@@ -25,6 +26,7 @@ const sidebarItems = [
 
 const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
 
+  const navigate = useNavigate();
 
   const { dashOffset, indicatorWidth, precentage } = useSpring({
     dashOffset: 26.015,
@@ -33,6 +35,13 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
     from: { dashOffset: 113.113, indicatorWidth: 0, precentage: 0 },
     config: config.molasses,
   });
+
+  const handleLogout = () => {
+    
+    localStorage.clear()
+    navigate('/login')
+}
+
   return (
     <div
       className={
@@ -102,6 +111,9 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
             path="res-react-dash-options"
             className="block sm:hidden xl:block w-3 h-3"
           /> */}
+          <div>
+          <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import flight from '../../elements/flight.jpg'
+import forgor from '../../elements/flight.jpg'
 import { toast } from 'react-toastify'
 
 const ForgotPassword = () => {
@@ -117,7 +118,7 @@ const ForgotPassword = () => {
         <>
             <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
                 <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
-                    <img className="absolute inset-0 h-full w-full object-cover" src={flight} />
+                    <img className="absolute inset-0 h-full w-full object-cover" src={forgor} />
                 </div>
                 <div className="flex items-center justify-center p-6 min-h-screen w-full">
                     <div className="w-full">
