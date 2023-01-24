@@ -32,7 +32,7 @@ const Seats = () => {
 
     // console.log(data.seatNo)
 
-    data.passengerInfo.seatNo = 1
+    data.passengerInfo.seatNo = 5
     console.log(data)
 
 
@@ -57,13 +57,13 @@ const Seats = () => {
                 seatarr.splice(seatarr.indexOf(p), 1)
             }
         }
-        console.log(data.seatNo)
+        console.log(data.passengerInfo.seatNo)
     }
 
 
     useEffect(() => {
         console.log(data.seatNo)
-        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/F-BF-49/2023-02-09").then(res => {
+        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/F-BF-49/2023-02-10").then(res => {
             setBooked(res.data)
             console.log(booked)
         }).catch(err => {
