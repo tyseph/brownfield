@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addBooking } from "../../redux/user/userActions";
+
 
 
 const Seats = () => {
@@ -13,8 +15,10 @@ const Seats = () => {
 
 
     const [booked, setBooked] = useState([]);
-    const data = useSelector((state)=>state.user.booking)
-    const numberOfPassenger = 3
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.user.booking)
+    const numberOfPassenger = data.passengerInfo.length
+    
     const seatarr = []
     var bgcolor = ''
     // const pick = (p) => {
@@ -26,8 +30,20 @@ const Seats = () => {
     // }
 
 
+    // console.log(data.seatNo)
+
+    data.passengerInfo.seatNo = 1
+    console.log(data)
 
 
+    const seatSubmit = (e) => {
+        axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+            console.log(res)
+            dispatch(addBooking(res.data))
+        }).catch(err => {
+            console.log(err)
+        })
+    }
     const seatHandler = (p) => {
         console.log(p)
         if (seatarr.length <= numberOfPassenger) {
@@ -41,11 +57,13 @@ const Seats = () => {
                 seatarr.splice(seatarr.indexOf(p), 1)
             }
         }
-        console.log(seatarr)
+        console.log(data.seatNo)
     }
 
+
     useEffect(() => {
-        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookingById/1").then(res => {
+        console.log(data.seatNo)
+        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/F-BF-49/2023-02-09").then(res => {
             setBooked(res.data)
             console.log(booked)
         }).catch(err => {
@@ -203,6 +221,7 @@ const Seats = () => {
                     }
                 </div>
             </div>
+            <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4" onClick={seatSubmit}> Submit </button>
         </div>
     )
 }

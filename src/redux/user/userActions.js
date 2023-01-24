@@ -1,5 +1,5 @@
 import { GET_ALL_FLIGHTS } from "./userTypes"
-import { GET_ALL_AIRPORTS, GET_FLIGHT_DETAILS, GET_FLIGHT_BY_ID, ADD_BOOKING } from "./userTypes"
+import { GET_ALL_AIRPORTS, GET_FLIGHT_DETAILS, GET_FLIGHT_BY_ID, ADD_BOOKING, USER_FLIGHT_BOOKING } from "./userTypes"
 
 export const getAllAirport = (airports) => {
     return {
@@ -29,9 +29,16 @@ export const getFlightById = (flight) => {
     }
 }
 
-export const addBooking = (booking) =>{
+export const addBooking = (booking) => {
     return {
         type: ADD_BOOKING,
-        payload : booking
+        payload: booking
+    }
+}
+
+export const userFlightBooking = (booking) => {
+    return {
+        type: USER_FLIGHT_BOOKING,
+        payload: booking
     }
 }
