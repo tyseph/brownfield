@@ -15,7 +15,7 @@ import PDFFile from "../pages/user/PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import ReactPDF from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
-import Payments from "../pages/PaymentGateway";
+import Payments from "../pages/user/PaymentGateway";
 import ProtectedRoute from "../ProtectedRoutes";
 import ProtectedAdminRoute from "../ProtectedAdminRoutes";
 
