@@ -58,13 +58,12 @@ const Login = () => {
         localStorage.setItem('USER_KEY', response.data.token)
         console.log(response.data)
         dispatch(login(values.username))
-          navigate("/dashboard")
 
-        // if(response.data.role === "User") {
-        //   navigate("/")
-        // } else if (response.data.role === "Admin") {
-        //   navigate("/dashboard")
-        // }
+        if(response.data.role === "User") {
+          navigate("/")
+        } else if (response.data.role === "Admin") {
+          navigate("/dashboard")
+        }
         console.log(response)
         console.log('successfully logged in')
         console.log('in state', inState)
@@ -80,7 +79,16 @@ const Login = () => {
           });
       }
       else {
-        console.log('something wrong, please try again')
+        toast.error('Something went wrong. Please try again!', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     })
       .catch((err) => {
@@ -114,7 +122,16 @@ const Login = () => {
                 
           }
         } else {
-          console.log('something wrong please try again')
+          toast.error('Something went wrong. Please try again!', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
       })
   }
