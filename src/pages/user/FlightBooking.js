@@ -4,6 +4,7 @@ import { getFlightByID } from "../../api/FlightManagementService"
 import { useDispatch, useSelector } from "react-redux"
 import { addBooking, getFlightById } from "../../redux/user/userActions";
 import { useNavigate } from "react-router-dom"
+import { userFlightBooking } from "../../redux/user/userActions";
 
 const FlightBooking = (res) => {
 
@@ -12,6 +13,8 @@ const FlightBooking = (res) => {
         lastName: '',
         gender: '',
     });
+    const [totalFare, setTotalFare] = useState()
+    const [travelCharges, setTravelCharges] = useState();
     const dispatch = useDispatch();
     const flight = useSelector((state) => state.user.flight)
 
@@ -46,7 +49,8 @@ const FlightBooking = (res) => {
                 setPassengers({
                     firstName: '',
                     lastName: '',
-                    gender: ''
+                    gender: '',
+                    seatNo: ''
                 })
 
                 var ele = document.querySelectorAll("input[type=radio]");
@@ -67,24 +71,20 @@ const FlightBooking = (res) => {
         "mobileNo": mobileNo,
         "dateOfTravelling": "2023-02-09",
         "passengerInfo": passengerArray,
+
         "fare": {
-            "travelCharges": 1000,
+            "travelCharges": travelCharges,
             "seatReserveCharges": 250,
             "ancillaryCharges": 100,
             "taxes": 0,
-            "totalFare": 1350
+            "totalFare": totalFare
         }
     }
 
     const contactData = (e) => {
         e.preventDefault()
         console.log(data)
-        axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
-            console.log(res)
-            dispatch(addBooking(res.data))
-        }).catch(err => {
-            console.log(err)
-        })
+        dispatch(userFlightBooking(data))
         navigate("/seats")
     }
 
@@ -98,7 +98,16 @@ const FlightBooking = (res) => {
 
     console.log(passengerArray)
 
+
+
     useEffect(() => {
+
+        // const charge = () => {
+        setTravelCharges(res.FlightBooking.fare * numberOfPassenger)
+        setTotalFare(data.fare.seatReserveCharges + data.fare.ancillaryCharges)
+        console.log("akjdnk")
+        // }
+
         getFlightByID(res.FlightBooking.id).then(res => {
             setFlightData(res.data)
             console.log(res.data)
@@ -139,9 +148,9 @@ const FlightBooking = (res) => {
 
                     <hr />
                 </div>
-                
-                
-                
+
+
+
 
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
 
@@ -177,9 +186,11 @@ const FlightBooking = (res) => {
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 mb-5 text-white">
                     <div >
                         <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center ">Contact Details</div>
-                        <form>
+                        <form onSubmit={contactData}>
                             <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" type="number" placeholder="Mobile no." name="mobileno" onChange={(e) => setMobileNo(e.target.value)} required />
                             <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 mt-3 mb-5 ml-4" type="email" placeholder="emailId" name="emailId" onChange={(e) => setEmail(e.target.value)} required />
+                            <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button>
+
                         </form>
                     </div>
 
@@ -206,53 +217,63 @@ const FlightBooking = (res) => {
                         <p class="text-gray-700 text-base ml-4 ">
                             Base Fare
                         </p>
-                        <p className="text-gray-700 text-base ml-4 mb-5">
-
+                        <p className="text-gray-700 text-base ml-4 mb-5" >
                             Adult(s)   {numberOfPassenger} x {res.FlightBooking.fare} = {res.FlightBooking.fare * numberOfPassenger}
                         </p>
+                        <p class="text-gray-700 text-base ml-4 ">
+                            SeatReserveCharges
+                        </p>
+                        <p className="text-gray-700 text-base ml-4 mb-5" >
+                            Adult(s)   {numberOfPassenger} x {data.fare.seatReserveCharges} = {data.fare.seatReserveCharges * numberOfPassenger}
+                        </p>
 
-
+                        <p class="text-gray-700 text-base ml-4 ">
+                            totalFare
+                        </p>
+                        <p className="text-gray-700 text-base ml-4 mb-5" >
+                            {totalFare + travelCharges}
+                        </p>
                     </div>
 
                 </div>
-                {passengerArray.length > 0 ? 
-                <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
+                {passengerArray.length > 0 ?
+                    <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900  mt-5 ml-5 text-white">
 
-                <div class="relative">
-                    <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passengers Added</div>
+                        <div class="relative">
+                            <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">Passengers Added</div>
 
-                    <form>
-                        {passengerArray.map((item, index) => {
-                            return (
-                                <p class="text-gray-700 text-base ml-4">
-                            {index +1}. {item.firstName} {item.lastName}, {item.gender}
-                        </p>
-                            )
-                        })}
-                        {/* <p class="text-gray-700 text-base ml-4">
+                            <form>
+                                {passengerArray.map((item, index) => {
+                                    return (
+                                        <p class="text-gray-700 text-base ml-4">
+                                            {index + 1}. {item.firstName} {item.lastName}, {item.gender}
+                                        </p>
+                                    )
+                                })}
+                                {/* <p class="text-gray-700 text-base ml-4">
                             {passengerArray[0].firstName} {passengerArray[0].lastName}, {passengerArray[0].gender}
                         </p> */}
 
 
-                        {/* <h1 className="text-black ml-4">Passenger {count}</h1> */}
-                        {/* <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male"/>
+                                {/* <h1 className="text-black ml-4">Passenger {count}</h1> */}
+                                {/* <input type="radio" className="radio mr-2 sm:mr-1 mt-2 ml-4" name="gender" value="MALE" id="Male"/>
                         <label for="Male" className='mr-3 sm:mr-4 text-sm text-gray-900'>Male</label>
                         <input type="radio" className="radio mr-2 sm:mr-1 mb-4" name="gender" value="FEMALE" id="Female"/>
                         <label for="Female" className='mr-3 sm:mr-4 text-sm text-gray-900'>Female</label><br />
                         <text class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-10 ml-4" id="Firstname" type="text" placeholder="Firstname" name="firstName" value={passengers.firstName}/>
                         <text class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-700   mr-10 ml-4" id="Lastname" type="text" placeholder="Lastname" name="lastName" value={passengers.lastName}/><br /> */}
-                        {/* {
+                                {/* {
                             count > passengerArray.length ?
                                 <button onClick={(e) => addPassenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mt-3 ml-4 mb-4"> Add </button>
                                 :
                                 <p className="text-gray-900 mt-4 ml-4">You Have Added {numberOfPassenger} passengers</p>
                         } */}
-                        {/* <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button> */}
-                    </form>
-                </div>
-                <hr />
-            </div>    
-            : null}
+                                {/* <button onClick={(e) => passenger(e)} className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4"> Submit </button> */}
+                            </form>
+                        </div>
+                        <hr />
+                    </div>
+                    : null}
             </section>
         </div>
     )
