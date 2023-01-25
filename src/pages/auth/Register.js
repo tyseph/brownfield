@@ -6,11 +6,12 @@ import { connect } from "react-redux"
 import { userSignup } from "../../api/authenticationService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Navbar from "../user/Navbar";
 
 const Register = () => {
 
-  var today = new Date().toISOString().split('T')[0];
-  console.log(today)
+  // var today = new Date().toISOString().split('T')[0];
+  // console.log(today)
 
 
   const [values, setValues] = useState({
@@ -105,9 +106,20 @@ const Register = () => {
     return classes.filter(Boolean).join(' ')
   }
 
+  const onShowPassword = () => {
+    if ( document.getElementById('showPassword').checked ) {
+      document.getElementById('password').type = "text";
+      document.getElementById('confirm').type = "text";
+   } else {
+      document.getElementById('password').type = "password";
+      document.getElementById('confirm').type = "password";
+   }
+  }
+
   return (
 
     <>
+      <Navbar />
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -288,9 +300,9 @@ const Register = () => {
 
                     <div className="flex items-center">
 
-                      <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
+                      <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword}/>
 
-                      <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+                      <label htmlFor="showPassword" className="block ml-2 text-sm text-gray-900 leading-5"> Show Password </label>
 
                     </div>
 

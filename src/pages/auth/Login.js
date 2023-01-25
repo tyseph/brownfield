@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../api/authenticationService";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Navbar from "../user/Navbar";
 
 import flight from '../../elements/flight.jpg'
 const Login = () => {
@@ -136,11 +137,20 @@ const Login = () => {
       })
   }
 
+  const onShowPassword = () => {
+    if ( document.getElementById('showPassword').checked ) {
+      document.getElementById('password').type = "text";
+   } else {
+      document.getElementById('password').type = "password";
+   }
+  }
+
 
 
   return (
 
     <>
+    <Navbar />
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -204,8 +214,8 @@ const Login = () => {
 
                 <div className="flex items-center justify-between mt-6">
                   <div className="flex items-center">
-                    <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
-                    <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+                    <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword} />
+                    <label htmlFor="showPassword" className="block ml-2 text-sm text-gray-900 leading-5"> Show Password </label>
                   </div>
 
                   <div className="text-sm leading-5">
