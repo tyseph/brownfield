@@ -1,10 +1,14 @@
 import React from "react";
 import logo from '../../elements/brownfieldlogo.png'
 import { useNavigate } from "react-router-dom";
-
+import { getUser } from "../../api/UserDetailsService";
+import { useEffect, useState } from 'react';
 
 
 const Navbar = () => {
+
+    const [user, setUser] = useState('')
+    
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -17,11 +21,24 @@ const Navbar = () => {
         navigate('/login')
     }
 
+    
+
+    useEffect(() => {
+        getUser(localStorage.getItem('USER_KEY')).then(res => {
+        console.log(res.data.firstName)
+        setUser(res.data.firstName)
+        }).catch(err => {
+          console.log('ff',err)
+        })
+      }, [])
+    console.log(window.location.href)
+    
+
     return (
         <nav class="nav flex items-center justify-end flex-wrap bg-gray-800 p-6">
-            <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <div onClick={() => navigate('/')} class="flex items-center flex-shrink-0 text-white mr-6">
                 <img class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" src={logo} />
-                <span class="font-semibold text-xl tracking-tight">Airlines</span>
+                <span class="font-semibold text-xl tracking-tight">Brownfield Airlines</span>
             </div>
             <div class="block lg:hidden">
                 <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
@@ -40,6 +57,18 @@ const Navbar = () => {
                         Blog
                     </a>
                 </div> */}
+                
+                {localStorage.getItem('USER_KEY') == null ?
+                    <div>
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/register')}>SignUp</a>
+                    </div> :
+                    <div  class="flex items-center flex-shrink-0 text-white mr-6">
+                    <span class="font-semibold text-xl tracking-tight">Hello,   {user}</span>
+                    </div>
+                }
+                {window.location.href != 'http://localhost:3000/#' ? <div>
+                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/')}>Home</a>
+                    </div> : null}
 
                 <div>
                     {localStorage.getItem('USER_KEY') != null ?
@@ -49,12 +78,7 @@ const Navbar = () => {
                     }
 
                 </div>
-                {localStorage.getItem('USER_KEY') == null ?
-                    <div>
-                        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={() => navigate('/register')}>SignUp</a>
-                    </div> :
-                    null
-                }
+                
             </div>
         </nav>
     )

@@ -168,11 +168,11 @@ const Login = () => {
         <div className="flex items-center justify-center p-6 min-h-screen w-full">
           <div className="w-full">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-              <a className="flex justify-center font-bold text-4xl">
+              {/* <a className="flex justify-center font-bold text-4xl">
                 <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
-              </a>
+              </a> */}
 
-              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
+              <h2 className="text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
               <p className="mt-2 text-sm text-center leading-5 max-w">
 
                 Or{" "}

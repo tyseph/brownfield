@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux";
 import { addBooking } from "../../redux/user/userActions";
-
+import Navbar from "./Navbar";
 
 
 const Seats = () => {
@@ -77,6 +77,7 @@ const Seats = () => {
     return (
         <div className="">
             {/* <div class="rotated-half-circle"></div> */}
+            <Navbar />
 
             <div className="SeatsMain">
                 <div className="colOne absolute">

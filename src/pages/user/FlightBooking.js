@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { addBooking, getFlightById } from "../../redux/user/userActions";
 import { useNavigate } from "react-router-dom"
 import { userFlightBooking } from "../../redux/user/userActions";
+import Navbar from "./Navbar";
 
 const FlightBooking = (res) => {
 
@@ -121,6 +122,7 @@ const FlightBooking = (res) => {
     console.log(data)
     return (
         <div>
+            <Navbar />
             <section className="left">
                 <div class="rounded-lg overflow-hidden shadow-lg bg-gray border-solid border-2 border-gray-900   mt-5 ml-5 text-white ">
 

@@ -265,7 +265,7 @@ const Home = (props) => {
                         Number of Passengers
                       </label>
 
-                      <select name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
+                      <select id='noOfPassengers' name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

@@ -249,8 +249,8 @@ const Register = () => {
                     <div className="mb-3 xl:w-full w-full">
                       <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
 
-                      <select onChange={handleChange} name="gender" onSelect={handleChange} value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state" >
-                        <option selected>Select Gender</option>
+                      <select onChange={handleChange} name="gender" onSelect={handleChange} required value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state">
+                        <option value='' disabled selected>Select Gender</option>
                         <option>MALE</option>
                         <option>FEMALE</option>
                         <option>OTHER</option>

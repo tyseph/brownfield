@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchFlight from "./SearchFlight";
 import { getAllAiriports, getFlightBySearch } from "../../api/FlightManagementService";
 import { getAllFlights } from "../../redux/user/userActions";
+import Navbar from "./Navbar";
 
 const SearchResult = (res) => {
 
@@ -125,6 +126,7 @@ const SearchResult = (res) => {
 
     return (
         <div>
+            <Navbar />
             <div className='flex flex-wrap justify-center gap-1 searchnav bg-gray-900 pt-5 pl-5 pr-5 pb-2 ' >
                 <form onSubmit={filter}>
                     <div className='flex flex-wrap gap-9'>
@@ -133,7 +135,6 @@ const SearchResult = (res) => {
                         <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfTravelling" type="date" min={today} value={data.dateOfTravelling} onChange={handleOnChange} />
                         <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} value={data.dateOfReturn} onChange={handleOnChange} />
                         <select name='noOfPassenger' className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 w-44" value={data.noOfPassenger} onChange={handleOnChange}>
-                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

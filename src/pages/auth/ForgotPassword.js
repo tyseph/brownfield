@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import flight from '../../elements/flight.jpg'
 import forgor from '../../elements/flight.jpg'
 import { toast } from 'react-toastify'
+import Navbar from '../user/Navbar';
 
 const ForgotPassword = () => {
     const [emailId, setEmailId] = useState('')
@@ -12,6 +13,7 @@ const ForgotPassword = () => {
     const [userOtp, setUserOtp] = useState();
     const [password, setPassword] = useState('')
     const [otp, setOtp] = useState()
+    
 
     const [newPassword, setNewPassword] = useState({
         emailId: '',
@@ -31,7 +33,7 @@ const ForgotPassword = () => {
     const submitNewPasswordHandler = (e) => {
         e.preventDefault();
         console.log(password + " " + emailId)
-        axios.post(`http://LIN51016635:8083/updatePassword`, newPassword).then(res => {
+        axios.post(`http://LIN59017635:8089/home/updatePassword`, newPassword).then(res => {
             console.log(res)
         }).catch(err => {
             console.log(err.response.data.message)
@@ -43,7 +45,7 @@ const ForgotPassword = () => {
         e.preventDefault()
         setShowSubmit(true)
         console.log(emailId)
-        axios.post(`http://LIN51016635:8083/forgot-password?emailId=${emailId}`, emailId).then(res => {
+        axios.post(`http://LIN59017635:8089/home/forgot-password?emailId=${emailId}`, emailId).then(res => {
             console.log(res)
             setOtp(res.data)
             toast.success('OTP to reset password sent. Please check your email!', {
@@ -116,6 +118,7 @@ const ForgotPassword = () => {
     }
     return (
         <>
+            <Navbar />
             <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
                 <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
                     <img className="absolute inset-0 h-full w-full object-cover" src={forgor} />
