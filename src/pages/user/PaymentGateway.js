@@ -1,16 +1,38 @@
 import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react";
 import useRazorpay, { RazorpayOptions, createOrder } from "react-razorpay";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { addBooking } from "../../redux/user/userActions";
 
-const Payments = () => {
+const Payments = (seats) => {
 
     const [order, setOrder] = useState({})
+    const location = useLocation();
+    const [data, setData] = useState(location.state.data)
+    const total = data.fare.totalFare + data.fare.travelCharges
+    const dispatch = useDispatch()
 
-    const test = () => {
-        axios.post(`http://LIN51016635:8080/createOrder/100`).then((res) => {
+    useEffect(() => {
+        axios.post(`http://LIN59017635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
             console.log(res.data)
             setOrder(res.data)
         })
+    }, [])
+
+    const navigate = useNavigate()
+    const test = async () => {
+        console.log(data)
+
+        handlePayment()
+
+        await axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+            console.log(res)
+            dispatch(addBooking(res.data))
+        }).catch(err => {
+            console.log(err)
+        }).then().finally()
+
     }
     const Razorpay = useRazorpay();
 
@@ -29,7 +51,9 @@ const Payments = () => {
             order_id: order.id,
             handler: (res) => {
                 console.log(res);
+                data.paymentId = res.razorpay_payment_id
                 alert("Paid")
+                navigate("/pdf")
             },
             prefill: {
                 name: "Piyush Garg",
@@ -62,9 +86,19 @@ const Payments = () => {
 
     return (
         <div className="App">
-            <button onClick={test}>Payment</button>
+            {/* <button onClick={test}>Payment</button> */}
+            <button className="ml-4 mt-3 text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-900 hover:to-gray-900 
+            hover:text-white hover:border-gray-900" onClick={test}> Continue... </button>
 
-            <button onClick={handlePayment}>Click</button>
+            {/* <button onClick={handlePayment}>Click</button> */}
         </div>
     );
 }

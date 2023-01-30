@@ -133,14 +133,23 @@ const SearchResult = (res) => {
                         <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfTravelling" type="date" min={today} value={data.dateOfTravelling} onChange={handleOnChange} />
                         <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} value={data.dateOfReturn} onChange={handleOnChange} />
                         <select name='noOfPassenger' className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 w-44" value={data.noOfPassenger} onChange={handleOnChange}>
-                            <option value="0">0</option>
+                            {/* <option value="0">0</option> */}
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        <button type="submit" className="px-6 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Search</button>
+                        <button type="submit" className="text-md
+               border-2 border-gray-800 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-blue-800
+               bg-gradient-to-r
+               from-blue-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white">Search</button>
                     </div>
                     <div className='flex flex-nowrap '>
                         <span className="block rounded-md shadow-sm">
@@ -214,7 +223,17 @@ const SearchResult = (res) => {
                                             <td className={`text-center py-3 ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"} tracking-wide`}>{"₹ "}{p.fare}</td>
                                             <td className={`text-center py-3 ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"} items-center`}>
                                                 {/* <Link to={`/${p.flight.flightId}/flightbooking`}> */}
-                                                <button className=" items-center justify-center px-3 py-1 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 " value={p.flight.flightId} onClick={(e) => book(e, p.fare)}>Book</button>
+                                                <button className=" text-md
+            border-2 border-gray-100 py-1 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-800 hover:to-gray-700 
+            hover:text-white hover:border-gray-900
+            uppercase tracking-wide" value={p.flight.flightId} onClick={(e) => book(e, p.fare)}>Book</button>
                                                 {/* </Link> */}
                                             </td>
                                         </tr>

@@ -50,13 +50,13 @@ const BookingData = ({ bookings, view }) => {
                             </td> */}
                             <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 <span
-                                    className="relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold text-red-900 leading-tight"
+                                    className="relative inline-block cursor-pointer font-semibold text-red-900 leading-tight hover:scale-110 transform transition duration-200"
                                 >
                                     {/* <span
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span onClick={() => view(booking.bookingId, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">View</span>
+                                    <span onClick={() => view(booking.bookingId, true)} className="px-2 py-1 bg-red-200 hover:bg-red-500 hover:text-white transform transition duration-200 rounded-xl">View</span>
                                 </span>
                             </td>
                         </tr>

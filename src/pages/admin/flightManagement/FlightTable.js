@@ -79,21 +79,58 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                             <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                         </div>
                         <div className='flex flex-wrap gap-1'>
-                            <AllAirports name="src" value={input.src} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
+                            <AllAirports name="src" value={input.src} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
                             <SwapHorizIcon className='mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2' />
-                            <AllAirports name="des" value={input.des} gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
+                            <AllAirports name="des" value={input.des} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
                             {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
                         </div>
                         <div className='flex flex-nowrap'>
                             <span className="block w-full rounded-md shadow-sm">
-                                <button onClick={handleSubmit} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 ">
+                                <button onClick={handleSubmit} type="submit" className="text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-900 hover:to-gray-900 
+            hover:text-white hover:border-gray-900">
                                     Search
                                 </button>
                             </span>
                         </div>
                         <div className='flex flex-nowrap gap-1'>
                             <span className="block w-full rounded-md shadow-sm">
-                                <button onClick={() => clear()} type="submit" className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250">Get All</button>
+                                <button onClick={() => clear()} type="submit" className="text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-900 hover:to-gray-900 
+            hover:text-white hover:border-gray-900">Get All</button>
+                            </span>
+                        </div>
+                        <div className='flex flex-nowrap gap-1'>
+                            <span className="block w-full rounded-md shadow-sm">
+                                <button onClick={() => setInput({
+                                    flightId: undefined,
+                                    time: "",
+                                    src: "",
+                                    des: ""
+                                })} className="text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-900 hover:to-gray-900 
+            hover:text-white hover:border-gray-900">Clear</button>
                             </span>
                         </div>
                     </div>
@@ -133,7 +170,7 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                                         <th
                                             className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"
                                         >
-                                            Distance/Time
+                                            Distance
                                         </th>
                                         <th
                                             className="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider"

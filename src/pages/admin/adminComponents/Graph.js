@@ -12,7 +12,7 @@ import {
 } from 'recharts'
 
 const Graph = ({ revenue, graph }) => {
-  // console.log(revenue)
+  console.log(graph)
 
 
 
@@ -73,8 +73,8 @@ const Graph = ({ revenue, graph }) => {
             </defs>
             <CartesianGrid
               horizontal={false}
-              strokeWidth="2"
-              stroke="#252525"
+              strokeWidth="1"
+              stroke="#a3a3a3"
             />
             <XAxis
               dataKey="dateOfBooking"

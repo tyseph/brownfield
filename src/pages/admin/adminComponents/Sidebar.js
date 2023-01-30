@@ -37,10 +37,10 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
   });
 
   const handleLogout = () => {
-    
+
     localStorage.clear()
     navigate('/login')
-}
+  }
 
   return (
     <div
@@ -99,6 +99,19 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
         <div className="flex-grow" />
         <LiveTime />
       </div>
+      <center className='w-full px-3'>
+        <button className="w-full text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-red-800
+               bg-gradient-to-r
+               from-red-800 
+               rounded-xl
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white uppercase tracking-wide" onClick={handleLogout}>Logout</button>
+      </center>
+
 
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-bottom">
@@ -112,7 +125,6 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
             className="block sm:hidden xl:block w-3 h-3"
           /> */}
           <div>
-          <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 ml-3" onClick={handleLogout}>Logout</a>
           </div>
         </div>
       </div>

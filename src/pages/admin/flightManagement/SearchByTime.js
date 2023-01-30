@@ -5,7 +5,7 @@ const SearchByTime = ({ menuItems, placeholder, name, value, onChange }) => {
 
     return (
         // <div className="relative ">
-        <div className="relative inline-block mt-4 xl:mt-0 md:mt-0 lg:mt-0 sxl:mt-0 text-left ">
+        <div className="w-48 sm:w-48 mt-4 sm:mt-0 relative">
             <select value={value.time} onChange={onChange} onSelect={onChange} name={name} className="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900" id="grid-state" >
                 <option value="">{placeholder}</option>
                 {

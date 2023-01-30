@@ -157,7 +157,7 @@ const Home = (props) => {
               <div className='flightSearchBox pt-20'>
                 <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-800">
                   <div className="grid grid-cols-9 mt-3">
-                    <div className="col-span-12 sm:col-span-12 md:mr-3">
+                    <div className="hidden col-span-12 sm:col-span-12 md:mr-3">
                       <label name="way" className="block text-base text-white font-bold">
                         TRIP TYPE
                       </label>
@@ -197,6 +197,7 @@ const Home = (props) => {
                           }
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 mt-4 right-0 flex items-center px-2 text-zinc-900">
+                          {/* SAjal */}
                         </div>
                       </div>
                     </div>
@@ -226,9 +227,13 @@ const Home = (props) => {
                       </div>
                     </div>
 
-                    <div className="col-span-12 sm:col-span-3  md:mr-3 ">
+
+
+                  </div>
+                  <div className="grid grid-cols-9 gap-3 relative mt-5 mb-6">
+                    <div className="col-span-12 sm:col-span-4 md:mr-3 relative ">
                       <label name="dateOfTravelling" className="block text-base   text-white font-bold">
-                        Departure
+                        Travelling Date
                       </label>
                       <input
                         type="date"
@@ -241,7 +246,7 @@ const Home = (props) => {
                         onChange={dataHandler}
                       />
                     </div>
-                    {
+                    {/* {
 
                       <div className={`col-span-12 sm:col-span-3 md:mr-3 ${data.way === "ROUND TRIP" ? "block" : "hidden"} `}>
                         <label className="block text-base text-white font-bold">
@@ -259,13 +264,16 @@ const Home = (props) => {
                           onChange={(e) => { dataHandler(e); returnHandler(e) }}
                         />
                       </div>
-                    }
-                    <div className="col-span-12 sm:col-span-3  md:mr-3 ">
-                      <label name="noOfPassenger" className="block text-base   text-white font-bold">
+                    } */}
+                    <div className="col-span- sm:col-span-1 md:mr-6 ml-11 mt-6 relative">
+                      <img className='hidden changeIcon' src={changeIcon} onClick={switchCity} />
+                    </div>
+                    <div className="col-span-12 sm:col-span-4 md:mr-3 relative">
+                      <label name="noOfPassenger" className="block text-base text-white font-bold">
                         Number of Passengers
                       </label>
 
-                      <select name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
+                      <select id='noOfPassenger' name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -273,16 +281,26 @@ const Home = (props) => {
                         <option value="5">5</option>
                       </select>
                     </div>
-
-
                   </div>
 
                   <div className='search-button justify-center'>
-                    <button
-                      type="submit"
+                    {/* <button
+                      
                       className="w-40 inline-flex tracking-widest uppercase flex items-center justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">
                       Search
-                    </button>
+                    </button> */}
+                    <button
+                      type="submit" className="text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-blue-800
+               bg-gradient-to-r
+               from-blue-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white
+               ">Search</button>
                   </div>
                 </div>
                 {/* <ImageCards /> */}

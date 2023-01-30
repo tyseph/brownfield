@@ -76,11 +76,11 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                 name="bookingId"
                 value={input.bookingId}
                 onChange={handleOnChange}
-                gap="pl-10"
-                icon={
-                  <SearchIcon className="w-5 h-5 search-icon left-3 absolute" />
-                }
-                placeholderText="Booking ID..."
+                gap="pl-4"
+                // icon={
+                //   <SearchIcon className="w-5 h-5 search-icon left-3 absolute" />
+                // }
+                placeholderText="B-BF-"
               />
               <SearchByTime
                 name="time"
@@ -91,13 +91,13 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               />
               <div className="rounded-md shadow-sm">
                 <input
-                  id="dob"
+                  id="date"
                   // placeholder="Input time..."
                   style={{ colorScheme: "dark", color: "#71717a", }}
                   name="date"
                   type="date"
                   required
-                  className="appearance-none pl-3 placeholder-zinc-900 block w-full py-2 pr-2 border border-gray-300 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none w-full rounded-md bg-gray-900"
+                  className="appearance-none pl-3 placeholder-zinc-900 block w-48 py-2 pr-2 border border-gray-300 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none rounded-md bg-gray-900"
                   onChange={handleOnChange}
                 />
               </div>
@@ -112,7 +112,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               <AllAirports
                 name="sourceCode"
                 value={input.src}
-                gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900"
+                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
                 placeholder="Source Code..."
@@ -121,7 +121,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               <AllAirports
                 name="destinationCode"
                 value={input.des}
-                gap="inline-flex px-2 w-48 py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-bold bg-gray-900"
+                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
                 placeholder="Destination Code..."
@@ -133,7 +133,16 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                 <button
                   onClick={handleSubmit}
                   type="submit"
-                  className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250 "
+                  className="text-md
+                  border-2 border-gray-100 py-2 px-4
+                  transition-colors ease-out
+                  duration-500 text-white
+                  bg-blue-900
+                  bg-gradient-to-r
+                  from-blue-900 
+                  rounded-lg
+                  hover:from-gray-900 hover:to-gray-900 
+                  hover:text-white hover:border-gray-900 "
                 >
                   Search
                 </button>
@@ -152,7 +161,16 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                     });
                   }}
                   type="submit"
-                  className="flex justify-center px-6 py-2.5 text-sm font-bold text-zinc-200 hover:text-white bg-gradient-to-r from-gray-900 to-gray-500 hover:bg-gradient-to-r hover:from-gray-500 hover:to-gray-900 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in-out duration-250"
+                  className="text-md
+                  border-2 border-gray-100 py-2 px-4
+                  transition-colors ease-out
+                  duration-500 text-white
+                  bg-blue-900
+                  bg-gradient-to-r
+                  from-blue-900 
+                  rounded-lg
+                  hover:from-gray-900 hover:to-gray-900 
+                  hover:text-white hover:border-gray-900"
                 >
                   Clear
                 </button>
