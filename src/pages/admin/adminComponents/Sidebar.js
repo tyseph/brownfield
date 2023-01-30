@@ -50,7 +50,8 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
     >
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-top">
-          <IconButton className="w-10 h-10" />
+          <IconButton className="w-10 h-10" 
+          onClick={() => navigate('/')}/>
           <div className="block sm:hidden xl:block ml-2 font-bold text-xl text-gray-200">
             Brownfield Airlines
           </div>

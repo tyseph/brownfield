@@ -6,11 +6,12 @@ import { connect } from "react-redux"
 import { userSignup } from "../../api/authenticationService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Navbar from "../user/Navbar";
 
 const Register = () => {
 
-  var today = new Date().toISOString().split('T')[0];
-  console.log(today)
+  // var today = new Date().toISOString().split('T')[0];
+  // console.log(today)
 
 
   const [values, setValues] = useState({
@@ -105,9 +106,20 @@ const Register = () => {
     return classes.filter(Boolean).join(' ')
   }
 
+  const onShowPassword = () => {
+    if ( document.getElementById('showPassword').checked ) {
+      document.getElementById('password').type = "text";
+      document.getElementById('confirm').type = "text";
+   } else {
+      document.getElementById('password').type = "password";
+      document.getElementById('confirm').type = "password";
+   }
+  }
+
   return (
 
     <>
+      <Navbar />
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -237,8 +249,8 @@ const Register = () => {
                     <div className="mb-3 xl:w-full w-full">
                       <label htmlFor="last" className="block text-sm font-medium leading-5 ml-1">Gender</label>
 
-                      <select onChange={handleChange} name="gender" onSelect={handleChange} value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state" >
-                        <option selected>Select Gender</option>
+                      <select onChange={handleChange} name="gender" onSelect={handleChange} required value={values.gender} className="appearance-none blockinline-flex px-2 w-full py-2 pr-2 block focus:outline-none w-full rounded-md text-zinc-500 font-normal border border-solid border-gray-300 bg-white bg-clip-padding bg-no-repeat focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none transition duration-150 ease-in-out sm:leading-5 focus:border-2" id="grid-state">
+                        <option value='' disabled selected>Select Gender</option>
                         <option>MALE</option>
                         <option>FEMALE</option>
                         <option>OTHER</option>
@@ -288,9 +300,9 @@ const Register = () => {
 
                     <div className="flex items-center">
 
-                      <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
+                      <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword}/>
 
-                      <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+                      <label htmlFor="showPassword" className="block ml-2 text-sm text-gray-900 leading-5"> Show Password </label>
 
                     </div>
 

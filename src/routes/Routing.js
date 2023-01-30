@@ -18,6 +18,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import Payments from "../pages/user/PaymentGateway";
 import ProtectedRoute from "../ProtectedRoutes";
 import ProtectedAdminRoute from "../ProtectedAdminRoutes";
+import Profile from "../pages/user/Profile";
 
 const Routing = () => {
 
@@ -43,6 +44,7 @@ const Routing = () => {
           <Route path="/:id/flightbooking" element={<ProtectedRoute><FlightBooking FlightBooking={flightBooking} /></ProtectedRoute>} />
           <Route path="/seats" element={<ProtectedRoute><Seats /></ProtectedRoute>} />
           <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/pdf" element={
             <PDFDownloadLink document={<PDFFile />} fileName="FORM">

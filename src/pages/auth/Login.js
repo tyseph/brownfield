@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../api/authenticationService";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Navbar from "../user/Navbar";
 
 import flight from '../../elements/flight.jpg'
 const Login = () => {
@@ -136,11 +137,20 @@ const Login = () => {
       })
   }
 
+  const onShowPassword = () => {
+    if ( document.getElementById('showPassword').checked ) {
+      document.getElementById('password').type = "text";
+   } else {
+      document.getElementById('password').type = "password";
+   }
+  }
+
 
 
   return (
 
     <>
+    <Navbar />
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -158,11 +168,11 @@ const Login = () => {
         <div className="flex items-center justify-center p-6 min-h-screen w-full">
           <div className="w-full">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-              <a className="flex justify-center font-bold text-4xl">
+              {/* <a className="flex justify-center font-bold text-4xl">
                 <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
-              </a>
+              </a> */}
 
-              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
+              <h2 className="text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
               <p className="mt-2 text-sm text-center leading-5 max-w">
 
                 Or{" "}
@@ -204,8 +214,8 @@ const Login = () => {
 
                 <div className="flex items-center justify-between mt-6">
                   <div className="flex items-center">
-                    <input id="remember" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" />
-                    <label htmlFor="remember" className="block ml-2 text-sm text-gray-900 leading-5"> Remember </label>
+                    <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword} />
+                    <label htmlFor="showPassword" className="block ml-2 text-sm text-gray-900 leading-5"> Show Password </label>
                   </div>
 
                   <div className="text-sm leading-5">
