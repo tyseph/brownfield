@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { postUpdateFlightStatus } from "../../../api/FlightManagementService"
+import '../../../styles/FlightData.css'
 
 const FlightData = ({ flights, update, toggleFlightStatus }) => {
 
@@ -9,7 +10,7 @@ const FlightData = ({ flights, update, toggleFlightStatus }) => {
                 flights.map((flight, index) => {
                     return (
                         <tr key={flight.flightId}>
-                            <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                            <td className={`px-5 py-5 w-28 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 <p className="text-gray-900 whitespace-no-wrap">{flight.flightId}</p>
                                 {/* <p className="text-gray-600 whitespace-no-wrap">USD</p> */}
                             </td>
@@ -34,20 +35,29 @@ const FlightData = ({ flights, update, toggleFlightStatus }) => {
                                 {/* <p className="text-gray-600 whitespace-no-wrap">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> */}
                             </td>
                             <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
-                                <p className="text-gray-900 whitespace-no-wrap">{Math.round(flight.distance)}</p>
-                                <p className="text-gray-600 whitespace-no-wrap">KM</p>
+                                <p className="text-gray-900 whitespace-no-wrap">{Math.round(flight.distance)}{' KM'}</p>
+                                {/* <p className="text-gray-600 whitespace-no-wrap"></p> */}
                             </td>
                             <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 {/* <p className={`${flight.flightStatus ? "text-green-400" : "text-red-400"} text-extrabold whitespace-no-wrap`}></p> */}
                                 {/* <p className="text-gray-600 whitespace-no-wrap"></p> */}
-                                <label className="relative items-center cursor-pointer">
+                                <label class="flex items-center mb-2 relative w-8 cursor-pointer select-none">
+                                    <input onChange={() => toggleFlightStatus(flight.flightId)}
+                                        checked={flight.flightStatus}
+                                        value={flight.flightStatus} type="checkbox" className="appearance-none outline-none ring-gray-800 ring-1 ring-offset-gray-800 transition-colors cursor-pointer w-11 h-4 rounded-full focus:outline-none bg-red-500" />
+                                    {/* <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
+                                    <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span> */}
+                                    <span className="w-4 h-4 absolute rounded-full transform transition-transform bg-gray-200" />
+                                </label>
+                                <span class="text-gray-600 whitespace-no-wrap">{flight.flightStatus ? "Active" : "Disabled"}</span>
+                                {/* <label className="relative items-center cursor-pointer">
                                     <input type="checkbox"
                                         onChange={() => toggleFlightStatus(flight.flightId)}
                                         checked={flight.flightStatus}
                                         value={flight.flightStatus} className="sr-only peer" />
-                                    <div className="w-8 h-4 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[0px] after:left-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-600"></div>
-                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{flight.flightStatus ? "Active" : "Disabled"}</span>
-                                </label>
+                                    <div className={`w-8 h-4 ${flight.flightStatus ? "bg-green-400" : "bg-red-400"} rounded-full`}></div>
+                                    <span className="text-sm font-medium -ml-1 text-gray-900 dark:text-gray-300">{flight.flightStatus ? "Active" : "Disabled"}</span>
+                                </label> */}
                                 {/* <span
                                     className={`relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold ${!flight.flighStatus ? "text-green-900" : "text-red-900"} leading-tight`}
                                 >
@@ -60,13 +70,13 @@ const FlightData = ({ flights, update, toggleFlightStatus }) => {
                             </td>
                             <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 <span
-                                    className="relative inline-block px-3 py-1 cursor-pointer hover:scale-110 transition duration-150 font-semibold text-red-900 leading-tight"
+                                    className="relative inline-block cursor-pointer font-semibold text-red-900 leading-tight hover:scale-110 transform transition duration-200"
                                 >
                                     {/* <span
                                         aria-hidden
                                         className="inset-0 "
                                     ></span> */}
-                                    <span onClick={() => update(flight.flightId, flight.source.code, flight.destination.code, flight.departureTime, flight.arrivalTime, flight.flightStatus, true)} className="px-2 py-0.5 bg-red-200 rounded-xl transition duration-150 ease-out">Update</span>
+                                    <span onClick={() => update(flight.flightId, flight.source.code, flight.destination.code, flight.departureTime, flight.arrivalTime, flight.flightStatus, true)} className="px-2 py-1 bg-red-200 hover:bg-red-500 hover:text-white transform transition duration-200 rounded-xl">Update</span>
                                 </span>
                             </td>
                         </tr>

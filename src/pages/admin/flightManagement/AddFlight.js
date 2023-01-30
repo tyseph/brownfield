@@ -51,14 +51,14 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
         <div className="w-full mt-6">
 
             <form className="w-full bg-gray-900 p-8 rounded-lg">
-                <label className="block uppercase text-center tracking-wide text-zinc-100 text-2xl font-bold mb-6" htmlFor="grid-zip">
+                <label className="block uppercase text-center tracking-wide text-gray-100 text-2xl font-bold mb-6" htmlFor="grid-zip">
                     Enter Flight data
                 </label>
-                <div className="flex flex-wrap justify-around mb-6">
+                <div className="flex flex-wrap justify-center mb-6 gap-9">
 
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Source Airport Code
                             </label>
                             <select name="sourceCode" id="source" onChange={handleOnChange} onSelect={handleOnChange} required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
@@ -80,7 +80,7 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
                     </div>
                     <div className="w-full md:w-1/3 px-3">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Destination Airport Code
                             </label>
                             <select name="destinationCode" id="destination" onChange={handleOnChange} onSelect={handleOnChange} required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -104,34 +104,34 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
 
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xl font-bold" htmlFor="grid-zip">
                                 {dataSource.name}
                             </label>
-                            <p className="text-zinc-100 text-xs italic">{dataSource.city}{", "}{dataSource.state}</p>
+                            <p className="text-gray-100 text-xs italic">{dataSource.city}{", "}{dataSource.state}</p>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-lg font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-lg font-bold" htmlFor="grid-zip">
                                 1820
                             </label>
-                            <p className="text-zinc-100 text-xs italic">KM</p>
+                            <p className="text-gray-100 text-xs italic">KM</p>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xl font-bold" htmlFor="grid-zip">
                                 {dataDestination.name}
                             </label>
-                            <p className="text-zinc-100 text-xs italic">{dataDestination.city}{", "}{dataDestination.state}</p>
+                            <p className="text-gray-100 text-xs italic">{dataDestination.city}{", "}{dataDestination.state}</p>
                         </div>
                     </div>
                 </div> */}
-                <div className="flex flex-wrap justify-around mb-6">
+                <div className="flex flex-wrap justify-center mb-6 gap-9">
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Departure Time
                             </label>
                             <div className="rounded-md shadow-sm">
@@ -141,7 +141,7 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
                     </div>
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Arrival Time
                             </label>
                             <div className="rounded-md shadow-sm">
@@ -152,7 +152,16 @@ const AddFlight = ({ airPorts, insertFlightData }) => {
                 </div>
                 <center className="justify-center align-center">
                     <span className="block rounded-md shadow-sm">
-                        <button onClick={handleClick} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Add</button>
+                        <button onClick={handleClick} className="w-40 text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-blue-800
+               bg-gradient-to-r
+               from-blue-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white uppercase tracking-wide">Add</button>
                     </span>
                 </center>
             </form >

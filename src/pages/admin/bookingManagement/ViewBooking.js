@@ -107,26 +107,26 @@ const ViewBooking = ({ view, goBack }) => {
 
   return (
     <div className="w-full ">
-      <center className="w-full bg-gray-900 p-8 rounded-lg">
+      <div className="w-full bg-gray-900 p-8 rounded-lg">
         <label
-          className="block uppercase text-center tracking-wide text-zinc-100 text-2xl font-bold mb-6"
+          className="block uppercase text-center tracking-wide text-gray-100 text-2xl font-bold mb-6"
           htmlFor="grid-zip"
         >
           View Booking Data
         </label>
 
         <label
-          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          className="block uppercase text-center tracking-wider text-gray-100 text-xl font-normal mb-3"
           htmlFor="grid-zip"
         >
           Booking details
         </label>
 
-        <div className="flex flex-wrap justify-center mb-6">
+        <div className="flex flex-wrap justify-start mb-6">
 
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Booking ID
@@ -143,7 +143,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Date of Booking
@@ -162,7 +162,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Date of Travelling
@@ -184,7 +184,7 @@ const ViewBooking = ({ view, goBack }) => {
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Email
@@ -201,7 +201,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Mobile number
@@ -220,7 +220,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Passenger details
@@ -252,10 +252,10 @@ const ViewBooking = ({ view, goBack }) => {
         </div>
 
         {/* <hr className="border border-4 border-gray-200" /> */}
-        <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+        <hr class="w-2/3 mx-auto bg-gray-100 rounded md:my-10 dark:bg-gray-700"></hr>
 
         <label
-          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          className="block uppercase text-center tracking-wider text-gray-100 text-xl font-normal mb-3"
           htmlFor="grid-zip"
         >
           Fare details
@@ -263,7 +263,7 @@ const ViewBooking = ({ view, goBack }) => {
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Fare Id
@@ -287,7 +287,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 seat Reservation Charges
@@ -306,7 +306,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Travel Charges
@@ -327,7 +327,7 @@ const ViewBooking = ({ view, goBack }) => {
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Auxillary Charges
@@ -351,7 +351,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 taxes
@@ -370,7 +370,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Toatal fare
@@ -434,10 +434,10 @@ const ViewBooking = ({ view, goBack }) => {
         :
         "Maharashtra" */}
 
-        <hr class="w-1/2 mx-auto py-3 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+        <hr class="w-2/3 mx-auto bg-gray-100 rounded md:my-10 dark:bg-gray-700"></hr>
 
         <label
-          className="block uppercase text-center tracking-wider text-zinc-100 text-lg font-thin mb-3"
+          className="block uppercase text-center tracking-wider text-gray-100 text-xl font-normal mb-3"
           htmlFor="grid-zip"
         >
           Flight details
@@ -447,7 +447,7 @@ const ViewBooking = ({ view, goBack }) => {
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Flight Id
@@ -471,7 +471,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 departureTime Time
@@ -490,7 +490,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 source
@@ -512,7 +512,7 @@ const ViewBooking = ({ view, goBack }) => {
         <div className="flex flex-wrap justify-center mb-6">
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <label
-              className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+              className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
               htmlFor="grid-zip"
             >
               Distance
@@ -536,7 +536,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Arrival time
@@ -556,7 +556,7 @@ const ViewBooking = ({ view, goBack }) => {
           <div className="w-full md:w-1/3 px-3 md:mb-0">
             <div className="relative">
               <label
-                className="block uppercase tracking-wide text-zinc-100 text-xs font-bold"
+                className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2"
                 htmlFor="grid-zip"
               >
                 Destination
@@ -578,13 +578,22 @@ const ViewBooking = ({ view, goBack }) => {
 
         <center className="justify-center flex flex-wrap gap-4 align-center">
           <span className="block rounded-md shadow-sm">
-            {/* <button onClick={handleClick} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Update</button> */}
+            {/* <button onClick={handleClick} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-gray-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Update</button> */}
           </span>
           <span className="block rounded-md shadow-sm">
-            <button onClick={goBack} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-red-900 hover:bg-sky-600 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Cancel</button>
+            <button onClick={goBack} className="w-40 text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-red-800
+               bg-gradient-to-r
+               from-red-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white ">Back</button>
           </span>
         </center>
-      </center>
+      </div>
     </div >
   );
 };

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux";
 import { addBooking } from "../../redux/user/userActions";
-import Navbar from "./Navbar";
+import { getBookedSeats } from "../../api/BookingManagementService";
+import useRazorpay, { RazorpayOptions, createOrder } from "react-razorpay";
+import Payments from "./PaymentGateway";
+import { Navigate, useNavigate } from "react-router-dom";
+
+
 
 
 const Seats = () => {
@@ -13,11 +18,16 @@ const Seats = () => {
     const colFive = [81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
     const colSix = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120]
 
+    const [order, setOrder] = useState({})
+    const [tmp, setTmp] = useState({})
 
     const [booked, setBooked] = useState([]);
     const dispatch = useDispatch();
     const data = useSelector((state) => state.user.booking)
+    // console.log(data)
     const numberOfPassenger = data.passengerInfo.length
+    const Razorpay = useRazorpay();
+
 
     const seatarr = []
     var bgcolor = ''
@@ -37,15 +47,89 @@ const Seats = () => {
 
     // data.passengerInfo.seatNo = 5
     // console.log(data)
+    const navigate = useNavigate()
 
-    const seatSubmit = (e) => {
-        axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
-            console.log(res)
-            dispatch(addBooking(res.data))
-        }).catch(err => {
-            console.log(err)
-        })
+
+    const seatSubmit = async (e) => {
+        console.log("RUN THIS", data)
+        // let test = data.passengerInfo.length;
+        for (let i = 0; i < data.passengerInfo.length; i++) {
+            data.passengerInfo[i].seatNo = seatarr[i]
+            console.log(data.passengerInfo[i])
+        }
+        { <Payments data={data} /> }
+        navigate("/payment", { state: { data } })
+        // const total = data.fare.totalFare + data.fare.travelCharges
+        // await axios.post(`http://LIN59017635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
+        //     console.log(res.data)
+        //     setOrder(res.data)
+        // }).then(
+        //     handlePayment()
+        // )
+        // handleBookin
+
     }
+
+    // const handleBooking = () => {
+    //     console.log(tmp)
+    //     // axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+    //     //     console.log(res)
+    //     //     dispatch(addBooking(res.data))
+    //     // }).catch(err => {
+    //     //     console.log(err)
+    //     // }).then(alert("Paid"))
+    // }
+
+    // const handlePayment = () => {
+    //     // console.log(JSON.stringify(order))
+
+
+
+    //     const options = {
+    //         key: "rzp_test_ugc5Yl6sH3uH5X",
+    //         amount: order.amount,
+    //         currency: order.currency,
+    //         name: "BrownField Airlines",
+    //         description: "Book Seats",
+    //         // image: "https://example.com/your_logo",
+    //         order_id: order.id,
+    //         handler: (res) => {
+    //             // console.log(res.razorpay_payment_id);
+    //             setTmp(data, res.razorpay_payment_id)
+    //             // console.log(tmp)
+    //             // alert("Paid")
+    //             handleBooking();
+    //         },
+    //         prefill: {
+    //             name: data.email,
+    //             email: data.email,
+    //             contact: data.mobileNo,
+    //         },
+    //         notes: {
+    //             address: "Razorpay Corporate Office",
+    //         },
+    //         theme: {
+    //             color: "#111827",
+    //         },
+    //     };
+
+    //     const rzpay = new Razorpay(options);
+    //     rzpay.open();
+    //     rzpay.on('payment.failed', function (response) {
+    //         // alert(response.error.code);
+    //         // alert(response.error.description);
+    //         // alert(response.error.source);
+    //         // alert(response.error.step);
+    //         // alert(response.error.reason);
+    //         // alert(response.error.metadata.order_id);
+    //         // alert(response.error.metadata.payment_id);
+    //         // alert()
+    //         console.log(response)
+    //         alert("Failed")
+    //     });
+    // }
+
+
     const seatHandler = (p) => {
         console.log(p)
         if (seatarr.length <= numberOfPassenger) {
@@ -59,32 +143,43 @@ const Seats = () => {
                 seatarr.splice(seatarr.indexOf(p), 1)
             }
         }
-        console.log(data.passengerInfo.seatNo)
+        // console.log(data.passengerInfo.seatNo)
     }
 
 
     useEffect(() => {
         console.log(data.seatNo)
-        axios.get("http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/F-BF-50/2023-02-10").then(res => {
-            setBooked(res.data)
-            console.log(booked)
-        }).catch(err => {
-            console.log(err)
-        })
+        getBookedSeats(data.flightId, data.dateOfTravelling)
+            .then(res => {
+                setBooked(res.data)
+                console.log(booked)
+            }).catch(err => { console.log(err) })
     }, [])
 
-    console.log(booked);
+    // console.log(booked);
     return (
         <div className="">
             {/* <div class="rotated-half-circle"></div> */}
-            <Navbar />
+            <button className="ml-4 mt-3 text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-900 hover:to-gray-900 
+            hover:text-white hover:border-gray-900" onClick={seatSubmit}> Go To Payments </button>
+            <label className="block uppercase tracking-wide text-gray-900 text-wrap w-64 text-xs ml-4 mt-4 font-thin" htmlFor="grid-zip">
+                *Seats will be automatically assgined if not selected
+            </label>
 
-            <div className="SeatsMain">
+            <div className="SeatsMain py-8">
                 <div className="colOne absolute">
                     {
                         colOne.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -93,7 +188,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -108,7 +204,7 @@ const Seats = () => {
                     {
                         coltwo.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -117,7 +213,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -132,7 +229,7 @@ const Seats = () => {
                     {
                         colThree.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -141,7 +238,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -155,7 +253,7 @@ const Seats = () => {
                     {
                         colFour.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -164,7 +262,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -179,7 +278,7 @@ const Seats = () => {
                     {
                         colFive.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -188,7 +287,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -203,7 +303,7 @@ const Seats = () => {
                     {
                         colSix.map(p => {
                             return (
-                                <div class="ml-0 mt-4 seat ">
+                                <div class="ml-0 mt-2 seat ">
                                     <div className="seats" id={p}
                                         {
                                         ...booked.includes(p) ?
@@ -212,7 +312,8 @@ const Seats = () => {
                                         }
 
                                         style={{
-                                            backgroundColor: bgcolor
+                                            backgroundColor: bgcolor,
+                                            borderRadius: '10px'
                                         }}
                                         onClick={() => seatHandler(p)}>
                                         <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/64/null/external-seat-car-service-icongeek26-outline-icongeek26.png" /><h6>{p}</h6>
@@ -223,8 +324,8 @@ const Seats = () => {
                         })
                     }
                 </div>
+
             </div>
-            <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 roun7ded mt-3 ml-4 mb-4" onClick={seatSubmit}> Submit </button>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getFlightByID } from "../../../api/FlightManagementService";
 import AllAirports from "./AllAirports";
+import '../../../styles/FlightData.css'
 
 const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear }) => {
 
@@ -50,23 +51,23 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
     return (
         <div className="w-full mt-6">
 
-            <center className="w-full bg-gray-900 p-8 rounded-lg">
-                <label className="block uppercase text-center tracking-wide text-zinc-100 text-2xl font-bold mb-6" htmlFor="grid-zip">
+            <div className="w-full bg-gray-900 p-8 rounded-lg">
+                <label className="block uppercase text-center tracking-wide text-gray-100 text-2xl font-bold mb-6" htmlFor="grid-zip">
                     Update Flight data
                 </label>
-                <div className="flex flex-wrap justify-center mb-6">
+                <div className="flex flex-wrap justify-evenly mb-6">
 
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                        <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                             Flight ID
                         </label>
                         <div className="rounded-md shadow-sm">
-                            <input value={update.flightId} type="text" disabled className="block cursor-not-allowed appearance-none w-auto bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                            <input value={update.flightId} type="text" disabled className="block cursor-not-allowed appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Source Airport Code
                             </label>
                             <select name="sourceCode" value={UpdateFlight.sourceCode} id="source" onChange={handleOnChange} onSelect={handleOnChange} required className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
@@ -88,7 +89,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                     </div>
                     <div className="w-full md:w-1/3 px-3">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Destination Airport Code
                             </label>
                             <select name="destinationCode" value={UpdateFlight.destinationCode} id="destination" onChange={handleOnChange} onSelect={handleOnChange} required
@@ -113,52 +114,59 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
 
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xl font-bold" htmlFor="grid-zip">
                                 {dataSource.name}
                             </label>
-                            <p className="text-zinc-100 text-xs italic">{dataSource.city}{", "}{dataSource.state}</p>
+                            <p className="text-gray-100 text-xs italic">{dataSource.city}{", "}{dataSource.state}</p>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-lg font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-lg font-bold" htmlFor="grid-zip">
                                 1820
                             </label>
-                            <p className="text-zinc-100 text-xs italic">KM</p>
+                            <p className="text-gray-100 text-xs italic">KM</p>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 px-3">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xl font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xl font-bold" htmlFor="grid-zip">
                                 {dataDestination.name}
                             </label>
-                            <p className="text-zinc-100 text-xs italic">{dataDestination.city}{", "}{dataDestination.state}</p>
+                            <p className="text-gray-100 text-xs italic">{dataDestination.city}{", "}{dataDestination.state}</p>
                         </div>
                     </div>
                 </div> */}
                 <div className="flex flex-wrap justify-around mb-6">
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
-                        <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                        <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                             Flight Status
                         </label>
                         <div className="rounded-md mt-2 shadow-sm">
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" onClick={() => setUpdateFlight({
+                            <label class="flex items-center mb-2 relative w-8 cursor-pointer select-none">
+                                <input onClick={() => setUpdateFlight({
                                     ...UpdateFlight,
                                     flightStatus: !UpdateFlight.flightStatus
                                 })}
                                     checked={UpdateFlight.flightStatus}
-                                    value={UpdateFlight.flightStatus} className="sr-only peer" />
+                                    value={UpdateFlight.flightStatus} type="checkbox" className="appearance-none outline-none ring-gray-800 ring-1 ring-offset-gray-800 transition-colors cursor-pointer w-11 h-4 rounded-full focus:outline-none bg-red-500" />
+                                {/* <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
+                                    <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span> */}
+                                <span className="w-4 h-4 absolute rounded-full transform transition-transform bg-gray-200" />
+                            </label>
+                            <span class="text-gray-600 whitespace-no-wrap">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            {/* <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" className="sr-only peer" />
                                 <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
-                            </label>
+                            </label> */}
                         </div>
                     </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Departure Time
                             </label>
                             <div className="rounded-md shadow-sm">
@@ -168,7 +176,7 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                     </div>
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                         <div className="relative">
-                            <label className="block uppercase tracking-wide text-zinc-100 text-xs font-bold" htmlFor="grid-zip">
+                            <label className="block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Arrival Time
                             </label>
                             <div className="rounded-md shadow-sm">
@@ -179,13 +187,31 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                 </div>
                 <center className="justify-center flex flex-wrap gap-4 align-center">
                     <span className="block rounded-md shadow-sm">
-                        <button onClick={handleClick} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-gradient-to-r from-red-900 to-sky-600 hover:bg-gradient-to-r hover:from-sky-900 hover:to-red-700 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Update</button>
+                        <button onClick={handleClick} className="w-40 text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-blue-800
+               bg-gradient-to-r
+               from-blue-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white">Update</button>
                     </span>
                     <span className="block rounded-md shadow-sm">
-                        <button onClick={() => changeUpdate()} className="w-40 tracking-widest uppercase flex justify-center px-4 py-2.5 text-sm font-bold text-zinc-100 hover:text-white bg-red-900 hover:bg-sky-600 hover:scale-110 rounded-md focus:outline-none transition ease-out hover:ease-in duration-250 ">Cancel</button>
+                        <button onClick={() => changeUpdate()} className="w-40 text-md
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               bg-red-800
+               bg-gradient-to-r
+               from-red-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white ">Cancel</button>
                     </span>
                 </center>
-            </center >
+            </div >
         </div >
     )
 }

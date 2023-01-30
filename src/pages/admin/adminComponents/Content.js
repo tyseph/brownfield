@@ -89,7 +89,7 @@ const Content = ({ onSidebarHide, revenue, user, graph }) => {
         )}
 
         <div className="w-full p-2 lg:w-full">
-          <div className="rounded-lg bg-gray-900 sm:h-auto h-60">
+          <div className="rounded-lg bg-gray-900 sm:h-96 h-60">
             <Graph revenue={revenue} graph={graph} />
           </div>
         </div>

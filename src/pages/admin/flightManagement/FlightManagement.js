@@ -177,24 +177,40 @@ const FlightManagement = () => {
         )}
 
         <div className="mt-2">
-          <div
+          <button onClick={() => setAdd(!add)}
+            className="w-48 text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-800 hover:to-gray-700 
+            hover:text-white hover:border-gray-900
+            uppercase tracking-wide
+  ">
+            {!add ? "Add Flights" : "View All Flights"}
+          </button>
+          {/* <div
             onClick={() => setAdd(!add)}
-            className="button w-40 h-16 bg-gray-900 rounded-lg cursor-pointer select-none
-
-    active:translate-y-2  active:[box-shadow:0_0px_0_0_#1f2937,0_0px_0_0_#6b7280]
-
-    active:border-b-[0px]
-
-    transition-all duration-100 [box-shadow:0_10px_0_0_#1f2937,0_15px_0_0_#6b7280]
-
-    border-b-[1px] border-gray-400
+            className="text-md
+            border-2 border-gray-100 py-2 px-4
+            transition-colors ease-out
+            duration-500 text-white
+            bg-blue-900
+            bg-gradient-to-r
+            from-blue-900 
+            rounded-lg
+            hover:from-gray-800 hover:to-gray-700 
+            hover:text-white hover:border-gray-900
 
   "
           >
             <span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
               {!add ? "Add Flights" : "View All Flights"}
             </span>
-          </div>
+          </div> */}
         </div>
 
         <div className="p-2 w-screen justify-center align-center">

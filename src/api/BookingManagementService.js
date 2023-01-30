@@ -34,3 +34,7 @@ export const getTotalRevenue = () => {
 export const GetRevenueByDate = () => {
   return axios.get(`${bookingManagementURL}/getTotalRevenueByDate`)
 }
+
+export const getBookedSeats = (flightId, dateOfTravelling) => {
+  return axios.get(`http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/${flightId}/${dateOfTravelling}`)
+}
