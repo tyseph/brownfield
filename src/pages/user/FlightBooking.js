@@ -179,7 +179,10 @@ const FlightBooking = (res) => {
                                         <input checked={passengers.gender === "FEMALE" ? true : false} type="radio" name="gender" value="FEMALE" id="Female" onChange={passengerHandler} className={`${passengers.gender === "FEMALE" ? "text-gray-800" : "text-white"}  w-8 h-4 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`} />
                                         <label for="Female" className={`${passengers.gender === "FEMALE" ? "text-gray-900 dark:text-gray-900" : "text-white"} radio w-full py-2 px-3 text-sm font-medium`}>Female</label>
                                     </div>
-
+                                    <div className={`${passengers.gender === "OTHER" ? "bg-white" : ""} flex items-center px-4 border border-gray-200 rounded dark:border-gray-700`}>
+                                        <input checked={passengers.gender === "OTHER" ? true : false} type="radio" name="gender" value="OTHER" id="Other" onChange={passengerHandler} className={`${passengers.gender === "OTHER" ? "text-gray-800" : "text-white"}  w-8 h-4 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`} />
+                                        <label for="Other" className={`${passengers.gender === "OTHER" ? "text-gray-900 dark:text-gray-900" : "text-white"} radio w-full py-2 px-3 text-sm font-medium`}>Other</label>
+                                    </div>
                                 </div>
 
                             </div>

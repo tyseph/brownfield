@@ -131,7 +131,7 @@ const SearchResult = (res) => {
                         <SearchFlight gap="pl-12" name="source" airport={airport} onChange={handleOnChange} className="text-white" placeholder={data.source} />
                         <SearchFlight gap="pl-12" name="destination" airport={airport} onChange={handleOnChange} placeholder={data.destination} />
                         <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfTravelling" type="date" min={today} value={data.dateOfTravelling} onChange={handleOnChange} />
-                        <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} value={data.dateOfReturn} onChange={handleOnChange} />
+                        {/* <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} value={data.dateOfReturn} onChange={handleOnChange} /> */}
                         <select name='noOfPassenger' className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 w-44" value={data.noOfPassenger} onChange={handleOnChange}>
                             {/* <option value="0">0</option> */}
                             <option value="1">1</option>
