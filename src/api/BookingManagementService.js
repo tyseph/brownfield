@@ -36,5 +36,5 @@ export const GetRevenueByDate = () => {
 }
 
 export const getBookedSeats = (flightId, dateOfTravelling) => {
-  return axios.get(`http://LIN59017635.corp.capgemini.com:8089/booking/getBookedSeats/${flightId}/${dateOfTravelling}`)
+  return axios.get(`http://LIN51016635.corp.capgemini.com:8089/booking/getBookedSeats/${flightId}/${dateOfTravelling}`)
 }

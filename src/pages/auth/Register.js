@@ -107,19 +107,19 @@ const Register = () => {
   }
 
   const onShowPassword = () => {
-    if ( document.getElementById('showPassword').checked ) {
+    if (document.getElementById('showPassword').checked) {
       document.getElementById('password').type = "text";
       document.getElementById('confirm').type = "text";
-   } else {
+    } else {
       document.getElementById('password').type = "password";
       document.getElementById('confirm').type = "password";
-   }
+    }
   }
 
   return (
 
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -300,7 +300,7 @@ const Register = () => {
 
                     <div className="flex items-center">
 
-                      <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword}/>
+                      <input id="showPassword" type="checkbox" className="form-checkbox w-4 h-4 transition duration-150 ease-in-out" onClick={onShowPassword} />
 
                       <label htmlFor="showPassword" className="block ml-2 text-sm text-gray-900 leading-5"> Show Password </label>
 

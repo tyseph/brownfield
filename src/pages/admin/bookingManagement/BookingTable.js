@@ -87,7 +87,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                 value={input.time}
                 onChange={handleOnChange}
                 menuItems={menuItems}
-                placeholder="Select Time of day..."
+                placeholder="Select Time..."
               />
               <div className="rounded-md shadow-sm">
                 <input
@@ -97,7 +97,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                   name="date"
                   type="date"
                   required
-                  className="appearance-none pl-3 placeholder-zinc-900 block w-48 py-2 pr-2 border border-gray-300 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none rounded-md bg-gray-900"
+                  className="appearance-none pl-3 placeholder-zinc-900 block w-36 py-2 pr-2 border border-gray-300 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none rounded-md bg-gray-900"
                   onChange={handleOnChange}
                 />
               </div>
@@ -112,16 +112,16 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               <AllAirports
                 name="sourceCode"
                 value={input.src}
-                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900"
+                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
                 placeholder="Source Code..."
               />
-              <SwapHorizIcon className="mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2" />
+              <SwapHorizIcon className="mt-2 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2" />
               <AllAirports
                 name="destinationCode"
                 value={input.des}
-                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900"
+                gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
                 placeholder="Destination Code..."

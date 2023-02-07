@@ -59,75 +59,7 @@ const Seats = () => {
         }
         { <Payments data={data} /> }
         navigate("/payment", { state: { data } })
-        // const total = data.fare.totalFare + data.fare.travelCharges
-        // await axios.post(`http://LIN59017635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
-        //     console.log(res.data)
-        //     setOrder(res.data)
-        // }).then(
-        //     handlePayment()
-        // )
-        // handleBookin
-
     }
-
-    // const handleBooking = () => {
-    //     console.log(tmp)
-    //     // axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
-    //     //     console.log(res)
-    //     //     dispatch(addBooking(res.data))
-    //     // }).catch(err => {
-    //     //     console.log(err)
-    //     // }).then(alert("Paid"))
-    // }
-
-    // const handlePayment = () => {
-    //     // console.log(JSON.stringify(order))
-
-
-
-    //     const options = {
-    //         key: "rzp_test_ugc5Yl6sH3uH5X",
-    //         amount: order.amount,
-    //         currency: order.currency,
-    //         name: "BrownField Airlines",
-    //         description: "Book Seats",
-    //         // image: "https://example.com/your_logo",
-    //         order_id: order.id,
-    //         handler: (res) => {
-    //             // console.log(res.razorpay_payment_id);
-    //             setTmp(data, res.razorpay_payment_id)
-    //             // console.log(tmp)
-    //             // alert("Paid")
-    //             handleBooking();
-    //         },
-    //         prefill: {
-    //             name: data.email,
-    //             email: data.email,
-    //             contact: data.mobileNo,
-    //         },
-    //         notes: {
-    //             address: "Razorpay Corporate Office",
-    //         },
-    //         theme: {
-    //             color: "#111827",
-    //         },
-    //     };
-
-    //     const rzpay = new Razorpay(options);
-    //     rzpay.open();
-    //     rzpay.on('payment.failed', function (response) {
-    //         // alert(response.error.code);
-    //         // alert(response.error.description);
-    //         // alert(response.error.source);
-    //         // alert(response.error.step);
-    //         // alert(response.error.reason);
-    //         // alert(response.error.metadata.order_id);
-    //         // alert(response.error.metadata.payment_id);
-    //         // alert()
-    //         console.log(response)
-    //         alert("Failed")
-    //     });
-    // }
 
 
     const seatHandler = (p) => {
@@ -156,7 +88,7 @@ const Seats = () => {
             }).catch(err => { console.log(err) })
     }, [])
 
-    // console.log(booked);
+    console.log(booked);
     return (
         <div className="">
             {/* <div class="rotated-half-circle"></div> */}

@@ -1,11 +1,13 @@
-
-export const authURL = "http://LIN59017635.corp.capgemini.com:8089/home"
-export const flightManagementURL = "http://LIN59017635.corp.capgemini.com:8089/search"
-export const bookingManagementURL = "http://LIN59017635.corp.capgemini.com:8089/booking"
-export const userDetailsURL = "http://lin59017635.corp.capgemini.com:8089/home"
+const hostname = `LIN51016635`
 
 
-// http://LIN59017635:8090/search
+export const authURL = `http://${hostname}.corp.capgemini.com:8089/home`
+export const flightManagementURL = `http://${hostname}.corp.capgemini.com:8089/search`
+export const bookingManagementURL = `http://${hostname}.corp.capgemini.com:8089/booking`
+export const userDetailsURL = `http://${hostname}.corp.capgemini.com:8089/home`
 
-// http://http://lin59017635:8089/home/getAllUser
+
+// http://${hostname}:8090/search
+
+// http://http://${hostname}:8089/home/getAllUser
 
