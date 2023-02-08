@@ -121,7 +121,8 @@ const SearchResult = (res) => {
         })
     }, [])
 
-    console.log(flights)
+    // console.log(flights)
+    const noOfPassengerArray = [1, 2, 3, 4, 5]
 
     return (
         <div>
@@ -134,11 +135,19 @@ const SearchResult = (res) => {
                         {/* <input className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 " name="dateOfReturn" type="date" min={today} value={data.dateOfReturn} onChange={handleOnChange} /> */}
                         <select name='noOfPassenger' className="bg-gray-200 text-gray-900 border-solid border border-white rounded-md pl-2 pr-2 w-44" value={data.noOfPassenger} onChange={handleOnChange}>
                             {/* <option value="0">0</option> */}
-                            <option value="1">1</option>
+                            {/* <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option value="5">5</option> */}
+                            {
+                                noOfPassengerArray.map((item, index) => {
+                                    return (
+
+                                        <option value={item}>{item}</option>
+                                    )
+                                })
+                            }
                         </select>
                         <button type="submit" className="text-md
                border-2 border-gray-800 px-4

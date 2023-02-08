@@ -150,7 +150,7 @@ const Login = () => {
   return (
 
     <>
-    <Navbar />
+    {/* <Navbar /> */}
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 

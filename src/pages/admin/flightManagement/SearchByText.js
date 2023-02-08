@@ -2,7 +2,7 @@ import { input } from "@material-tailwind/react"
 
 const SearchByText = ({ placeholderText, icon, gap, onChange, value, name }) => {
     return (
-        <div className="w-48 sm:w-48 mt-4 sm:mt-0 relative">
+        <div className="w-32 sm:w-32 mt-4 sm:mt-0 relative">
             {icon}
             <form>
                 <input

@@ -14,7 +14,7 @@ const Payments = (seats) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.post(`http://LIN59017635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
+        axios.post(`http://LIN51016635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
             console.log(res.data)
             setOrder(res.data)
         })
@@ -25,8 +25,9 @@ const Payments = (seats) => {
         console.log(data)
 
         handlePayment()
+        data.fare.totalFare = data.fare.totalFare + data.fare.travelCharges
 
-        await axios.post("http://LIN59017635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+        await axios.post("http://LIN51016635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
             console.log(res)
             dispatch(addBooking(res.data))
         }).catch(err => {
@@ -45,7 +46,7 @@ const Payments = (seats) => {
             key: "rzp_test_ugc5Yl6sH3uH5X",
             amount: order.amount,
             currency: order.currency,
-            name: "Acme Corp",
+            name: "BrownField Airlines",
             description: "Test Transaction",
             // image: "https://example.com/your_logo",
             order_id: order.id,
@@ -56,15 +57,15 @@ const Payments = (seats) => {
                 navigate("/pdf")
             },
             prefill: {
-                name: "Piyush Garg",
-                email: "youremail@example.com",
-                contact: "9999999999",
+                name: data.email,
+                email: data.email,
+                contact: data.mobileNo,
             },
             notes: {
                 address: "Razorpay Corporate Office",
             },
             theme: {
-                color: "#3399cc",
+                color: "#111827",
             },
         };
 

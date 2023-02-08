@@ -75,13 +75,13 @@ const FlightTable = ({ flights, searchFlight, updateFlightData, airPorts, clear,
                 <div className="">
                     <div className='flex flex-wrap justify-start gap-2' >
                         <div className='flex flex-wrap gap-2'>
-                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-2" placeholderText="F-BF-" />
+                            <SearchByText name="flightId" value={input.flightId} onChange={handleOnChange} gap="pl-4" placeholderText="F-BF-" />
                             <SearchByTime name="time" value={input.time} onChange={handleOnChange} menuItems={menuItems} placeholder="Select Time..." />
                         </div>
                         <div className='flex flex-wrap gap-1'>
-                            <AllAirports name="src" value={input.src} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
+                            <AllAirports name="src" value={input.src} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Source Code..." />
                             <SwapHorizIcon className='mt-4 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2' />
-                            <AllAirports name="des" value={input.des} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-64 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
+                            <AllAirports name="des" value={input.des} gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900" onChange={handleOnChange} menuItems={airPorts} placeholder="Destination Code..." />
                             {/* <SearchIcon className="hover:scale-110 w-4 h-4 search-icon mt-9 sm:max-md:mt-8 md:max-lg:mt-5 lg:max-xl:mt-5 xl:max-2xl:mt-5 2xl:mt-5" /> */}
                         </div>
                         <div className='flex flex-nowrap'>

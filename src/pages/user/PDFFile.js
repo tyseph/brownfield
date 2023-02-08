@@ -10,6 +10,8 @@ import { useState } from "react";
 const PDFFile = () => {
     const styles = StyleSheet.create({
         page: {
+            height: '100vh',
+            width: '100vw',
             flexDirection: 'row',
             backgroundColor: '#E4E4E4',
         },
@@ -80,23 +82,25 @@ const PDFFile = () => {
                 data.map(p => {
                     return (
                         <Page size="A4" classname="overflow-hidden text-gray-100" style={styles.page}>
-                            <View classname="overflow-hidden text-gray-100" style={styles.section}>
+                            <View classname="overflow-hidden text-gray-100 p-3" style={styles.section}>
                                 {/* <Image classname="overflow-hidden text-gray-100" style={styles.image} src={flight} alt="images" /> */}
                                 <Text classname="overflow-hidden text-gray-100" style={styles.text}>BrownField Airlines</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Name :           {p.firstName} {p.lastName} </Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Flight No. :     {book.flight.flightId}</Text>
+                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Booking ID. :     {book.bookingId}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>From :            {book.flight.source.name}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>To :                 {book.flight.destination.name}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Date :             {book.dateOfTravelling}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Seat :             {p.seatNo}</Text>
 
                             </View>
-                            <View classname="overflow-hidden text-gray-100" style={styles.sectionTwo}>
+                            <View classname="overflow-hidden text-gray-100 p-3" style={styles.sectionTwo}>
                                 {/* <Image classname="overflow-hidden text-gray-100" style={styles.image} src={flight} alt="images" /> */}
                                 <Text classname="overflow-hidden text-gray-100" style={styles.sectionTwotext}>Boarding Pass</Text>
 
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Name :           {p.firstName} {p.lastName}  </Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Flight No. :     {book.flight.flightId}</Text>
+                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Booking ID. :     {book.bookingId}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>From :            {book.flight.source.code}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>To :                {book.flight.destination.code}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Date :             {book.dateOfTravelling}</Text>

@@ -51,6 +51,8 @@ const Home = (props) => {
     "way": "ONEWAY"
   })
 
+  const noOfPassengerArray = [1, 2, 3, 4, 5]
+
   // console.log(data.wa)
 
   // console.log(data)
@@ -155,7 +157,9 @@ const Home = (props) => {
             <img className='flightImage hidden sm:block  w-48 h-36 absolute right-2 mt-20 mr-10' src={plane} />
             <div className="sm:rounded-md rounded-md  ">
               <div className='flightSearchBox pt-20'>
-                <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-800">
+                <div className="flightsearch px-4 py-5 sm:p-6" style={{
+                  backgroundImage: "url('https://assets.codepen.io/3685267/res-react-dash-usage-card.svg')"
+                }} >
                   <div className="grid grid-cols-9 mt-3">
                     <div className="hidden col-span-12 sm:col-span-12 md:mr-3">
                       <label name="way" className="block text-base text-white font-bold">
@@ -274,11 +278,19 @@ const Home = (props) => {
                       </label>
 
                       <select id='noOfPassenger' name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
-                        <option value="1">1</option>
+                        {/* <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5">5</option>
+                        <option value="5">5</option> */}
+                        {
+                          noOfPassengerArray.map((item, index) => {
+                            return (
+
+                              <option value={item}>{item}</option>
+                            )
+                          })
+                        }
                       </select>
                     </div>
                   </div>

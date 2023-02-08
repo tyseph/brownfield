@@ -94,6 +94,9 @@ const Content = ({ onSidebarHide, revenue, user, graph }) => {
           </div>
         </div>
       </div>
+      <div >
+
+      </div>
     </div>
   );
 }
