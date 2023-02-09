@@ -20,7 +20,7 @@ const Profile = () => {
 
     return (
         <div>
-        <Navbar />
+       
         {/* <div class="flex items-center justify-center p-6 min-h-screen w-full">
   <div class="rounded-lg shadow-lg bg-white max-w-sm">
     <a href="#!">

@@ -6,7 +6,7 @@ import { getBookedSeats } from "../../api/BookingManagementService";
 import useRazorpay, { RazorpayOptions, createOrder } from "react-razorpay";
 import Payments from "./PaymentGateway";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import Navbar from "./Navbar";
 
 
 
@@ -90,7 +90,10 @@ const Seats = () => {
 
     console.log(booked);
     return (
+        <div>
+            
         <div className="">
+            
             {/* <div class="rotated-half-circle"></div> */}
             <button className="ml-4 mt-3 text-md
             border-2 border-gray-100 py-2 px-4
@@ -258,6 +261,7 @@ const Seats = () => {
                 </div>
 
             </div>
+        </div>
         </div>
     )
 }

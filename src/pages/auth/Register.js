@@ -139,7 +139,7 @@ const Register = () => {
   return (
 
     <>
-      {/* <Navbar /> */}
+      
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -158,7 +158,7 @@ const Register = () => {
             <div className="w-full py-4">
 
 
-              <div className="sm:mx-auto sm:w-full sm:max-w-md">
+              {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
                 <a className="flex justify-center font-bold text-4xl">
                   <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
@@ -184,7 +184,8 @@ const Register = () => {
 
                 </p>
 
-              </div>
+              </div> */}
+              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
 
 
 
