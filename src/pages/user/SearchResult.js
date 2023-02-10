@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchFlight from "./SearchFlight";
 import { getAllAiriports, getFlightBySearch } from "../../api/FlightManagementService";
 import { getAllFlights } from "../../redux/user/userActions";
+import Navbar from "./Navbar";
 
 const SearchResult = (res) => {
 
@@ -126,6 +127,7 @@ const SearchResult = (res) => {
 
     return (
         <div>
+           
             <div className='flex flex-wrap justify-center gap-1 searchnav bg-gray-900 pt-5 pl-5 pr-5 pb-2 ' >
                 <form onSubmit={filter}>
                     <div className='flex flex-wrap gap-9'>

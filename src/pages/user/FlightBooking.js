@@ -146,6 +146,7 @@ const FlightBooking = (res) => {
     console.log(data)
     return (
         <>
+        
             <div className="grid sm:grid-cols-11 gap-8 p-2">
                 <div className="sm:col-span-8 grid grid-rows-1 gap-2">
                     <FlightDetails res={res} />

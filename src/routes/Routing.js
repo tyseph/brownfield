@@ -19,6 +19,7 @@ import Payments from "../pages/user/PaymentGateway";
 import ProtectedRoute from "../ProtectedRoutes";
 import ProtectedAdminRoute from "../ProtectedAdminRoutes";
 import Profile from "../pages/user/Profile";
+import Navbar from '../pages/user/Navbar'
 
 const Routing = () => {
 
@@ -29,12 +30,18 @@ const Routing = () => {
   return (
     <>
       <BrowserRouter>
+      <Routes>
+        <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+      </Routes>
+      
+      <Navbar />
         <Routes>
+        
           <Route path="/" element={<Home SetSearchDetails={setSearchDetails} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+          
 
           {/* <Route path="/flightmanagement" element={<FlightManagement />} /> */}
           {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
@@ -56,7 +63,7 @@ const Routing = () => {
 
 
           {/* <Route path="/" element={<Home />} /> */}
-
+          
         </Routes>
       </BrowserRouter>
     </>

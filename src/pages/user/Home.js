@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
 import { useDispatch } from "react-redux"
-import { getAllAirport, getLoggedUser } from '../../redux/user/userActions';
+import { getAllAirport } from '../../redux/user/userActions';
 import Navbar from './Navbar';
 import Cover from './Cover';
 import ImageCards from './ImageCards';
@@ -15,7 +15,6 @@ import axios from 'axios';
 import SearchResult from './SearchResult';
 import { getAllAiriports } from '../../api/FlightManagementService'
 import plane from '../../elements/plane.png'
-import { getUser } from '../../api/UserDetailsService';
 
 const Home = (props) => {
 
@@ -52,8 +51,6 @@ const Home = (props) => {
     "way": "ONEWAY"
   })
 
-  const noOfPassengerArray = [1, 2, 3, 4, 5]
-
   // console.log(data.wa)
 
   // console.log(data)
@@ -68,7 +65,6 @@ const Home = (props) => {
   }
 
   useEffect(() => {
-
     getAllAiriports().then(res => {
       // console.log(res)
       setFlightData(res.data)
@@ -88,7 +84,7 @@ const Home = (props) => {
         alert("Input return date")
       }
       else {
-        axios.post("http://LIN59016635:8089/search/userSearch", data).then(res => {
+        axios.post("http://LIN59017635:8089/search/userSearch", data).then(res => {
           // console.log(data)
           // console.log(res.data)
           { <SearchResult props={res.data} /> }
@@ -156,12 +152,10 @@ const Home = (props) => {
         </div> */}
         <div className="mt-0 md:col-span-2 md:mt-0 md:pt-2 md:pb-24 md:ml-20 md:mr-20 ml-6 mr-6 " >
           <form onSubmit={searchHandler}>
-            <img className='flightImage hidden sm:block  w-50 h-36 absolute top-12 right-2 mt-20 mr-10' src={plane} />
+            <img className='flightImage hidden sm:block  w-48 h-36 absolute right-2 mt-20 mr-10' src={plane} />
             <div className="sm:rounded-md rounded-md  ">
               <div className='flightSearchBox pt-20'>
-                <div className="flightsearch px-4 py-5 sm:p-6" style={{
-                  backgroundImage: "url('https://assets.codepen.io/3685267/res-react-dash-usage-card.svg')"
-                }} >
+                <div className="flightsearch px-4 py-5 sm:p-6 bg-gray-800">
                   <div className="grid grid-cols-9 mt-3">
                     <div className="hidden col-span-12 sm:col-span-12 md:mr-3">
                       <label name="way" className="block text-base text-white font-bold">
@@ -193,11 +187,11 @@ const Home = (props) => {
                         <select name="source" value={selectedFromCity} id="source" onChange={(e) => { handleFromCitySelect(e); dataHandler(e) }} onSelect={(e) => { handleFromCitySelect(e); dataHandler(e) }}
                           required
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                          <option selected>Source City...</option>
+                          <option selected>Source code...</option>
                           {
                             flightData.map((item, index) => {
                               return (
-                                <option key={item.code} value={item.code}>{item.city}{", "}{item.state}</option>
+                                <option key={item.code} value={item.code}>{item.code}{":  "}{item.name}</option>
                               )
                             })
                           }
@@ -219,11 +213,11 @@ const Home = (props) => {
                         <select name="destination" value={selectedToCity} id="destination" onChange={(e) => { handleToCitySelect(e); dataHandler(e) }} onSelect={(e) => { handleToCitySelect(e); dataHandler(e) }}
                           required
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                          <option selected>Destination City...</option>
+                          <option selected>Destination code...</option>
                           {
                             flightData.map((item, index) => {
                               return (
-                                <option key={item.code} value={item.code}>{item.city}{", "}{item.state}</option>
+                                <option key={item.code} value={item.code}>{item.code}{":  "}{item.name}</option>
                               )
                             })
                           }
@@ -280,19 +274,11 @@ const Home = (props) => {
                       </label>
 
                       <select id='noOfPassenger' name='noOfPassenger' className="pl-3 h-10 block w-full rounded-md border-black sm:text-sm" onChange={dataHandler}>
-                        {/* <option value="1">1</option>
+                        <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5">5</option> */}
-                        {
-                          noOfPassengerArray.map((item, index) => {
-                            return (
-
-                              <option value={item}>{item}</option>
-                            )
-                          })
-                        }
+                        <option value="5">5</option>
                       </select>
                     </div>
                   </div>
@@ -305,7 +291,7 @@ const Home = (props) => {
                     </button> */}
                     <button
                       type="submit" className="text-md
-               border-2 border-gray-800 py-2 px-8
+               border-2 border-gray-800 py-2 px-4
                transition-colors ease-out
                duration-500 text-white
                bg-blue-800

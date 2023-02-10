@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import flight from '../../elements/flightRegister.jpg'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signup } from "../../redux/auth/authActions";
 import { connect } from "react-redux"
 import { userSignup } from "../../api/authenticationService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../user/Navbar";
+import intlTelInput from 'intl-tel-input';
 
 const Register = () => {
 
@@ -45,6 +46,8 @@ const Register = () => {
   const onChangeConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
   }
+
+ 
 
   const handleSubmit = (e) => {
     console.log(values)
@@ -116,10 +119,27 @@ const Register = () => {
     }
   }
 
+  useEffect(() => {
+    const input = document.querySelector("#phone");
+    intlTelInput(input, {
+      separateDialCode: true,
+      preferredCountries: ["in"]
+    });
+  }, [])
+    
+  //   window.onload = function() {
+  //   document.querySelector("#phone");
+  //   intlTelInput({
+  //     separateDialCode: true,
+  //     preferredCountries: ["in"]
+  //   });
+  // }
+  
+
   return (
 
     <>
-      {/* <Navbar /> */}
+      
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -138,7 +158,7 @@ const Register = () => {
             <div className="w-full py-4">
 
 
-              <div className="sm:mx-auto sm:w-full sm:max-w-md">
+              {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
 
                 <a className="flex justify-center font-bold text-4xl">
                   <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
@@ -164,7 +184,8 @@ const Register = () => {
 
                 </p>
 
-              </div>
+              </div> */}
+              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
 
 
 
@@ -233,7 +254,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="phone" name="contactNumber" type="tel" minLength={10} maxLength={10} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" pattern="^[0-9]*$" onChange={handleChange} />
+                      <input id="phone" name="contactNumber" type="tel" placeholder="Phone number" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
 
                     </div>
 
