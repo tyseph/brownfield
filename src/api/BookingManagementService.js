@@ -13,6 +13,9 @@ export const getBookingsByDate = (date) => {
   return axios.get(`${bookingManagementURL}/getBookingByDate/${date}`);
 };
 
+export const getAllBookingsByUserId = (userId) => {
+  return axios.get(`${bookingManagementURL}/getAllBookingByUserId/${userId}`)
+};
 
 export const getByAdminSearch = (obj) => {
   return axios.post(`${bookingManagementURL}/adminBookingSearch`, {

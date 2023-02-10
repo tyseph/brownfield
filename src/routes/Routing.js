@@ -49,8 +49,8 @@ const Routing = () => {
           <Route path="/flights" element={<SearchResult SearchResult={searchDetails} SetFlightBooking={setFlightBooking} />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/:id/flightbooking" element={<ProtectedRoute><FlightBooking FlightBooking={flightBooking} /></ProtectedRoute>} />
-          <Route path="/seats" element={<Seats />} />
-          <Route path="/payment" element={<Payments />} />
+          <Route path="/seats" element={<ProtectedRoute><Seats /></ProtectedRoute>} />
+          <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
           <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/pdf" element={

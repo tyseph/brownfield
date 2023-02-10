@@ -1,4 +1,4 @@
-const hostname = `LIN51016635`
+const hostname = `LIN59017635`
 
 
 export const authURL = `http://${hostname}.corp.capgemini.com:8089/home`
