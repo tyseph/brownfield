@@ -7,8 +7,10 @@ export const getAllUser = () => {
 
 export const getUser = (userDetails) => {
   return axios({
-    'method': 'POST',
-    'url': `${userDetailsURL}/getUserFromToken`,
-    'data': userDetails,
+
+      'method': 'POST',
+      'url': `${userDetailsURL}/getUserFromToken/${userDetails}`,
+      'data': userDetails,
+
   })
 }
