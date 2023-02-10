@@ -1,5 +1,5 @@
 import axios from "axios";
-import { bookingManagementURL } from "./URL";
+import { bookingManagementURL, flightManagementURL } from "./URL";
 
 export const getAllBookings = () => {
   return axios.get(`${bookingManagementURL}/getAllBooking`);
@@ -36,5 +36,13 @@ export const GetRevenueByDate = () => {
 }
 
 export const getBookedSeats = (flightId, dateOfTravelling) => {
-  return axios.get(`http://LIN51016635.corp.capgemini.com:8089/booking/getBookedSeats/${flightId}/${dateOfTravelling}`)
+  return axios.get(`${bookingManagementURL}/getBookedSeats/${flightId}/${dateOfTravelling}`)
+}
+
+export const getCreatedOrder = (total) => {
+  return axios.post(`${bookingManagementURL}/createOrder/${total}`)
+}
+
+export const postBookFlight = (data) => {
+  return axios.post(`${bookingManagementURL}/bookFlight`, data)
 }

@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addBooking } from "../../redux/user/userActions";
 import { toast } from "react-toastify";
 import { getUser } from "../../api/UserDetailsService";
+import { getCreatedOrder, postBookFlight } from "../../api/BookingManagementService";
 
 
 const Payments = (seats) => {
@@ -28,7 +29,7 @@ const Payments = (seats) => {
     }, [])
 
     useEffect(() => {
-        axios.post(`http://LIN51016635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
+        getCreatedOrder(total).then((res) => {
             console.log(res.data)
             setOrder(res.data)
         })
@@ -71,14 +72,16 @@ const Payments = (seats) => {
                     progress: undefined,
                     theme: "light",
                 });
-                await axios.post("http://LIN51016635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+                postBookFlight(data).then(res => {
                     console.log(res)
-                    dispatch(addBooking(res.data))
+                    if (res.status === 200) {
+                        dispatch(addBooking(res.data))
+                        setPending(!pending)
+                    }
                 }).catch(err => {
                     console.log(err)
                 })
 
-                setPending(!pending)
                 // navigate("/pdf")
             },
             prefill: {
