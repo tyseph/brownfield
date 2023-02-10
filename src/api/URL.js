@@ -11,3 +11,4 @@ export const userDetailsURL = `http://${hostname}.corp.capgemini.com:8089/home`
 
 // http://http://${hostname}:8089/home/getAllUser
 
+
