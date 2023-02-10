@@ -10,7 +10,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import SearchResult from "../pages/user/SearchResult";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import FlightBooking from "../pages/user/FlightBooking";
-import Seats from "../pages/user/Seats";
+import Deck from "../pages/user/Deck";
 import PDFFile from "../pages/user/PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import ReactPDF from '@react-pdf/renderer';
@@ -49,8 +49,10 @@ const Routing = () => {
           <Route path="/flights" element={<SearchResult SearchResult={searchDetails} SetFlightBooking={setFlightBooking} />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/:id/flightbooking" element={<ProtectedRoute><FlightBooking FlightBooking={flightBooking} /></ProtectedRoute>} />
-          <Route path="/seats" element={<ProtectedRoute><Seats /></ProtectedRoute>} />
-          <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
+
+          <Route path="/seats" element={<ProtectedRoute><Deck /></ProtectedRoute>} />
+
+        <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
           <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/pdf" element={

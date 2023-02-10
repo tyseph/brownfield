@@ -1,4 +1,4 @@
-import { GET_ALL_FLIGHTS, USER_FLIGHT_BOOKING } from "./userTypes"
+import { GET_ALL_FLIGHTS, GET_LOGGED_USER, USER_FLIGHT_BOOKING } from "./userTypes"
 import { GET_ALL_AIRPORTS, GET_FLIGHT_DETAILS, GET_FLIGHT_BY_ID, ADD_BOOKING } from "./userTypes"
 
 export const getAllAirport = (airports) => {
@@ -33,6 +33,13 @@ export const addBooking = (booking) => {
     return {
         type: ADD_BOOKING,
         payload: booking
+    }
+}
+
+export const getLoggedUser = (logged) => {
+    return {
+        type: GET_LOGGED_USER,
+        payload: logged
     }
 }
 
