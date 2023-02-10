@@ -1,17 +1,31 @@
 import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react";
 import useRazorpay, { RazorpayOptions, createOrder } from "react-razorpay";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addBooking } from "../../redux/user/userActions";
+import { toast } from "react-toastify";
+import { getUser } from "../../api/UserDetailsService";
+
 
 const Payments = (seats) => {
 
     const [order, setOrder] = useState({})
     const location = useLocation();
     const [data, setData] = useState(location.state.data)
+    const [flightData, setFlightData] = useState(useSelector((state) => state.user))
+    console.log(useSelector((state) => state.user))
     const total = data.fare.totalFare + data.fare.travelCharges
+    const [pending, setPending] = useState()
     const dispatch = useDispatch()
+    const [user, setUser] = useState(useSelector((state) => state.user.logged))
+
+    useEffect(() => {
+
+        if (flightData.booking.hasOwnProperty('bookingId')) {
+            setPending(true)
+        }
+    }, [])
 
     useEffect(() => {
         axios.post(`http://LIN51016635.corp.capgemini.com:8089/booking/createOrder/${total}`).then((res) => {
@@ -27,12 +41,6 @@ const Payments = (seats) => {
         handlePayment()
         data.fare.totalFare = data.fare.totalFare + data.fare.travelCharges
 
-        await axios.post("http://LIN51016635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
-            console.log(res)
-            dispatch(addBooking(res.data))
-        }).catch(err => {
-            console.log(err)
-        }).then().finally()
 
     }
     const Razorpay = useRazorpay();
@@ -50,11 +58,28 @@ const Payments = (seats) => {
             description: "Test Transaction",
             // image: "https://example.com/your_logo",
             order_id: order.id,
-            handler: (res) => {
+            handler: async (res) => {
                 console.log(res);
                 data.paymentId = res.razorpay_payment_id
-                alert("Paid")
-                navigate("/pdf")
+                toast.success('Payment Accepted!', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                await axios.post("http://LIN51016635.corp.capgemini.com:8089/booking/bookFlight", data).then(res => {
+                    console.log(res)
+                    dispatch(addBooking(res.data))
+                }).catch(err => {
+                    console.log(err)
+                })
+
+                setPending(!pending)
+                // navigate("/pdf")
             },
             prefill: {
                 name: data.email,
@@ -86,21 +111,93 @@ const Payments = (seats) => {
     }
 
     return (
-        <div className="App">
+        <center className="p-8 justify-center">
+
+            <div class="w-full max-w-2xl bg-white border border-gray-900 bg-gray-900 rounded-lg shadow">
+                {/* <div class="flex justify-end px-4 pt-4">
+                    <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                        <span class="sr-only">Open dropdown</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                    </button>
+                </div> */}
+                <div class="mt-4 flex flex-col items-center pb-10">
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src={require("../../elements/brownfieldlogo.png")} alt="Bonnie image" />
+                    <p class="text-2xl font-extrabold uppercase tracking-wider text-gray-100 dark:text-white">{user.firstName}{" "}{user.lastName}</p>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{user.emailId}</span>
+                    <div className="flex space-x-6 mt-4">
+                        <p className="text-2xl font-medium text-gray-100 dark:text-white">{flightData.flight.source.code}</p>
+                        <p className="text-2xl font-thin text-gray-100 dark:text-white">-</p>
+                        <p className="text-2xl font-medium text-gray-100 dark:text-white">{flightData.flight.destination.code}</p>
+                    </div>
+                    <div className="flex space-x-8">
+                        <p className="mb-1 text-md font-thin text-gray-100 dark:text-white">{flightData.flight.departureTime}</p>
+                        {/* <p className="mb-1 text-md font-thin text-gray-100 dark:text-white">to</p> */}
+                        <p className="mb-1 text-md font-thin text-gray-100 dark:text-white">{flightData.flight.arrivalTime}</p>
+                    </div>
+                    <div className="flex space-x-1">
+                        <p className="text-md font-thin text-gray-100 dark:text-white">{data.flightId}</p>
+                        <p className="text-md font-thin text-gray-100 dark:text-white">:</p>
+                        <p className="text-md font-thin text-gray-100 dark:text-white">{data.dateOfTravelling}</p>
+                    </div>
+
+                    <p className="mt-3 text-md font-thin text-gray-100 dark:text-white">All Passenger Details</p>
+
+                    {
+                        data.passengerInfo.map((item, index) => {
+                            return (
+                                <div className="space-x-1">
+                                    <h5 class="inline-flex mb-1 text-md uppercase text-gray-500 dark:text-white">{index + 1}{". "}</h5>
+                                    <h5 class="inline-flex mb-1 text-md uppercase text-gray-500 dark:text-white">{item.firstName}{" "}{item.lastName}{"( "}{item.gender[0]}{" )"}{" : "}</h5>
+                                    {/* <span class="inline-flex text-md text-gray-500 dark:text-gray-400 ">}</span> */}
+                                    <span class="inline-flex text-md text-gray-500 dark:text-gray-400">{item.seatNo}</span>
+                                </div>
+                            )
+                        })
+                    }
+                    <div class="flex mt-4 space-x-3 md:mt-6">
+                        <p class={`inline-flex items-centertext-md ml-4 mt-3
+               border-2 border-gray-800 py-2 px-4
+               transition-colors ease-out
+               duration-500 text-white
+               ${!pending ? "bg-red-600" : "bg-green-600"
+                            }
+               bg-gradient-to-r
+               rounded-lg
+            `}>{!pending ? `Payment Pending` : `Paid ₹${flightData.booking.fare.travelCharges}/-`}</p>{
+                            !pending ?
+                                <div>
+                                    <button className="text-md ml-4 mt-3
+                                border-2 border-gray-800 py-2 px-4
+                                transition-colors ease-out
+                                duration-500 text-white
+                                bg-blue-800
+                                bg-gradient-to-r
+                                from-blue-800 
+                                rounded-lg
+                                hover:from-white hover:to-gray-300 
+                                hover:text-black hover:border-white" onClick={test}>Make Payment ₹{flightData.booking.fare.travelCharges}/- </button>
+
+                                </div> : <Link to={'/pdf'}>
+                                    <button className="text-md ml-4 mt-3
+                                border-2 border-gray-800 py-2 px-4
+                                transition-colors ease-out
+                                duration-500 text-white
+                                bg-blue-800
+                                bg-gradient-to-r
+                                from-blue-800 
+                                rounded-lg
+                                hover:from-white hover:to-gray-300 
+                                hover:text-black hover:border-white">View Ticket </button>
+                                </Link>
+                        }
+                    </div>
+                </div>
+            </div>
+
             {/* <button onClick={test}>Payment</button> */}
-            <button className="ml-4 mt-3 text-md
-            border-2 border-gray-100 py-2 px-4
-            transition-colors ease-out
-            duration-500 text-white
-            bg-blue-900
-            bg-gradient-to-r
-            from-blue-900 
-            rounded-lg
-            hover:from-gray-900 hover:to-gray-900 
-            hover:text-white hover:border-gray-900" onClick={test}> Continue... </button>
 
             {/* <button onClick={handlePayment}>Click</button> */}
-        </div>
+        </center>
     );
 }
 
@@ -108,83 +205,3 @@ const Payments = (seats) => {
 export default Payments;
 
 
-// <div class="container">
-//     <div class="row">
-
-//         <div class="col-sm-4 pb-5">
-//             <div class="card">
-//                 <div class="card-body m-4">
-//                     <div class="d-grid gap-2">
-//                         <button class="btn btn-primary" type="button" onclick="CreateOrderID(1)">Buy Now</button>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-
-//     </div>
-// </div>
-// <button id="rzp-button1">Pay</button>
-// <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-// <script>
-//     let xhr = new XMLHttpRequest();
-//     function CreateOrderID(amount) {
-//         console.log("hiiiii")
-//         xhr.open("POST", "http://LIN51016635:8080/createOrder?amount=" + amount);
-//         xhr.setRequestHeader("Content-Type", "application/json");
-
-//         xhr.onreadystatechange = function () {
-//             if (xhr.readyState === 4) {
-//                 console.log(xhr.status);
-//                 console.log(JSON.parse(xhr.responseText))
-//                 console.log(JSON.parse(xhr.responseText).amount)
-//             }
-//         };
-
-//         xhr.send();
-//     }
-
-
-
-//     document.getElementById('rzp-button1').onclick = function (e) {
-
-//         const order = JSON.parse(xhr.responseText);
-//         var options = {
-//             "key": "rzp_test_ugc5Yl6sH3uH5X", // Enter the Key ID generated from the Dashboard
-//             "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-//             "currency": order.currency,
-//             "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-//             "name": "BrownField Airlines",
-//             "handler": function (response) {
-//                 alert(response.razorpay_payment_id);
-//                 alert(response.razorpay_order_id);
-//                 alert(response.razorpay_signature)
-//             },
-//             "prefill": {
-//                 "name": "",
-//                 "email": "",
-//                 "contact": ""
-//             },
-//             "notes": {
-//                 "address": "Razorpay Corporate Office"
-//             },
-//             "theme": {
-//                 "color": "#3399cc"
-//             }
-//         };
-//         var rp = new Razorpay(options);
-
-//         rp.open();
-
-//         rp.on('payment.failed', function (response) {
-//             alert(response.error.code);
-//             alert(response.error.description);
-//             alert(response.error.source);
-//             alert(response.error.step);
-//             alert(response.error.reason);
-//             alert(response.error.metadata.order_id);
-//             alert(response.error.metadata.payment_id);
-//         });
-//     }
-
-// </script>

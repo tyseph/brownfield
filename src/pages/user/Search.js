@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Person2Icon from '@mui/icons-material/Person2';
 import Cards from './Cards';
 import { useDispatch } from "react-redux"
-import { getAllAirport } from '../../redux/user/userActions';
+import { getAllAirport, getLoggedUser } from '../../redux/user/userActions';
 import Navbar from './Navbar';
 import Cover from './Cover';
 import ImageCards from './ImageCards';
@@ -15,6 +15,7 @@ import axios from 'axios';
 import SearchResult from './SearchResult';
 import { getAllAiriports } from '../../api/FlightManagementService'
 import plane from '../../elements/plane.png'
+import { getUser } from '../../api/UserDetailsService';
 
 const Home = (props) => {
 
@@ -67,6 +68,7 @@ const Home = (props) => {
   }
 
   useEffect(() => {
+
     getAllAiriports().then(res => {
       // console.log(res)
       setFlightData(res.data)
@@ -86,7 +88,7 @@ const Home = (props) => {
         alert("Input return date")
       }
       else {
-        axios.post("http://LIN59017635:8089/search/userSearch", data).then(res => {
+        axios.post("http://LIN59016635:8089/search/userSearch", data).then(res => {
           // console.log(data)
           // console.log(res.data)
           { <SearchResult props={res.data} /> }
@@ -191,11 +193,11 @@ const Home = (props) => {
                         <select name="source" value={selectedFromCity} id="source" onChange={(e) => { handleFromCitySelect(e); dataHandler(e) }} onSelect={(e) => { handleFromCitySelect(e); dataHandler(e) }}
                           required
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                          <option selected>Source code...</option>
+                          <option selected>Source City...</option>
                           {
                             flightData.map((item, index) => {
                               return (
-                                <option key={item.code} value={item.code}>{item.code}{":  "}{item.name}</option>
+                                <option key={item.code} value={item.code}>{item.city}{", "}{item.state}</option>
                               )
                             })
                           }
@@ -217,11 +219,11 @@ const Home = (props) => {
                         <select name="destination" value={selectedToCity} id="destination" onChange={(e) => { handleToCitySelect(e); dataHandler(e) }} onSelect={(e) => { handleToCitySelect(e); dataHandler(e) }}
                           required
                           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-zinc-900 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                          <option selected>Destination code...</option>
+                          <option selected>Destination City...</option>
                           {
                             flightData.map((item, index) => {
                               return (
-                                <option key={item.code} value={item.code}>{item.code}{":  "}{item.name}</option>
+                                <option key={item.code} value={item.code}>{item.city}{", "}{item.state}</option>
                               )
                             })
                           }
