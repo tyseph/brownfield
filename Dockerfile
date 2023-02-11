@@ -1,15 +1,9 @@
-#Stage 1
-FROM node:17-alpine as builder
+FROM node:13.12.0-alpine
 WORKDIR /app
-COPY package-lock.json .
-COPY yarn.lock .
-RUN yarn install
-COPY . .
-RUN yarn build
-
-#Stage 2
-FROM nginx:1.19.0
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/build .
-ENTRYPOINT ["nginx", "-g","daemon off;"]
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@5.0.1 -g --silent
+COPY . ./
+CMD ["npm", "start"]
