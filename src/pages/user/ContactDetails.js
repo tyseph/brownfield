@@ -15,7 +15,7 @@ const ContactDetails = ({ contactData, getMobileNo, getEmail }) => {
                                 Mobile Number
                             </label>
                             {/* <input class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="Firstname" type="text" placeholder="First Name..." name="firstName" onChange={passengerHandler} value={passengers.firstName} required /> */}
-                            <input value={user.mobileNo} class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" minLength={10} maxLength={10} type="number" placeholder="Mobile Number..." name="mobileno" onChange={(e) => getMobileNo(e.target.value)} required />
+                            <input value={user.contactNumber} class="shadow appearance-none border-double border-2 border-gray-900 rounded w-60 py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" minLength={10} maxLength={10} type="number" placeholder="Mobile Number..." name="mobileno" onChange={(e) => getMobileNo(e.target.value)} required />
                         </div>
                         <div>
 

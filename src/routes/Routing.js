@@ -30,18 +30,18 @@ const Routing = () => {
   return (
     <>
       <BrowserRouter>
-      <Routes>
-        <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
-      </Routes>
-      
-      <Navbar />
         <Routes>
-        
+          <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+        </Routes>
+
+        <Navbar />
+        <Routes>
+
           <Route path="/" element={<Home SetSearchDetails={setSearchDetails} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          
+
 
           {/* <Route path="/flightmanagement" element={<FlightManagement />} /> */}
           {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
@@ -52,7 +52,7 @@ const Routing = () => {
 
           <Route path="/seats" element={<ProtectedRoute><Deck /></ProtectedRoute>} />
 
-        <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
+          <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
           <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/pdf" element={
@@ -65,7 +65,7 @@ const Routing = () => {
 
 
           {/* <Route path="/" element={<Home />} /> */}
-          
+
         </Routes>
       </BrowserRouter>
     </>

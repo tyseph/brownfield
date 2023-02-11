@@ -21,6 +21,7 @@ const Payments = (seats) => {
     const dispatch = useDispatch()
     const [user, setUser] = useState(useSelector((state) => state.user.logged))
 
+    console.log(useSelector((s) => s.user))
     useEffect(() => {
 
         if (flightData.booking.hasOwnProperty('bookingId')) {
@@ -62,6 +63,7 @@ const Payments = (seats) => {
             handler: async (res) => {
                 console.log(res);
                 data.paymentId = res.razorpay_payment_id
+                data.userName = user.emailId
                 toast.success('Payment Accepted!', {
                     position: "bottom-left",
                     autoClose: 5000,

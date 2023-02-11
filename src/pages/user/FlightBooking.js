@@ -111,13 +111,7 @@ const FlightBooking = (res) => {
 
 
     useEffect(() => {
-        getUser(localStorage.getItem('USER_KEY')).then(res => {
-            console.log(res.data)
-            // setUser(res.data)
-            dispatch(getLoggedUser(res.data))
-        }).catch(err => {
-            console.log('ff', err)
-        })
+        
 
         // const charge = () => {
         setTravelCharges(res.FlightBooking.fare * numberOfPassenger)
