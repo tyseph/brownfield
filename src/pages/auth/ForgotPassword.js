@@ -118,7 +118,7 @@ const ForgotPassword = () => {
     }
     return (
         <>
-            <Navbar />
+            
             <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
                 <div className="hidden md:block h-48 lg:col-span-2 min-h-screen relative overflow-hidden bg-gray-400 shadow-2xl">
                     <img className="absolute inset-0 h-full w-full object-cover" src={forgor} />

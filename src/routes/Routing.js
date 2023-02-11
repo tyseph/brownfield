@@ -10,7 +10,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import SearchResult from "../pages/user/SearchResult";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import FlightBooking from "../pages/user/FlightBooking";
-import Seats from "../pages/user/Seats";
+import Deck from "../pages/user/Deck";
 import PDFFile from "../pages/user/PDFFile";
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import ReactPDF from '@react-pdf/renderer';
@@ -19,6 +19,7 @@ import Payments from "../pages/user/PaymentGateway";
 import ProtectedRoute from "../ProtectedRoutes";
 import ProtectedAdminRoute from "../ProtectedAdminRoutes";
 import Profile from "../pages/user/Profile";
+import Navbar from '../pages/user/Navbar'
 
 const Routing = () => {
 
@@ -30,11 +31,17 @@ const Routing = () => {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+        </Routes>
+
+        <Navbar />
+        <Routes>
+
           <Route path="/" element={<Home SetSearchDetails={setSearchDetails} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/dashboard" element={<ProtectedAdminRoute><Dashboard /></ProtectedAdminRoute>} />
+
 
           {/* <Route path="/flightmanagement" element={<FlightManagement />} /> */}
           {/* <Route path="/bookingmanagement" element={<BookingManagement />} /> */}
@@ -42,8 +49,10 @@ const Routing = () => {
           <Route path="/flights" element={<SearchResult SearchResult={searchDetails} SetFlightBooking={setFlightBooking} />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/:id/flightbooking" element={<ProtectedRoute><FlightBooking FlightBooking={flightBooking} /></ProtectedRoute>} />
-          <Route path="/seats" element={<Seats />} />
-          <Route path="/payment" element={<Payments />} />
+
+          <Route path="/seats" element={<ProtectedRoute><Deck /></ProtectedRoute>} />
+
+          <Route path="/payment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
           <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/pdf" element={

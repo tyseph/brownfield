@@ -1,10 +1,11 @@
-import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS, GET_FLIGHT_DETAILS, GET_FLIGHT_BY_ID, ADD_BOOKING, USER_FLIGHT_BOOKING } from "./userTypes";
+import { GET_ALL_AIRPORTS, GET_ALL_FLIGHTS, GET_FLIGHT_DETAILS, GET_FLIGHT_BY_ID, ADD_BOOKING, USER_FLIGHT_BOOKING, GET_LOGGED_USER } from "./userTypes";
 
 
 const initialState = {
     airports: [],
     flights: [],
-    booking: []
+    booking: [],
+    logged: {}
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -39,7 +40,13 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 booking: action.payload
             }
-        case USER_FLIGHT_BOOKING: return { ...state, booking: action.payload }
+        case GET_LOGGED_USER:
+            return {
+                ...state,
+                logged: action.payload
+            }
+        case USER_FLIGHT_BOOKING:
+            return { ...state, booking: action.payload }
         default: {
             return state
         }

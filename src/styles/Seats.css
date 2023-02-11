@@ -1,0 +1,123 @@
+.seatsDiv {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: left; */
+  /* cursor: pointer;
+    margin-left: 28px;
+    width: 100px; */
+}
+
+.seatsDivOne {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: left;
+    cursor: pointer;
+    margin-left: 28px;
+    width: 100px; */
+}
+
+.seatsDiv {
+  /* max-width: 120px; */
+  /* margin-left: 15vh; */
+  /* float: right; */
+  /* cursor: pointer;
+    margin-left: 28px;
+    width: 100px; */
+}
+
+.seats {
+  /* text-align: center; */
+  /* font-size: small; */
+}
+
+.seats img {
+  /* height: 31px; */
+}
+
+/* .colOne {
+  border-left: solid 5px #0f1821;
+  margin-left: 30vw;
+}
+
+.colTwo {
+  margin-left: 35vw;
+}
+
+.colThree {
+  margin-left: 45vw;
+}
+
+.colFour {
+  margin-left: 50vw;
+}
+
+.colFive {
+  margin-left: 60vw;
+}
+
+.colSix {
+  margin-left: 65vw;
+  border-right: solid 5px #0f1821;
+}
+
+.seatDiv {
+  outline: 2px solid black;
+} */
+
+.plane {
+  margin: auto;
+  max-width: 300px;
+  border-bottom: 5px solid #000000;
+}
+
+.cockpit {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 5px solid #000000;
+}
+
+.cockpit::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 500px;
+  width: 100%;
+  border-radius: 100%;
+  border-right: 5px solid #000000;
+  border-left: 5px solid #000000;
+}
+
+.fuselage {
+  border-right: 5px solid #000000;
+  border-left: 5px solid #000000;
+}
+
+.exit2 {
+  position: relative;
+  /* height: 50px; */
+}
+.exit2:before {
+  left: 0;
+}
+.exit2:after {
+  right: 0;
+}
+
+.exit2:before,
+.exit2:after {
+  content: "EXIT";
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0px 2px;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  display: block;
+  position: absolute;
+  background: green;
+  color: white;
+  top: 1%;
+  transform: translate(0, -50%);
+}

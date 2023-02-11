@@ -11,7 +11,7 @@ const AllAirports = ({ menuItems, placeholder, name, value, onChange, gap }) => 
                 {
                     menuItems.map((item) => {
                         return (
-                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg hover:bg-zinc-200 text-gray-100 hover:font-black font-semibold hover:text-zinc-900 block px-4 py-2 text-md">{item.code}{": "}{item.name}</option>
+                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg hover:bg-zinc-200 text-gray-100 hover:font-black font-semibold hover:text-zinc-900 block px-4 py-2 text-md">{item.city}{", "}{item.state}</option>
                         )
                     })
                 }
