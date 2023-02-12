@@ -12,7 +12,7 @@
 // http://http://${hostname}:8089/home/getAllUser
 
 export const authURL = `${process.env.REACT_APP_URL}/home`
-export const flightManagementURL = `${process.env.REACT_APP_IP}/search`
-export const bookingManagementURL = `${process.env.REACT_APP_IP}/booking`
-export const userDetailsURL = `${process.env.REACT_APP_IP}/home`
+export const flightManagementURL = `${process.env.REACT_APP_URL}/search`
+export const bookingManagementURL = `${process.env.REACT_APP_URL}/booking`
+export const userDetailsURL = `${process.env.REACT_APP_URL}/home`
 
