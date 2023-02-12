@@ -150,7 +150,7 @@ const Login = () => {
   return (
 
     <>
-    {/* <Navbar /> */}
+    
 
       <div className="min-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -172,7 +172,7 @@ const Login = () => {
                 <img className="w-20 h-20" src={require('../../elements/brownfieldlogo.png')} />
               </a> */}
 
-              <h2 className="text-2xl font-extrabold text-center leading-9">Sign in to your account</h2>
+              <h2 className="text-2xl font-extrabold text-center leading-9">Login to your account</h2>
               <p className="mt-2 text-sm text-center leading-5 max-w">
 
                 Or{" "}

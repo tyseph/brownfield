@@ -100,35 +100,18 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
         <div className="flex-grow" />
         <LiveTime />
       </div>
-      <center className='w-full px-3'>
+      <center className='w-full px-3 flex space-y-2'>
         <button className="w-full text-md
+               bg-transparent
                border-2 border-gray-800 py-2 px-4
                transition-colors ease-out
                duration-500 text-white
-               bg-red-800
-               bg-gradient-to-r
-               from-red-800 
-               rounded-xl
-               hover:from-white hover:to-gray-300 
-               hover:text-black hover:border-white uppercase tracking-wide" onClick={handleLogout}>Logout</button>
+
+               rounded-lg
+               hover:from-white hover:to-red-300 
+               hover:text-white hover:border-red uppercase tracking-wide" onClick={handleLogout}>Logout</button>
       </center>
 
-
-      <div className="flex-shrink-0 overflow-hidden p-2">
-        <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-bottom">
-          <Image path="mock_faces_8" className="w-10 h-10" />
-          <div className="block sm:hidden xl:block ml-2 font-bold ">
-            Brownfield Admin
-          </div>
-          {/* <div className="flex-grow block sm:hidden xl:block" />
-          <Icon
-            path="res-react-dash-options"
-            className="block sm:hidden xl:block w-3 h-3"
-          /> */}
-          <div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -8,6 +8,8 @@ import { useState } from "react";
 
 //flying_airplane
 const PDFFile = () => {
+
+    console.log(localStorage.getItem(''))
     const styles = StyleSheet.create({
         page: {
             height: '100vh',
@@ -81,7 +83,7 @@ const PDFFile = () => {
             {
                 data.map(p => {
                     return (
-                        <Page size="A4" classname="overflow-hidden text-gray-100" style={styles.page}>
+                        <Page key={p.seatNo} size="A4" classname="overflow-hidden text-gray-100" style={styles.page}>
                             <View classname="overflow-hidden text-gray-100 p-3" style={styles.section}>
                                 {/* <Image classname="overflow-hidden text-gray-100" style={styles.image} src={flight} alt="images" /> */}
                                 <Text classname="overflow-hidden text-gray-100" style={styles.text}>BrownField Airlines</Text>
