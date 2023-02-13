@@ -1,0 +1,9 @@
+Admin search (By Id)
+Admin Navbar is at localHost
+NavBar at No User, Home Button and login button appears on the login Page
+Password validation check
+Alerts to toast
+NavBar Color to gray-900 for everypage except login and register
+Search compnent on flights route
+Select Seats should not activate unitil all passenger details are not filled
+Fare Details on seats page also

@@ -76,7 +76,10 @@ const Dashboard = () => {
   }
 
   const getUsers = () => {
-    getAllUser().then((res) => setUser(res.data))
+    console.log("USERS")
+    getAllUser().then((res) =>
+      setUser(res.data)
+    )
   }
   const getFlights = () => {
     let tmp;
@@ -98,9 +101,9 @@ const Dashboard = () => {
     // return tmp;
   }
 
-  const select  = useSelector(state => state.auth.username)
+  const select = useSelector(state => state.auth.username)
 
-  console.log('checking',select)
+  console.log('checking', select)
 
   return (
     <div className="flex">

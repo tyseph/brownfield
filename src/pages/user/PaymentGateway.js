@@ -154,13 +154,13 @@ const Payments = (seats) => {
                                     <h5 class="inline-flex mb-1 text-md uppercase text-gray-500 dark:text-white">{index + 1}{". "}</h5>
                                     <h5 class="inline-flex mb-1 text-md uppercase text-gray-500 dark:text-white">{item.firstName}{" "}{item.lastName}{"( "}{item.gender[0]}{" )"}{" : "}</h5>
                                     {/* <span class="inline-flex text-md text-gray-500 dark:text-gray-400 ">}</span> */}
-                                    <span class="inline-flex text-md text-gray-500 dark:text-gray-400">{item.seatNo}</span>
+                                    <span class="inline-flex text-md text-gray-500 dark:text-gray-400">{item.seatNo ? `${item.seatNo}` : `Auto Assign`}</span>
                                 </div>
                             )
                         })
                     }
                     <div class="flex mt-4 space-x-3 md:mt-6">
-                        <p class={`inline-flex items-centertext-md ml-4 mt-3
+                        {/* <p class={`inline-flex items-centertext-md ml-4 mt-3
                border-2 border-gray-800 py-2 px-4
                transition-colors ease-out
                duration-500 text-white
@@ -168,7 +168,8 @@ const Payments = (seats) => {
                             }
                bg-gradient-to-r
                rounded-lg
-            `}>{!pending ? `Payment Pending` : `Paid ₹${flightData.booking.fare.travelCharges}/-`}</p>{
+            `}>{!pending ? `Payment Pending` : `Paid ₹${flightData.booking.fare.travelCharges}/-`}</p> */}
+                        {
                             !pending ?
                                 <div>
                                     <button className="text-md ml-4 mt-3

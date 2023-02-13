@@ -44,10 +44,10 @@ const FlightData = ({ flights, update, toggleFlightStatus }) => {
                                 <label class="flex items-center mb-2 relative w-8 cursor-pointer select-none">
                                     <input onChange={() => toggleFlightStatus(flight.flightId)}
                                         checked={flight.flightStatus}
-                                        value={flight.flightStatus} type="checkbox" className="appearance-none outline-none ring-gray-800 ring-1 ring-offset-gray-800 transition-colors cursor-pointer w-11 h-4 rounded-full focus:outline-none bg-red-500" />
+                                        value={flight.flightStatus} type="checkbox" className="appearance-none outline-none ring-gray-800 ring- ring-offset-gray-800 transition-colors cursor-pointer w-11 h-4 rounded-full focus:outline-none bg-red-500" />
                                     {/* <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
                                     <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span> */}
-                                    <span className="w-4 h-4 absolute rounded-full transform transition-transform bg-gray-200" />
+                                    <span className="w-4 h-4 ring-1 ring-gray-500 absolute rounded-full transform transition-transform bg-gray-200" />
                                 </label>
                                 <span class="text-gray-600 whitespace-no-wrap">{flight.flightStatus ? "Active" : "Disabled"}</span>
                                 {/* <label className="relative items-center cursor-pointer">

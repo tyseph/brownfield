@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { getUser } from "../../api/UserDetailsService";
 import { useEffect } from "react";
@@ -36,41 +36,11 @@ const Profile = () => {
 
   console.log(bookings);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //     getAllAiriports().then((res) => {
-  //       console.log("get airports is running")
-  //       dispatch(GetAllAirports(res.data))
-  //     })
-  //   }, [])
-
-  // useEffect(() => {
-  //   console.log("getbookings is running");
-  //   getUser(localStorage.getItem("USER_KEY"))
-  //     .then((res) => {
-  //       console.log("users are here", res.data);
-  //       setUsers(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("users are NOT hreer", err);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //     getAllBookingsByUserId(localStorage.getItem('USER_KEY')).then((res) => {
-  //       if (res.status === 200) {
-  //         setBookings(res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b));
-  //         // console.log('inside get all users', res.data)
-  //         dispatch(
-  //           GetAllBookings(
-  //             res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
-  //           )
-  //         );
-  //         setTasksCompleted(res.data.length);
-  //       } else {
-  //         console.log("could not get data");
-  //       }
-  //     }));
+  const view = (x, y) => {
+    navigate("/pdf")
+  }
 
   useEffect(() => {
     console.log("SAJAL ", users.userId)
@@ -286,7 +256,7 @@ const Profile = () => {
                           </th>
                         </tr>
                       </thead>
-                      <BookingData bookings={bookings} />
+                      <BookingData bookings={bookings} view={view} />
                     </table>
                   </div>
                 </div>

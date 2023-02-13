@@ -47,7 +47,7 @@ const Register = () => {
     setConfirmPassword(e.target.value);
   }
 
- 
+
 
   const handleSubmit = (e) => {
     console.log(values)
@@ -126,7 +126,7 @@ const Register = () => {
       preferredCountries: ["in"]
     });
   }, [])
-    
+
   //   window.onload = function() {
   //   document.querySelector("#phone");
   //   intlTelInput({
@@ -134,12 +134,12 @@ const Register = () => {
   //     preferredCountries: ["in"]
   //   });
   // }
-  
+
 
   return (
 
     <>
-      
+
 
       <div className="max-h-screen md:grid md:grid-cols-2 lg:grid-cols-3">
 
@@ -151,11 +151,11 @@ const Register = () => {
 
 
 
-        <div className="flex items-center justify-center px-6 pt-20 h-screen sm:h-screen overflow-y-scroll w-full">
+        <div className="flex items-center justify-center px-6 pt-20 h- sm:h- overflow-y-scroll w-full">
           <div className="">
 
 
-            <div className="w-full py-4">
+            <div className="w-full">
 
 
               {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -185,7 +185,7 @@ const Register = () => {
                 </p>
 
               </div> */}
-              <h2 className="mt-6 text-2xl font-extrabold text-center leading-9">Create a new account</h2>
+              <h2 className="text-2xl font-extrabold text-center leading-9">Create a new account</h2>
 
 
 

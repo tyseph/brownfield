@@ -50,8 +50,8 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
     >
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-top">
-          <IconButton className="w-10 h-10" 
-          onClick={() => navigate('/')}/>
+          <IconButton className="w-10 h-10"
+            onClick={() => navigate('/')} />
           <div className="block sm:hidden xl:block ml-2 font-bold text-xl text-gray-200">
             Brownfield Airlines
           </div>
@@ -100,16 +100,15 @@ const Sidebar = ({ onSidebarHide, showSidebar, onMenuClick, selected }) => {
         <div className="flex-grow" />
         <LiveTime />
       </div>
-      <center className='w-full px-3 flex space-y-2'>
-        <button className="w-full text-md
-               bg-transparent
-               border-2 border-gray-800 py-2 px-4
-               transition-colors ease-out
-               duration-500 text-white
-
-               rounded-lg
-               hover:from-white hover:to-red-300 
-               hover:text-white hover:border-red uppercase tracking-wide" onClick={handleLogout}>Logout</button>
+      <center className='w-full px-3 pb-4 flex space-y-2'>
+        <button className="w-full
+                  border-2 border-gray-800 py-2 px-8
+                  transition-colors ease-out
+                  duration-500 text-white
+                  bg-red-800
+          
+                  rounded-lg hover:bg-white 
+                  hover:text-black hover:border-white uppercase tracking-wide" onClick={handleLogout}>Logout</button>
       </center>
 
     </div>

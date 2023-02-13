@@ -24,6 +24,8 @@ const FlightBooking = (res) => {
     const [travelCharges, setTravelCharges] = useState();
     const dispatch = useDispatch();
     const flight = useSelector((state) => state.user.flight)
+    const [user, setUser] = useState(useSelector((state) => state.user.logged))
+
 
     const navigate = useNavigate()
     console.log(res.FlightBooking.data.dateOfTravelling)
@@ -36,7 +38,7 @@ const FlightBooking = (res) => {
     // const numberOfPassenger = 5
     const [count, setCount] = useState(1)
     const passengerHandler = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         setPassengers(prev => ({
             ...prev, [e.target.name]: e.target.value
         }))
@@ -66,14 +68,15 @@ const FlightBooking = (res) => {
                     ele[i].checked = false;
                 }
             }
-            setTmp(true)
         }
         else {
             alert("please enter all details")
         }
+        setTmp(true)
+        console.log("GENERATE COUNT", passengerArray.length, numberOfPassenger, count)
     }
-    const [email, setEmail] = useState('')
-    const [mobileNo, setMobileNo] = useState()
+    const [email, setEmail] = useState(user.emailId)
+    const [mobileNo, setMobileNo] = useState(user.contactNumber)
     const data = {
         "flightId": flightData.flightId,
         "email": email,
@@ -111,7 +114,7 @@ const FlightBooking = (res) => {
 
 
     useEffect(() => {
-        
+
 
         // const charge = () => {
         setTravelCharges(res.FlightBooking.fare * numberOfPassenger)
@@ -129,18 +132,22 @@ const FlightBooking = (res) => {
         })
     }, [])
 
+
     const getMobileNo = (mob) => {
         setMobileNo(mob)
+        console.log(mob)
     }
 
     const getEmail = (email) => {
         setEmail(email)
+        console.log(email)
+
     }
 
     console.log(data)
     return (
         <>
-        
+
             <div className="grid sm:grid-cols-11 gap-8 p-2">
                 <div className="sm:col-span-8 grid grid-rows-1 gap-2">
                     <FlightDetails res={res} />

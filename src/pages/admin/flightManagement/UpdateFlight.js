@@ -32,19 +32,34 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
     const handleClick = (e) => {
         e.preventDefault()
         if (UpdateFlight.sourceCode !== "" && UpdateFlight.destinationCode !== "") {
-            updateFlightData(update.flightId, UpdateFlight)
-            toast.success(`FlightId ${update.flightId} Updated Successfully`, {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            // clear()
-            changeUpdate("", "", "", "", "", "", false)
+            if (UpdateFlight.sourceCode === update.sourceCode && UpdateFlight.destinationCode === update.destinationCode && UpdateFlight.timeOfArrival === update.timeOfArrival && UpdateFlight.timeOfDeparture === update.timeOfDeparture && UpdateFlight.flightStatus === update.flightStatus) {
+                toast.error(`Data Unchanged`, {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                updateFlightData(update.flightId, UpdateFlight)
+                toast.success(`FlightId ${update.flightId} Updated Successfully`, {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                // clear()
+                changeUpdate("", "", "", "", "", "", false)
+
+            }
         }
     }
 
@@ -153,9 +168,9 @@ const UpdateFlight = ({ airPorts, updateFlightData, update, changeUpdate, clear 
                                     value={UpdateFlight.flightStatus} type="checkbox" className="appearance-none outline-none ring-gray-800 ring-1 ring-offset-gray-800 transition-colors cursor-pointer w-11 h-4 rounded-full focus:outline-none bg-red-500" />
                                 {/* <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
                                     <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span> */}
-                                <span className="w-4 h-4 absolute rounded-full transform transition-transform bg-gray-200" />
+                                <span className="w-4 h-4 ring-1 ring-gray-500 absolute rounded-full transform transition-transform bg-gray-200" />
                             </label>
-                            <span class="text-gray-600 whitespace-no-wrap">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
+                            <span class="text-gray-200 whitespace-no-wrap">{UpdateFlight.flightStatus ? "Active" : "Disabled"}</span>
                             {/* <label className="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" className="sr-only peer" />
                                 <div className="w-11 h-6 bg-red-400 peer-focus:outline-none rounded-full peer dark:bg-red-600 peer-checked:after:border-white peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>

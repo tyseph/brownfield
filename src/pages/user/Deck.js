@@ -26,7 +26,7 @@ const Deck = () => {
     const [booked, setBooked] = useState([]);
     const dispatch = useDispatch();
     const data = useSelector((state) => state.user.booking)
-    // console.log(data)
+    console.log(data)
     const numberOfPassenger = data.passengerInfo.length
     // const Razorpay = useRazorpay();
 
@@ -94,21 +94,59 @@ const Deck = () => {
     return (
         <div className="">
             {/* <div class="rotated-half-circle"></div> */}
-            <button className="ml-4 mt-3 text-md
-            border-2 border-gray-100 py-2 px-4
-            transition-colors ease-out
-            duration-500 text-white
-            bg-blue-900
-            bg-gradient-to-r
-            from-blue-900 
-            rounded-lg
-            hover:from-gray-900 hover:to-gray-900 
-            hover:text-white hover:border-gray-900" onClick={seatSubmit}> Go To Payments </button>
-            <label className="block uppercase tracking-wide text-gray-900 text-wrap w-64 text-xs ml-4 mt-4 font-thin" htmlFor="grid-zip">
-                *Seats will be automatically assgined if not selected
-            </label>
+            <div className="absolute">
+                <div class="rounded-lg m-3 overflow-scroll p-3 shadow-lg bg-gray-900 border-solid border-2 border-gray-900 text-white mb-2">
+                    <div>
+                        <div class="font-bold text-xl mb-2 text-white bg-gray-900 text-center">All Fare Details</div>
+                        <p class="text-gray-100 text-lg ml-4 font-bold tracking-wide ">
+                            Base Fare
+                        </p>
+                        <p className="text-gray-100 text-sm font-thin tracking-wider ml-4 mb-5" >
+                            Adult(s)   {numberOfPassenger} x {data.fare.travelCharges - data.fare.totalFare}
+                        </p>
+                        <p class="text-gray-100 text-lg ml-4 font-bold tracking-wide ">
+                            Seat Reservation Charges
+                        </p>
+                        <p className="text-gray-100 text-sm font-thin tracking-wider ml-4 mb-5" >
+                            Adult(s)   {numberOfPassenger} x {data.fare.seatReserveCharges} = {"₹ "}{numberOfPassenger * data.fare.seatReserveCharges}
+                        </p>
 
-            <div className=" plane">
+                        <p class="text-gray-100 text-lg ml-4 font-bold tracking-wide ">
+                            Auxilary Charges
+                        </p>
+                        <p className="text-gray-100 text-sm font-thin tracking-wider ml-7 mb-5" >
+                            {/* {"₹ "}{totalFare + travelCharges} */}
+                            {"₹ "}{data.fare.ancillaryCharges}
+                        </p>
+
+                        <hr className="border border-gray-600" />
+                        <p class="text-gray-100 text-lg ml-4 font-bold tracking-wide ">
+                            Total Fare
+                        </p>
+                        <p className="text-gray-100 text-sm font-thin tracking-wider ml-7 mb-5" >
+                            {/* {"₹ "}{totalFare + travelCharges} */}
+                            {"₹ "}{data.fare.travelCharges}
+                        </p>
+                    </div>
+
+                    <button className="ml-4 mt-3 text-md
+               border-2 border-gray-800 py-2 px-8
+               transition-colors ease-out
+               duration-500 text-white
+               bg-blue-800
+               bg-gradient-to-r
+               from-blue-800 
+               rounded-lg
+               hover:from-white hover:to-gray-300 
+               hover:text-black hover:border-white" onClick={seatSubmit}> Go To Payments </button>
+                    <label className="block uppercase tracking-wide text-gray-100 text-wrap w64 text-xs ml-4 mt-4 font-thin" htmlFor="grid-zip">
+                        *Seats will be automatically assgined if not selected
+                    </label>
+                </div>
+
+            </div>
+
+            <div className="plane">
                 <div className="cockpit pt-12">
                     <h1 className="text-gray-900 whitespace-no-wrap uppercase">BrownField Airline</h1>
                     <h1 className="text-gray-600 whitespace-no-wrap uppercase">Cockpit</h1>

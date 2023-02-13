@@ -26,7 +26,7 @@ const PDFFile = () => {
             borderBottom: "2px solid black",
             borderRight: "2px dotted black",
             borderRadius: "6px",
-            marginBottom: "75vh",
+            marginBottom: "70vh",
 
         },
         sectionTwo: {
@@ -37,7 +37,7 @@ const PDFFile = () => {
             borderBottom: "2px solid black",
             borderRight: "2px solid black",
             borderRadius: "6px",
-            marginBottom: "75vh",
+            marginBottom: "70vh",
             backgroundColor: "white"
         },
         text: {
@@ -84,16 +84,19 @@ const PDFFile = () => {
                 data.map(p => {
                     return (
                         <Page key={p.seatNo} size="A4" classname="overflow-hidden text-gray-100" style={styles.page}>
-                            <View classname="overflow-hidden text-gray-100 p-3" style={styles.section}>
+                            <View classname="" style={styles.section}>
+                                <div className="overflow-hidden text-gray-100 p-3">
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.text}>BrownField Airlines</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Name :           {p.firstName} {p.lastName} </Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Flight No. :     {book.flight.flightId}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Booking ID. :     {book.bookingId}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>From :            {book.flight.source.name}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>To :                 {book.flight.destination.name}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Date :             {book.dateOfTravelling}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Seat :             {p.seatNo}</Text>
+                                    <Text classname="overflow-hidden text-gray-100" style={styles.para}>Fare :            Rupees {book.fare.travelCharges} /-</Text>
+                                </div>
                                 {/* <Image classname="overflow-hidden text-gray-100" style={styles.image} src={flight} alt="images" /> */}
-                                <Text classname="overflow-hidden text-gray-100" style={styles.text}>BrownField Airlines</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Name :           {p.firstName} {p.lastName} </Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Flight No. :     {book.flight.flightId}</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Booking ID. :     {book.bookingId}</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>From :            {book.flight.source.name}</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>To :                 {book.flight.destination.name}</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Date :             {book.dateOfTravelling}</Text>
-                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Seat :             {p.seatNo}</Text>
 
                             </View>
                             <View classname="overflow-hidden text-gray-100 p-3" style={styles.sectionTwo}>
@@ -107,6 +110,9 @@ const PDFFile = () => {
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>To :                {book.flight.destination.code}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Date :             {book.dateOfTravelling}</Text>
                                 <Text classname="overflow-hidden text-gray-100" style={styles.para}>Seat :             {p.seatNo} </Text>
+                                <Text classname="overflow-hidden text-gray-100" style={styles.para}>Fare :            Rupees {book.fare.travelCharges} /-</Text>
+
+
                             </View>
                         </Page>)
                 })
