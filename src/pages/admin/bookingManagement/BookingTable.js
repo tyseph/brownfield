@@ -6,14 +6,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AllAirports from "../flightManagement/AllAirports";
-import ViewBooking from './ViewBooking';
+import ViewBooking from "./ViewBooking";
 
 const BookingTable = ({ bookings, searchBooking, airPorts }) => {
-
   const [view, setView] = useState({
     bookingId: "",
-    state: false
-  })
+    state: false,
+  });
 
   const [input, setInput] = useState({
     bookingId: "",
@@ -23,9 +22,13 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
     date: "",
   });
 
-  useEffect(() => { }, [input, view]);
+  useEffect(() => {}, [input, view]);
 
   const menuItems = [
+    {
+      value: "",
+      code: "Select Time...",
+    },
     {
       value: "Morning",
       code: "Morning",
@@ -56,19 +59,21 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
     // console.log(id)
     setView({
       bookingId: id,
-      state: state
-    })
-  }
+      state: state,
+    });
+  };
 
   const goBack = () => {
     setView({
-      state: false
-    })
-  }
+      state: false,
+    });
+  };
 
   return (
     <div className="p-2 mt-6">
-      {view.state ? <ViewBooking view={view} viewBooking={viewBooking} goBack={goBack} /> :
+      {view.state ? (
+        <ViewBooking view={view} viewBooking={viewBooking} goBack={goBack} />
+      ) : (
         <div className="">
           <div className="flex flex-wrap justify-start gap-2">
             <div className="flex flex-wrap gap-2">
@@ -93,10 +98,11 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                 <input
                   id="date"
                   // placeholder="Input time..."
-                  style={{ colorScheme: "dark", color: "#71717a", }}
+                  style={{ colorScheme: "dark", color: "#71717a" }}
                   name="date"
                   type="date"
                   required
+                  value={input.date}
                   className="appearance-none pl-3 placeholder-zinc-900 block w-36 py-2 pr-2 border border-gray-300 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-200 placeholder-zinc-500 font-bold block focus:outline-none rounded-md bg-gray-900"
                   onChange={handleOnChange}
                 />
@@ -111,7 +117,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
             <div className="flex flex-wrap gap-1">
               <AllAirports
                 name="sourceCode"
-                value={input.src}
+                value={input.sourceCode}
                 gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
@@ -120,7 +126,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               <SwapHorizIcon className="mt-2 sm:max-md:mt-4 md:max-lg:mt-2 lg:max-xl:mt-2 xl:max-2xl:mt-2 2xl:mt-2" />
               <AllAirports
                 name="destinationCode"
-                value={input.des}
+                value={input.destinationCode}
                 gap="inline-flex px-2 py-2 pr-2 block focus:outline-none w-48 rounded-md text-zinc-500 font-bold bg-gray-900"
                 onChange={handleOnChange}
                 menuItems={airPorts}
@@ -160,7 +166,7 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
                       destinationCode: "",
                     });
                   }}
-                  type="submit"
+                  // type="submit"
                   className="text-md
                   border-2 border-gray-100 py-2 px-4
                   transition-colors ease-out
@@ -214,7 +220,8 @@ const BookingTable = ({ bookings, searchBooking, airPorts }) => {
               </table>
             </div>
           </div>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };

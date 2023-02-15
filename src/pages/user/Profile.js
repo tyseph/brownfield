@@ -32,25 +32,25 @@ const Profile = () => {
   const [users, setUsers] = useState(useSelector((state) => state.user.logged));
 
   const [clear, setClear] = useState(false);
-  const [totalBookings, setTotalBooking] = useState()
+  const [totalBookings, setTotalBooking] = useState();
 
   console.log(bookings);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const view = (x, y) => {
-    navigate("/pdf")
-  }
+    navigate("/pdf");
+  };
 
   useEffect(() => {
-    console.log("SAJAL ", users.userId)
+    console.log("SAJAL ", users.userId);
     getAllBookingsByUserId(users.userId).then((res) => {
       if (res.status === 200) {
         setBookings(
           res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
         );
-        setTotalBooking(res.data.length)
-        console.log('inside get all users', res.data)
+        setTotalBooking(res.data.length);
+        console.log("inside get all users", res.data);
         dispatch(
           GetAllBookings(
             res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
@@ -62,7 +62,7 @@ const Profile = () => {
       }
     });
 
-    console.log("CAlled", users)
+    console.log("CAlled", users);
   }, []);
 
   // const adminSearch = (obj) => {
@@ -222,9 +222,8 @@ const Profile = () => {
                 </span>
               </div>
               <div className="shadow-sm rounded-sm ">
-
                 <div className="py-4 overflow-auto">
-                  <div className="container mx-auto shadow-md rounded-lg overflow-auto">
+                  <div className="container mx-auto shadow-md rounded-lg h-96 overflow-auto">
                     <table className="w-full">
                       <thead className="w-full">
                         <tr>
@@ -254,9 +253,169 @@ const Profile = () => {
                           <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                             View
                           </th>
+                          <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
+                            checkin
+                          </th>
                         </tr>
                       </thead>
-                      <BookingData bookings={bookings} view={view} />
+                      <tbody>
+                        {bookings.map((booking, index) => {
+                          return (
+                            <tr key={booking.bookingId}>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.bookingId}
+                                </p>
+                                {/* <p className="text-gray-600 whitespace-no-wrap">USD</p> */}
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {new Date(
+                                    booking.dateOfTravelling
+                                  ).toLocaleDateString("en-IN", {
+                                    year: "2-digit",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                  })}
+                                </p>
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.source.code}
+                                </p>
+                                <p className="text-gray-600 whitespace-no-wrap">
+                                  {booking.flight.source.name}
+                                </p>
+                                <p className="text-gray-600 whitespace-no-wrap">
+                                  {booking.flight.source.city}
+                                </p>
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.destination.code}
+                                </p>
+                                <p className="text-gray-600 whitespace-no-wrap">
+                                  {booking.flight.destination.name}
+                                </p>
+                                <p className="text-gray-600 whitespace-no-wrap">
+                                  {booking.flight.destination.city}
+                                </p>
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.departureTime}
+                                </p>
+                                {/* <p className="text-gray-600 whitespace-no-wrap">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> */}
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.arrivalTime}
+                                </p>
+                                {/* <p className="text-gray-600 whitespace-no-wrap">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> */}
+                              </td>
+                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                                <p className="text-gray-900 whitespace-no-wrap">{booking.destination.code}</p>
+                                <p className="text-gray-600 whitespace-no-wrap">{booking.destination.name}</p>
+                                <p className="text-gray-600 whitespace-no-wrap">{booking.destination.city}</p>
+
+                            </td> */}
+                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                            <p className="text-gray-600 whitespace-no-wrap">$</p>
+                                <p className="text-gray-900 whitespace-no-wrap">{booking.fare}</p>
+                            </td> */}
+                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                                <p className="text-gray-900 whitespace-no-wrap">₹8894</p>
+                                <p className="text-gray-600 whitespace-no-wrap"></p>
+                            </td> */}
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <span className="relative inline-block cursor-pointer font-semibold text-red-900 leading-tight hover:scale-110 transform transition duration-200">
+                                  {/* <span
+                                        aria-hidden
+                                        className="inset-0 "
+                                    ></span> */}
+                                  <span
+                                    onClick={() =>
+                                      view(booking.bookingId, true)
+                                    }
+                                    className="px-2 py-1 bg-red-200 hover:bg-red-500 hover:text-white transform transition duration-200 rounded-xl"
+                                  >
+                                    View
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <span
+                                  className={`relative inline-block cursor-pointer font-semibold text-green-900 leading-tight hover:scale-110 transform transition duration-200`}
+                                >
+                                  {/* <span
+                                        aria-hidden
+                                        className="inset-0 "
+                                    ></span> */}
+                                  <span
+                                    className={`px-2 py-1 ${
+                                      booking.checkedIn
+                                        ? "hover:bg-green-500 bg-green-200"
+                                        : "hover:bg-red-500 bg-red-200"
+                                    } hover:text-white transform transition duration-200 rounded-xl`}
+                                  >
+                                    {booking.checkedIn
+                                      ? "CheckedIn"
+                                      : "CheckIn"}
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
                     </table>
                   </div>
                 </div>
