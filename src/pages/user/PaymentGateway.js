@@ -51,9 +51,11 @@ const Payments = (seats) => {
   const [bookingId, setBookingId] = useState();
   const [checkin, setCheckIn] = useState(false);
 
-  const handleCheckIn = () => {
-    console.log(bookingId);
+  const handleCheckIn = (yourDate) => {
+    var tmp = false;
     postCheckIn(bookingId).then((res) => {
+      console.log(res);
+      tmp = res.status;
       console.log(res.data);
       toast.success("Checked In Successfully!", {
         position: "bottom-left",
@@ -67,6 +69,18 @@ const Payments = (seats) => {
       });
       setCheckIn(true);
     });
+    if (!tmp) {
+      toast.error("Cannot Check in For Given Date!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const handlePayment = () => {

@@ -16,6 +16,7 @@ import AllFareDetails from "./AllFareDetails";
 import PrintPassengers from "./PrintPassengers";
 import { getUser } from "../../api/UserDetailsService";
 import Seats from "../user/Seats";
+import { toast } from "react-toastify";
 
 const FlightBooking = (res) => {
   const [passengers, setPassengers] = useState({
@@ -74,7 +75,16 @@ const FlightBooking = (res) => {
         }
       }
     } else {
-      alert("please enter all details");
+      toast.error("Enter Details!", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     setTmp(true);
     console.log(
@@ -90,7 +100,8 @@ const FlightBooking = (res) => {
     flightId: flightData.flightId,
     email: email,
     mobileNo: mobileNo,
-    dateOfTravelling: res.FlightBooking.dateOfTravelling,
+    dateOfTravelling: "2023-02-09",
+    // dateOfTravelling: res.FlightBooking.dateOfTravelling,
     passengerInfo: passengerArray,
 
     fare: {
@@ -105,9 +116,22 @@ const FlightBooking = (res) => {
   const contactData = (e) => {
     e.preventDefault();
     console.log(data);
-    dispatch(userFlightBooking(data));
-    // setTmp(true)
-    navigate("/seats");
+    if (data.mobileNo && data.email) {
+      dispatch(userFlightBooking(data));
+      // setTmp(true)
+      navigate("/seats");
+    } else {
+      toast.error("Enter Details!", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   console.log(data);

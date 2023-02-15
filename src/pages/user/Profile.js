@@ -14,8 +14,10 @@ import {
   getBookingsByDate,
   getAllUsers,
   getByAdminSearch,
+  postCheckIn,
 } from "../../api/BookingManagementService";
 import BookingData from "../admin/bookingManagement/BookingData";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
@@ -41,6 +43,40 @@ const Profile = () => {
 
   const view = (x, y) => {
     navigate("/pdf");
+  };
+
+  const [checkIn, setCheckIn] = useState(false);
+
+  const handleCheckIn = (bookingId) => {
+    var tmp = false;
+    postCheckIn(bookingId).then((res) => {
+      console.log(res);
+      tmp = res.status;
+      console.log(res.data);
+      toast.success("Checked In Successfully!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setCheckIn(true);
+    });
+    if (!tmp) {
+      toast.error("Cannot Check in For Given Date!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   useEffect(() => {
@@ -407,6 +443,9 @@ const Profile = () => {
                                         ? "hover:bg-green-500 bg-green-200"
                                         : "hover:bg-red-500 bg-red-200"
                                     } hover:text-white transform transition duration-200 rounded-xl`}
+                                    onClick={() =>
+                                      handleCheckIn(booking.bookingId)
+                                    }
                                   >
                                     {booking.checkedIn
                                       ? "CheckedIn"
