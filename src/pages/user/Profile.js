@@ -30,6 +30,7 @@ const Profile = () => {
   const [bookings, setBookings] = useState([]);
 
   const [users, setUsers] = useState(useSelector((state) => state.user.logged));
+  console.log(useSelector((state) => state.user.logged));
 
   const [clear, setClear] = useState(false);
   const [totalBookings, setTotalBooking] = useState();
@@ -162,6 +163,7 @@ const Profile = () => {
                   </li> */}
                 </ul>
               </div>
+              {/* {console.log("SAJAL")} */}
               {/* <!-- End of profile card --> */}
               {/* <div className="my-4"></div> */}
               {/* <!-- Friends card --> */}
