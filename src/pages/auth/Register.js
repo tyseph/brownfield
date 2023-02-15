@@ -127,6 +127,19 @@ const Register = () => {
     });
   }, [])
 
+  const handlePrompt = () => {
+    toast.info('Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+
   //   window.onload = function() {
   //   document.querySelector("#phone");
   //   intlTelInput({
@@ -293,7 +306,7 @@ const Register = () => {
 
                     <div className="rounded-md shadow-sm">
 
-                      <input id="password" type="password" name="password" required minLength={8} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onChange={handleChange} />
+                      <input id="password" type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" onClick={handlePrompt} onChange={handleChange} />
 
                     </div>
 
