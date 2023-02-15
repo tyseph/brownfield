@@ -9,7 +9,7 @@ const SearchFlight = ({ airport, placeholder, name, onChange }) => {
                 {
                     airport.map((item) => {
                         return (
-                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg text-gray-900 font-semibold block px-4 py-2 text-md">{item.code}{": "}{item.city}</option>
+                            <option value={item.code} key={item.code} className="cursor-pointer rounded-lg text-gray-900 font-semibold block px-4 py-2 text-md">{item.city}{", "}{item.state}</option>
                         )
                     })
                 }

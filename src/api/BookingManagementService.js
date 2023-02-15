@@ -14,7 +14,7 @@ export const getBookingsByDate = (date) => {
 };
 
 export const getAllBookingsByUserId = (userId) => {
-  return axios.get(`${bookingManagementURL}/getAllBookingByUserId/${userId}`)
+  return axios.get(`${bookingManagementURL}/getAllBookingByUserId/${userId}`);
 };
 
 export const getByAdminSearch = (obj) => {
@@ -23,7 +23,7 @@ export const getByAdminSearch = (obj) => {
     sourceCode: obj.sourceCode,
     destinationCode: obj.destinationCode,
     date: obj.date,
-    time: obj.time
+    time: obj.time,
   });
 };
 
@@ -33,19 +33,24 @@ export const getTotalRevenue = () => {
 
 // http://lin59017635:8089/booking/getTotalRevenue
 
-
 export const GetRevenueByDate = () => {
-  return axios.get(`${bookingManagementURL}/getTotalRevenueByDate`)
-}
+  return axios.get(`${bookingManagementURL}/getTotalRevenueByDate`);
+};
 
 export const getBookedSeats = (flightId, dateOfTravelling) => {
-  return axios.get(`${bookingManagementURL}/getBookedSeats/${flightId}/${dateOfTravelling}`)
-}
+  return axios.get(
+    `${bookingManagementURL}/getBookedSeats/${flightId}/${dateOfTravelling}`
+  );
+};
 
 export const getCreatedOrder = (total) => {
-  return axios.post(`${bookingManagementURL}/createOrder/${total}`)
-}
+  return axios.post(`${bookingManagementURL}/createOrder/${total}`);
+};
 
 export const postBookFlight = (data) => {
-  return axios.post(`${bookingManagementURL}/bookFlight`, data)
-}
+  return axios.post(`${bookingManagementURL}/bookFlight`, data);
+};
+
+export const postCheckIn = (bookingId) => {
+  return axios.post(`${bookingManagementURL}/checkin/${bookingId}`);
+};
