@@ -15,7 +15,11 @@ import {
 const Payments = (seats) => {
   const [order, setOrder] = useState({});
   const location = useLocation();
-  const [data, setData] = useState(location.state.data);
+  const [data, setData] = useState(useSelector((state) => state.user.booking));
+  console.log(
+    useSelector((state) => state.user.booking),
+    location.state.data
+  );
   const [flightData, setFlightData] = useState(
     useSelector((state) => state.user)
   );

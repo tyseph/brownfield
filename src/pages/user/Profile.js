@@ -52,10 +52,10 @@ const Profile = () => {
     let travel = new Date(`${dateOfTravelling} ${timeOfDeparture}`).getTime();
     let now = new Date().getTime();
     let yesterday = travel - 8.64e7;
-    let check1 = travel > now;
-    console.log(travel, now, yesterday);
-
+    // let check1 = travel > now;
+    // console.log(travel, now, yesterday);
     if (travel > now && yesterday < now) {
+      // console.log(true);
       postCheckIn(bookingId).then((res) => {
         console.log(res.data);
         toast.success("Checked In Successfully!", {
@@ -71,7 +71,7 @@ const Profile = () => {
         setCheckIn(true);
       });
     } else {
-      toast.error("Cannot ChekIn Now!", {
+      toast.error("Cannot Check In Now!", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -89,13 +89,26 @@ const Profile = () => {
     getAllBookingsByUserId(users.userId).then((res) => {
       if (res.status === 200) {
         setBookings(
-          res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
+          res.data.sort(
+            (
+              { dateOfTravelling: a, flight: { departureTime: b } },
+              { dateOfTravelling: c, flight: { departureTime: d } }
+            ) =>
+              new Date(`${c} ${d}`).getTime() - new Date(`${a} ${b}`).getTime()
+          )
         );
         setTotalBooking(res.data.length);
         console.log("inside get all users", res.data);
         dispatch(
           GetAllBookings(
-            res.data.sort(({ bookingId: a }, { bookingId: b }) => a - b)
+            res.data.sort(
+              (
+                { dateOfTravelling: a, flight: { departureTime: b } },
+                { dateOfTravelling: c, flight: { departureTime: d } }
+              ) =>
+                new Date(`${c} ${d}`).getTime() -
+                new Date(`${a} ${b}`).getTime()
+            )
           )
         );
         setTasksCompleted(res.data.length);
@@ -105,7 +118,7 @@ const Profile = () => {
     });
 
     console.log("CAlled", users);
-  }, []);
+  }, [checkIn]);
 
   // const adminSearch = (obj) => {
   //   // console.log('inside adminSearch', obj)
@@ -136,7 +149,7 @@ const Profile = () => {
         <div className="container mx-auto my-5 p-5">
           <div className="md:flex no-wrap md:-mx-2 ">
             {/* <!-- Left Side --> */}
-            <div className="w-full md:w-3/12 md:mx-2">
+            <div className="w-full md:w-5/13 md:mx-2">
               {/* <!-- Profile Card --> */}
               <div className="bg-white p-5 rounded-lg bg-gray-900">
                 {/* <div className="image overflow-hidden">
@@ -249,7 +262,7 @@ const Profile = () => {
               {/* <!-- End of friends card --> */}
             </div>
             {/* <!-- Right Side --> */}
-            <div className="w-full md:w-9/12 h-4/5 p-4 bg-gray-900 rounded-lg">
+            <div className="w-full md:w-9/12 p-4 bg-gray-900 rounded-lg">
               {/* <!-- Profile tab --> */}
               {/* <!-- About Section --> */}
               <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
@@ -266,7 +279,7 @@ const Profile = () => {
               </div>
               <div className="shadow-sm rounded-sm ">
                 <div className="py-4 overflow-auto">
-                  <div className="container mx-auto shadow-md rounded-lg h-96 overflow-auto">
+                  <div className="w-full shadow-md h-96 overflow-auto">
                     <table className="w-full">
                       <thead className="w-full">
                         <tr>
@@ -282,12 +295,12 @@ const Profile = () => {
                           <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                             Destination
                           </th>
-                          <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
+                          {/* <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                             Departure
                           </th>
                           <th className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                             Arrival
-                          </th>
+                          </th> */}
                           {/* <th
                                         className="font-extrabold px-5 py-3 border-b-2 border-gray-200 bg-gray-400 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider"
                                     >
@@ -306,7 +319,7 @@ const Profile = () => {
                           return (
                             <tr key={booking.bookingId}>
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 w-42 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -315,10 +328,10 @@ const Profile = () => {
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {booking.bookingId}
                                 </p>
-                                {/* <p className="text-gray-600 whitespace-no-wrap">USD</p> */}
+                                {/* <p className="text-gray-400 text-xs whitespace-no-wrap">USD</p> */}
                               </td>
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -335,7 +348,7 @@ const Profile = () => {
                                 </p>
                               </td>
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -344,32 +357,18 @@ const Profile = () => {
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {booking.flight.source.code}
                                 </p>
-                                <p className="text-gray-600 whitespace-no-wrap">
+                                <p className="text-gray-400 text-xs whitespace-no-wrap text-wrap w-40">
                                   {booking.flight.source.name}
                                 </p>
-                                <p className="text-gray-600 whitespace-no-wrap">
+                                <p className="text-gray-400 text-xs whitespace-no-wrap">
                                   {booking.flight.source.city}
                                 </p>
-                              </td>
-                              <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
-                                  index % 2 === 0
-                                    ? "bg-gray-200"
-                                    : "bg-gray-100"
-                                }`}
-                              >
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {booking.flight.destination.code}
-                                </p>
-                                <p className="text-gray-600 whitespace-no-wrap">
-                                  {booking.flight.destination.name}
-                                </p>
-                                <p className="text-gray-600 whitespace-no-wrap">
-                                  {booking.flight.destination.city}
+                                  {booking.flight.departureTime}
                                 </p>
                               </td>
-                              <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                              {/* <td
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -378,10 +377,30 @@ const Profile = () => {
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {booking.flight.departureTime}
                                 </p>
-                                {/* <p className="text-gray-600 whitespace-no-wrap">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> */}
-                              </td>
+                              </td> */}
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 py-5 bg-white text-sm ${
+                                  index % 2 === 0
+                                    ? "bg-gray-200"
+                                    : "bg-gray-100"
+                                }`}
+                              >
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.destination.code}
+                                </p>
+                                <p className="text-gray-400 text-xs whitespace-no-wrap text-wrap w-40">
+                                  {booking.flight.destination.name}
+                                </p>
+                                <p className="text-gray-400 text-xs whitespace-no-wrap">
+                                  {booking.flight.destination.city}
+                                </p>
+                                <p className="text-gray-900 whitespace-no-wrap">
+                                  {booking.flight.arrivalTime}
+                                </p>
+                              </td>
+
+                              {/* <td
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -390,24 +409,23 @@ const Profile = () => {
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {booking.flight.arrivalTime}
                                 </p>
-                                {/* <p className="text-gray-600 whitespace-no-wrap">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> */}
-                              </td>
-                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                              </td> */}
+                              {/* <td className={`px-5 py-5 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 <p className="text-gray-900 whitespace-no-wrap">{booking.destination.code}</p>
-                                <p className="text-gray-600 whitespace-no-wrap">{booking.destination.name}</p>
-                                <p className="text-gray-600 whitespace-no-wrap">{booking.destination.city}</p>
+                                <p className="text-gray-400 text-xs whitespace-no-wrap">{booking.destination.name}</p>
+                                <p className="text-gray-400 text-xs whitespace-no-wrap">{booking.destination.city}</p>
 
                             </td> */}
-                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
-                            <p className="text-gray-600 whitespace-no-wrap">$</p>
+                              {/* <td className={`px-5 py-5 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                            <p className="text-gray-400 text-xs whitespace-no-wrap">$</p>
                                 <p className="text-gray-900 whitespace-no-wrap">{booking.fare}</p>
                             </td> */}
-                              {/* <td className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
+                              {/* <td className={`px-5 py-5 bg-white text-sm ${index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}`}>
                                 <p className="text-gray-900 whitespace-no-wrap">₹8894</p>
-                                <p className="text-gray-600 whitespace-no-wrap"></p>
+                                <p className="text-gray-400 text-xs whitespace-no-wrap"></p>
                             </td> */}
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
@@ -429,14 +447,26 @@ const Profile = () => {
                                 </span>
                               </td>
                               <td
-                                className={`px-5 py-5 border-b border-gray-200 bg-white text-sm ${
+                                className={`px-5 py-5 bg-white text-sm ${
                                   index % 2 === 0
                                     ? "bg-gray-200"
                                     : "bg-gray-100"
                                 }`}
                               >
                                 <span
-                                  className={`relative inline-block cursor-pointer font-semibold text-green-900 leading-tight hover:scale-110 transform transition duration-200`}
+                                  className={`relative inline-block w-36 cursor-pointer font-semibold ${
+                                    booking.checkedIn
+                                      ? "text-green-900"
+                                      : `${
+                                          new Date(
+                                            `${booking.dateOfTravelling} ${booking.flight.departureTime}`
+                                          ).getTime() -
+                                            new Date().getTime() <
+                                          8.64e7
+                                            ? "text-red-900"
+                                            : "text-yellow-900 hover:scale-110 transform transition duration-200"
+                                        }`
+                                  }  leading-tight`}
                                 >
                                   {/* <span
                                         aria-hidden
@@ -445,9 +475,17 @@ const Profile = () => {
                                   <span
                                     className={`px-2 py-1 ${
                                       booking.checkedIn
-                                        ? "hover:bg-green-500 bg-green-200"
-                                        : "hover:bg-red-500 bg-red-200"
-                                    } hover:text-white transform transition duration-200 rounded-xl`}
+                                        ? "bg-green-500 text-white"
+                                        : `${
+                                            new Date(
+                                              `${booking.dateOfTravelling} ${booking.flight.departureTime}`
+                                            ).getTime() -
+                                              new Date().getTime() <
+                                            8.64e7
+                                              ? "bg-red-500 text-white"
+                                              : "hover:bg-yellow-500 bg-yellow-200 hover:text-white transform transition duration-200"
+                                          }`
+                                    }  rounded-xl`}
                                     onClick={() =>
                                       handleCheckIn(
                                         booking.bookingId,
@@ -457,8 +495,16 @@ const Profile = () => {
                                     }
                                   >
                                     {booking.checkedIn
-                                      ? "CheckedIn"
-                                      : "CheckIn"}
+                                      ? "Checked In"
+                                      : `${
+                                          new Date(
+                                            `${booking.dateOfTravelling} ${booking.flight.departureTime}`
+                                          ).getTime() -
+                                            new Date().getTime() <
+                                          8.64e7
+                                            ? "Failed"
+                                            : "CheckIn Now"
+                                        }`}
                                   </span>
                                 </span>
                               </td>
