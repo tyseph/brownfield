@@ -19,7 +19,7 @@ import {
   postCheckIn,
 } from "../../api/BookingManagementService";
 import BookingData from "../admin/bookingManagement/BookingData";
-import { toast } from "react-toastify";
+import { getLoggedUser } from "../../redux/user/userActions";
 
 const Profile = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
@@ -34,8 +34,10 @@ const Profile = () => {
 
   const [bookings, setBookings] = useState([]);
 
-  const [users, setUsers] = useState(useSelector((state) => state.user.logged));
-  const [trueUser, setUser] = useState(useSelector((state) => state.user.logged));
+  const [trueUser, setTrueUser] = useState(
+    useSelector((state) => state.user.logged)
+  );
+  const [users, setUsers] = useState(trueUser);
   console.log(useSelector((state) => state.user.logged));
 
   const [clear, setClear] = useState(false);
@@ -49,15 +51,27 @@ const Profile = () => {
     navigate("/pdf");
   };
 
+  // useEffect(() => {
+  //   setUsers(trueUser);
+  // }, [trueUser]);
+
   const [checkIn, setCheckIn] = useState(false);
 
-  const handleCheckIn = (bookingId, dateOfTravelling, timeOfDeparture) => {
+  const handleCheckIn = (
+    bookingId,
+    dateOfTravelling,
+    timeOfDeparture,
+    check1
+  ) => {
     console.log(bookingId, dateOfTravelling, timeOfDeparture);
     let travel = new Date(`${dateOfTravelling} ${timeOfDeparture}`).getTime();
     let now = new Date().getTime();
     let yesterday = travel - 8.64e7;
     // let check1 = travel > now;
     // console.log(travel, now, yesterday);
+    if (check1 && travel > now && yesterday < now) {
+      return;
+    }
     if (travel > now && yesterday < now) {
       // console.log(true);
       postCheckIn(bookingId).then((res) => {
@@ -124,62 +138,64 @@ const Profile = () => {
     console.log("CAlled", users);
   }, [checkIn]);
 
-
   const handleEdit = () => {
-    setDisabled(false)
-    console.log('cllicked edit', disabled)
-    
-  }
+    setDisabled(false);
+    console.log("cllicked edit", disabled);
+  };
 
   const handleChange = (e) => {
     e.persist();
-    setUsers(values => ({
+    setUsers((values) => ({
       ...values,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
-  }
+  };
 
   const handleCancel = () => {
     setUsers(trueUser);
-    setDisabled(true)
-    console.log('clicked calcel', disabled)
-  }
+    setDisabled(true);
+    console.log("clicked calcel", disabled);
+  };
 
   const handleUpdate = () => {
-    
-    updateUser(users).then(
-        
-        (res) => {
-        if(res.status === 200) {
-            toast.success('Successfully updated', {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-        } else {
-            console.log('error while updating', res.status)
-            toast.error('Failed to update', {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-        }
-        
-    }).catch((err) => {
-        setUsers(trueUser)
-        console.log('error in updating', err)
-        toast.error('Failed to update', {
-            position: "bottom-center",
+    console.log(users !== trueUser);
+    if (users !== trueUser) {
+      updateUser(users)
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(getLoggedUser(res.data));
+            setTrueUser(res.data);
+            setUsers(res.data);
+            setDisabled(true);
+            toast.success("Successfully updated", {
+              position: "bottom-left",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          } else {
+            console.log("error while updating", res.status);
+            toast.error("Failed to update", {
+              position: "bottom-left",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        })
+        .catch((err) => {
+          setUsers(trueUser);
+          console.log("error in updating", err);
+          toast.error("Failed to update", {
+            position: "bottom-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -188,12 +204,21 @@ const Profile = () => {
             progress: undefined,
             theme: "light",
           });
-
-    })
-    setDisabled(true);
-    
-
-  }
+        });
+      // setDisabled(true);
+    } else {
+      toast.error("No Data Changed", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   // const adminSearch = (obj) => {
   //   // console.log('inside adminSearch', obj)
@@ -204,30 +229,14 @@ const Profile = () => {
   // };
 
   return (
-    <div className="">
-      {/* <div className="flex items-center justify-center p-6 min-h-screen w-full">
-  <div className="rounded-lg shadow-lg bg-white max-w-sm">
-    <a href="#!">
-      <img className="rounded-t-lg" src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" alt=""/>
-    </a>
-    <div className="p-6">
-      <h5 className="text-gray-900 text-xl font-medium mb-2 flex justify-center items-center">ddd</h5>
-      <p className="text-gray-700 text-base mb-4">
-        Some quick example text to build on the card title and make up the bulk of the card's
-        content.
-      </p>
-      <button type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
-    </div>
-  </div>
-</div> */}
+    <div className="p-5">
       <div>
-        <div className="container mx-auto my-5 p-5">
+        <div className="mx-auto my-5 p-2">
           <div className="md:flex no-wrap md:-mx-2 ">
-
             {/* <!-- Left Side --> */}
-            <div className="w-full md:w-5/13 md:mx-2">
+            <div className="w-full sm:w-4/13 md:w-4/13 md:mx-2">
               {/* <!-- Profile Card --> */}
-              <div className="bg-white p-5 rounded-lg bg-gray-900">
+              <div className="bg-white p-5 w-full rounded-lg bg-gray-900">
                 {/* <div className="image overflow-hidden">
                         <img className="h-auto w-full mx-auto"
                             src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
@@ -240,7 +249,10 @@ const Profile = () => {
                 {/* <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
                         consectetur adipisicing elit.
                         Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p> */}
-                <ul id = 'profDetails' className="bg-gray-200 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                <ul
+                  id="profDetails"
+                  className="bg-gray-200 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
+                >
                   {/* <li className="flex items-center py-3">
                     <span>Status</span>
                     <span className="ml-auto">
@@ -253,61 +265,106 @@ const Profile = () => {
                             <span>Times Airborne</span>
                             <span className="ml-auto">Nov 07, 2016</span>
                         </li> */}
-                  <li className="flex items-center py-4">
-                    <span className="font-extrabold">Email</span>
+                  <li className="space-y-1 flex flex-nowrap justify-around">
+                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                      Email
+                    </span>
                     {/* <input className="ml-auto"> value = {users.emailId} /> */}
-                    <input id="listItem" name="emailId" type="email" value = {users.emailId} required className="ml-auto" disabled = {disabled} onChange={handleChange}/>
+                    <input
+                      id="listItem"
+                      className={`sm:inline-block ${
+                        true ? "bg-gray-700" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                      name="emailId"
+                      type="email"
+                      value={users.emailId}
+                      required
+                      disabled
+                      onChange={handleChange}
+                    />
                   </li>
-                  <li className="flex items-center py-4">
-                    <span className="font-extrabold">Contact no.</span>
-                    <input id="listItem" name="contactNumber" type="tel" value = {users.contactNumber} required className="ml-auto" disabled = {disabled} onChange={handleChange}/>
+                  <li className="space-y-1 flex flex-nowrap justify-around">
+                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                      Contact no.
+                    </span>
+                    <input
+                      id="listItem"
+                      className={`sm:inline-block ${
+                        disabled ? "bg-gray-700" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                      name="contactNumber"
+                      type="tel"
+                      value={users.contactNumber}
+                      required
+                      disabled={disabled}
+                      onChange={handleChange}
+                    />
                     {/* <span className="ml-auto">{users.contactNumber}</span> */}
                   </li>
-                  <li className="flex items-center py-4">
-                    <span className="font-extrabold">Gender</span>
+                  <li className="space-y-1 flex flex-wrap sm:flex-nowrap md:flex-nowrap lg:flex-nowrap justify-around">
+                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                      Gender
+                    </span>
                     {/* <input id="listItem" name="gender" type="email" value = {users.emailId} required className="ml-auto" disabled = {disabled}/> */}
-                    <select name="gender"  required value={users.gender} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" id="listItem" disabled={disabled} onChange={handleChange}>
-                        <option value='' disabled selected>Select Gender</option>
-                        <option>MALE</option>
-                        <option>FEMALE</option>
-                        <option>OTHER</option>
-                      </select>
+                    <select
+                      name="gender"
+                      required
+                      value={users.gender}
+                      className={`sm:inline-block  ${
+                        disabled ? "bg-gray-900" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                      id="listItem"
+                      disabled={disabled}
+                      onChange={handleChange}
+                    >
+                      <option value="" disabled selected>
+                        Select Gender
+                      </option>
+                      <option>MALE</option>
+                      <option>FEMALE</option>
+                      <option>OTHER</option>
+                    </select>
                     {/* <span className="ml-auto">{users.gender}</span> */}
                   </li>
-                  <li className="flex items-center py-4">
-                    <span className="font-extrabold">Date of birth</span>
-                    <input id="dob" name="dateOfBirth" type="date" max='2015-12-12' value={users.dateOfBirth} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" disabled={disabled} onChange={handleChange}/>
+                  <li className="space-y-1 flex flex-nowrap justify-around">
+                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                      Date of birth
+                    </span>
+                    <input
+                      id="dob"
+                      name="dateOfBirth"
+                      type="date"
+                      max="2015-12-12"
+                      style={{ colorScheme: "dark", color: "f3f4f6" }}
+                      value={users.dateOfBirth}
+                      required
+                      className={`sm:inline-block ${
+                        disabled ? "bg-gray-700" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                      disabled={disabled}
+                      onChange={handleChange}
+                    />
                     {/* <span className="ml-auto">{users.dateOfBirth}</span> */}
                   </li>
-                  <li className="flex items-center py-4">
-                    <span className="font-extrabold">Total Bookings</span>
-                    <span className="ml-auto">{totalBookings}</span>
-                  </li>
-                  
-                    {disabled == true ? 
-                    <li className="flex items-center py-4">
-                    <span className="block rounded-md shadow-sm justify-center">
-                    <button onClick={handleEdit}
-                      className="w-40 text-md
-          border-2 border-gray-800 py-2 px-4
-          transition-colors ease-out
-          duration-500 text-white
-          bg-blue-800
-          bg-gradient-to-r
-          from-blue-800 
-          rounded-lg
-          hover:from-white hover:to-gray-300 
-          hover:text-black hover:border-white"
-                    >
-                      Edit
-                    </button>
+                  <li className="space-y-1 flex flex-nowrap justify-around">
+                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                      Total Bookings
                     </span>
-                    </li>
-                    : 
-                    <li className="flex items-center py-4">
+                    <span
+                      className={`sm:inline-block ${
+                        true ? "bg-gray-700" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                    >
+                      {totalBookings}
+                    </span>
+                  </li>
+                </ul>
+                {disabled == true ? (
+                  <li className="flex flex-wrap justify-around mt-5">
                     <span className="block rounded-md shadow-sm justify-center">
-                    <button onClick={handleUpdate}
-                      className="w-40 text-md
+                      <button
+                        onClick={handleEdit}
+                        className="w-40 text-md
           border-2 border-gray-800 py-2 px-4
           transition-colors ease-out
           duration-500 text-white
@@ -317,84 +374,51 @@ const Profile = () => {
           rounded-lg
           hover:from-white hover:to-gray-300 
           hover:text-black hover:border-white"
-                    >
-                      Update
-                    </button>
+                      >
+                        Edit
+                      </button>
+                    </span>
+                  </li>
+                ) : (
+                  <li className="flex flex-wrap justify-around mt-5">
+                    <span className="block rounded-md shadow-sm justify-around">
+                      <button
+                        onClick={handleUpdate}
+                        className="w-40 border-2 border-gray-800 py-2 px-8
+                          transition-colors ease-out
+                          duration-500 text-white
+                          bg-blue-800
+                          bg-gradient-to-r
+                          from-blue-800 
+                          rounded-lg
+                          hover:from-white hover:to-gray-300 
+                          hover:text-black hover:border-white"
+                      >
+                        Update
+                      </button>
                     </span>
                     <span>
-                    <button onClick={handleCancel}
-                        className="w-40 text-md
-            border-2 border-gray-800 py-2 px-4
-            transition-colors ease-out
-            duration-500 text-white
-            bg-red-800
-            bg-gradient-to-r
-            from-red-800 
-            rounded-lg
-            hover:from-white hover:to-gray-300 
-            hover:text-black hover:border-white"
+                      <button
+                        onClick={handleCancel}
+                        className="w-40 border-2 border-gray-800 py-2 px-8
+                          transition-colors ease-out
+                          duration-500 text-white
+                          bg-red-800
+                          bg-gradient-to-r
+                          from-red-800 
+                          rounded-lg
+                          hover:from-white hover:to-white 
+                          hover:text-black hover:border-white"
                       >
                         Cancel
                       </button>
                     </span>
-                    </li>
-                    }
-                    
-                      
-                    
-                    
-                     
-               
-                    
-                  
-                </ul>
+                  </li>
+                )}
               </div>
-              {/* {console.log("SAJAL")} */}
-              {/* <!-- End of profile card --> */}
-              {/* <div className="my-4"></div> */}
-              {/* <!-- Friends card --> */}
-              {/* <div className="bg-white p-3 hover:shadow">
-                    <div className="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
-                        <span className="text-green-500">
-                            <svg className="h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </span>
-                        <span>Similar Profiles</span>
-                    </div>
-                    <div className="grid grid-cols-3">
-                        <div className="text-center my-2">
-                            <img className="h-16 w-16 rounded-full mx-auto"
-                                src="https://cdn.australianageingagenda.com.au/wp-content/uploads/2015/06/28085920/Phil-Beckett-2-e1435107243361.jpg"
-                                alt="" />
-                            <a href="#" className="text-main-color">Kojstantin</a>
-                        </div>
-                        <div className="text-center my-2">
-                            <img className="h-16 w-16 rounded-full mx-auto"
-                                src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4"
-                                alt="" />
-                            <a href="#" className="text-main-color">James</a>
-                        </div>
-                        <div className="text-center my-2">
-                            <img className="h-16 w-16 rounded-full mx-auto"
-                                src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                                alt="" />
-                            <a href="#" className="text-main-color">Natie</a>
-                        </div>
-                        <div className="text-center my-2">
-                            <img className="h-16 w-16 rounded-full mx-auto"
-                                src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f04b52da-12f2-449f-b90c-5e4d5e2b1469_361x361.png"
-                                alt="" />
-                            <a href="#" className="text-main-color">Casey</a>
-                        </div>
-                    </div>
-                </div> */}
-              {/* <!-- End of friends card --> */}
             </div>
             {/* <!-- Right Side --> */}
-            <div className="w-full md:w-9/12 p-4 bg-gray-900 rounded-lg">
+            <div className="w-full md:w-9/13 sm:9/13 p-4 bg-gray-900 rounded-lg">
               {/* <!-- Profile tab --> */}
               {/* <!-- About Section --> */}
               <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
@@ -622,7 +646,8 @@ const Profile = () => {
                                       handleCheckIn(
                                         booking.bookingId,
                                         booking.dateOfTravelling,
-                                        booking.flight.departureTime
+                                        booking.flight.departureTime,
+                                        booking.checkedIn
                                       )
                                     }
                                   >

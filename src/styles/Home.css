@@ -129,7 +129,7 @@
 background: linear-gradient(90deg, rgba(15,19,42,1) 69%, rgba(35,0,140,1) 99%); */
   /* background: rgb(15,19,42);
 background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%); */
-  background: linear-gradient(to bottom, #051322, #4078b9);
+  background: linear-gradient(to bottom, #111827, #2c2c2d);
   /* background-image: url('https://img1.goodfon.com/wallpaper/nbig/6/ed/boeing-737-aviaciya-samolet.jpg'); */
   /* background-color: white; */
   /* background-image: url(); */
@@ -138,8 +138,8 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   background-repeat: no-repeat;
   border-bottom-right-radius: 20%;
   border-bottom-left-radius: 20%;
-  height: 50vh;
-  position: absolute;
+  height: 35vh;
+  /* position: absolute; */
   background-size: cover;
 }
 
@@ -189,6 +189,11 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
 }
 
 @media screen and (max-width: 768px) and (max-height: 700px) {
+  .flightSearchBox {
+    margin-top: 18vh !important;
+    padding-bottom: 10vh;
+  }
+
   .changeIcon {
     margin-top: 1vh;
     height: 27px;
@@ -409,3 +414,6 @@ background: linear-gradient(180deg, rgba(15,19,42,1) 40%, rgba(35,0,140,1) 66%);
   top: 9 px;
 }
 
+.flightSearchBox {
+  margin-top: -20%;
+}

@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLoggedUser } from "../../redux/user/userActions";
 
 const Navbar = () => {
-  const [user, setUser] = useState(useSelector((state) => state.user.logged));
+  const [user, setUser] = useState();
 
+  const tmp = useSelector((state) => state.user.logged);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -16,6 +17,12 @@ const Navbar = () => {
     localStorage.clear();
     navigate("/login");
   };
+
+  useEffect(() => {}, [user]);
+
+  useEffect(() => {
+    setUser(tmp);
+  }, []);
 
   const handleLogin = () => {
     navigate("/login");
@@ -95,7 +102,7 @@ const Navbar = () => {
         ) : (
           <div class="flex items-center flex-shrink-0 text-white mr-3">
             <span class="font-semibold text-xl tracking-wide">
-              Hello, {user.firstName}!
+              Hello, {tmp.firstName}!
             </span>
           </div>
         )}

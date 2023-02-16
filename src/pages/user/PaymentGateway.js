@@ -56,41 +56,44 @@ const Payments = (seats) => {
   const [checkin, setCheckIn] = useState(false);
 
   const handleCheckIn = (yourDate) => {
-    var tmp = false;
-    var date = new Date(
+    let travel = new Date(
       `${data.dateOfTravelling} ${flightData.flight.departureTime}`
-    );
-    console.log(date.getTime());
+    ).getTime();
+    let now = new Date().getTime();
+    let yesterday = travel - 8.64e7;
+    // let check1 = travel > now;
+    // console.log(travel, now, yesterday);
 
-    // console.log(milliseconds);
-    // postCheckIn(bookingId).then((res) => {
-    //   console.log(res);
-    //   tmp = res.status;
-    //   console.log(res.data);
-    //   toast.success("Checked In Successfully!", {
-    //     position: "bottom-left",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   setCheckIn(true);
-    // });
-    // if (!tmp) {
-    //   toast.error("Cannot Check in For Given Date!", {
-    //     position: "bottom-left",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    // }
+    if (travel > now && yesterday < now) {
+      // console.log(milliseconds);
+      postCheckIn(bookingId).then((res) => {
+        console.log(res);
+        // tmp = res.status;
+        console.log(res.data);
+        toast.success("Checked In Successfully!", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setCheckIn(true);
+      });
+    } else {
+      toast.error("Cannot Check In For Current Flight!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const handlePayment = () => {

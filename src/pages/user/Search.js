@@ -109,7 +109,6 @@ const Home = (props) => {
       if (data.way === "ROUND TRIP" && data.dateOfReturn === "") {
         alert("Input return date");
       } else {
-        // axios;
         getFlightBySearch(data)
           .then((res) => {
             // console.log(data)
@@ -174,12 +173,13 @@ const Home = (props) => {
     <div>
       {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 1440 230"><path fill="#0F172A" fill-opacity="1" d="M0,160L48,165.3C96,171,192,181,288,165.3C384,149,480,107,576,90.7C672,75,768,85,864,112C960,139,1056,181,1152,170.7C1248,160,1344,96,1392,64L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg> */}
       <div className="homePage">
+        <div className="homePageBanner"></div>
         {/* <div className='h-screen absolu0'>
         </div> */}
         <div className="mt-0 md:col-span-2 md:mt-0 md:pt-2 md:pb-24 md:ml-20 md:mr-20 ml-6 mr-6 ">
           <form onSubmit={searchHandler}>
             <img
-              className="flightImage hidden sm:block  w-50 h-36 absolute top-12 right-2 mt-20 mr-10"
+              className="flightImage hidden sm:block  w-50 h-36 absolute top-8 right-2 mt-20 mr-10"
               src={plane}
             />
             <div className="sm:rounded-md rounded-md  ">
