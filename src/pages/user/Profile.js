@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { getUser } from "../../api/UserDetailsService";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import BookingTable from "../admin/bookingManagement/BookingTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAiriports } from "../../api/FlightManagementService";
 import { GetAllAirports } from "../../redux/admin/adminActions";
 import { GetAllBookings } from "../../redux/admin/adminActions";
+import { updateUser } from "../../api/UserDetailsService";
 import {
   getAllBookings,
   getAllBookingsByUserId,
@@ -21,6 +23,7 @@ import { toast } from "react-toastify";
 
 const Profile = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
+  const [disabled, setDisabled] = useState(true);
 
   const [airPorts, setAirPorts] = useState(
     useSelector((state) => state.admin.airports)
@@ -32,6 +35,7 @@ const Profile = () => {
   const [bookings, setBookings] = useState([]);
 
   const [users, setUsers] = useState(useSelector((state) => state.user.logged));
+  const [trueUser, setUser] = useState(useSelector((state) => state.user.logged));
   console.log(useSelector((state) => state.user.logged));
 
   const [clear, setClear] = useState(false);
@@ -120,6 +124,77 @@ const Profile = () => {
     console.log("CAlled", users);
   }, [checkIn]);
 
+
+  const handleEdit = () => {
+    setDisabled(false)
+    console.log('cllicked edit', disabled)
+    
+  }
+
+  const handleChange = (e) => {
+    e.persist();
+    setUsers(values => ({
+      ...values,
+      [e.target.name]: e.target.value
+    }));
+  }
+
+  const handleCancel = () => {
+    setUsers(trueUser);
+    setDisabled(true)
+    console.log('clicked calcel', disabled)
+  }
+
+  const handleUpdate = () => {
+    
+    updateUser(users).then(
+        
+        (res) => {
+        if(res.status === 200) {
+            toast.success('Successfully updated', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+        } else {
+            console.log('error while updating', res.status)
+            toast.error('Failed to update', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+        }
+        
+    }).catch((err) => {
+        setUsers(trueUser)
+        console.log('error in updating', err)
+        toast.error('Failed to update', {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
+    })
+    setDisabled(true);
+    
+
+  }
+
   // const adminSearch = (obj) => {
   //   // console.log('inside adminSearch', obj)
   //   getByAdminSearch(obj).then((res) => {
@@ -148,6 +223,7 @@ const Profile = () => {
       <div>
         <div className="container mx-auto my-5 p-5">
           <div className="md:flex no-wrap md:-mx-2 ">
+
             {/* <!-- Left Side --> */}
             <div className="w-full md:w-5/13 md:mx-2">
               {/* <!-- Profile Card --> */}
@@ -164,7 +240,7 @@ const Profile = () => {
                 {/* <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
                         consectetur adipisicing elit.
                         Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p> */}
-                <ul className="bg-gray-200 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                <ul id = 'profDetails' className="bg-gray-200 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                   {/* <li className="flex items-center py-3">
                     <span>Status</span>
                     <span className="ml-auto">
@@ -179,42 +255,98 @@ const Profile = () => {
                         </li> */}
                   <li className="flex items-center py-4">
                     <span className="font-extrabold">Email</span>
-                    <span className="ml-auto">{users.emailId}</span>
+                    {/* <input className="ml-auto"> value = {users.emailId} /> */}
+                    <input id="listItem" name="emailId" type="email" value = {users.emailId} required className="ml-auto" disabled = {disabled} onChange={handleChange}/>
                   </li>
                   <li className="flex items-center py-4">
                     <span className="font-extrabold">Contact no.</span>
-                    <span className="ml-auto">{users.contactNumber}</span>
+                    <input id="listItem" name="contactNumber" type="tel" value = {users.contactNumber} required className="ml-auto" disabled = {disabled} onChange={handleChange}/>
+                    {/* <span className="ml-auto">{users.contactNumber}</span> */}
                   </li>
                   <li className="flex items-center py-4">
                     <span className="font-extrabold">Gender</span>
-                    <span className="ml-auto">{users.gender}</span>
+                    {/* <input id="listItem" name="gender" type="email" value = {users.emailId} required className="ml-auto" disabled = {disabled}/> */}
+                    <select name="gender"  required value={users.gender} className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" id="listItem" disabled={disabled} onChange={handleChange}>
+                        <option value='' disabled selected>Select Gender</option>
+                        <option>MALE</option>
+                        <option>FEMALE</option>
+                        <option>OTHER</option>
+                      </select>
+                    {/* <span className="ml-auto">{users.gender}</span> */}
                   </li>
                   <li className="flex items-center py-4">
                     <span className="font-extrabold">Date of birth</span>
-                    <span className="ml-auto">{users.dateOfBirth}</span>
+                    <input id="dob" name="dateOfBirth" type="date" max='2015-12-12' value={users.dateOfBirth} required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5" disabled={disabled} onChange={handleChange}/>
+                    {/* <span className="ml-auto">{users.dateOfBirth}</span> */}
                   </li>
                   <li className="flex items-center py-4">
                     <span className="font-extrabold">Total Bookings</span>
                     <span className="ml-auto">{totalBookings}</span>
                   </li>
-                  {/* <li className="flex items-center py-4">
+                  
+                    {disabled == true ? 
+                    <li className="flex items-center py-4">
                     <span className="block rounded-md shadow-sm justify-center">
-                      <button
+                    <button onClick={handleEdit}
+                      className="w-40 text-md
+          border-2 border-gray-800 py-2 px-4
+          transition-colors ease-out
+          duration-500 text-white
+          bg-blue-800
+          bg-gradient-to-r
+          from-blue-800 
+          rounded-lg
+          hover:from-white hover:to-gray-300 
+          hover:text-black hover:border-white"
+                    >
+                      Edit
+                    </button>
+                    </span>
+                    </li>
+                    : 
+                    <li className="flex items-center py-4">
+                    <span className="block rounded-md shadow-sm justify-center">
+                    <button onClick={handleUpdate}
+                      className="w-40 text-md
+          border-2 border-gray-800 py-2 px-4
+          transition-colors ease-out
+          duration-500 text-white
+          bg-blue-800
+          bg-gradient-to-r
+          from-blue-800 
+          rounded-lg
+          hover:from-white hover:to-gray-300 
+          hover:text-black hover:border-white"
+                    >
+                      Update
+                    </button>
+                    </span>
+                    <span>
+                    <button onClick={handleCancel}
                         className="w-40 text-md
             border-2 border-gray-800 py-2 px-4
             transition-colors ease-out
             duration-500 text-white
-            bg-blue-800
+            bg-red-800
             bg-gradient-to-r
-            from-blue-800 
+            from-red-800 
             rounded-lg
             hover:from-white hover:to-gray-300 
             hover:text-black hover:border-white"
                       >
-                        Update
+                        Cancel
                       </button>
                     </span>
-                  </li> */}
+                    </li>
+                    }
+                    
+                      
+                    
+                    
+                     
+               
+                    
+                  
                 </ul>
               </div>
               {/* {console.log("SAJAL")} */}
@@ -516,7 +648,7 @@ const Profile = () => {
                   </div>
                 </div>
                 {/* <button
-                        className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show
+                        className="block w-full text-red-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show
                         Edit Information</button> */}
               </div>
               {/* <!-- End of about section --> */}
