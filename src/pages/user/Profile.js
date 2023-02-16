@@ -47,26 +47,31 @@ const Profile = () => {
 
   const [checkIn, setCheckIn] = useState(false);
 
-  const handleCheckIn = (bookingId) => {
-    var tmp = false;
-    postCheckIn(bookingId).then((res) => {
-      console.log(res);
-      tmp = res.status;
-      console.log(res.data);
-      toast.success("Checked In Successfully!", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+  const handleCheckIn = (bookingId, dateOfTravelling, timeOfDeparture) => {
+    console.log(bookingId, dateOfTravelling, timeOfDeparture);
+    let travel = new Date(`${dateOfTravelling} ${timeOfDeparture}`).getTime();
+    let now = new Date().getTime();
+    let yesterday = travel - 8.64e7;
+    let check1 = travel > now;
+    console.log(travel, now, yesterday);
+
+    if (travel > now && yesterday < now) {
+      postCheckIn(bookingId).then((res) => {
+        console.log(res.data);
+        toast.success("Checked In Successfully!", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setCheckIn(true);
       });
-      setCheckIn(true);
-    });
-    if (!tmp) {
-      toast.error("Cannot Check in For Given Date!", {
+    } else {
+      toast.error("Cannot ChekIn Now!", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -444,7 +449,11 @@ const Profile = () => {
                                         : "hover:bg-red-500 bg-red-200"
                                     } hover:text-white transform transition duration-200 rounded-xl`}
                                     onClick={() =>
-                                      handleCheckIn(booking.bookingId)
+                                      handleCheckIn(
+                                        booking.bookingId,
+                                        booking.dateOfTravelling,
+                                        booking.flight.departureTime
+                                      )
                                     }
                                   >
                                     {booking.checkedIn

@@ -53,34 +53,40 @@ const Payments = (seats) => {
 
   const handleCheckIn = (yourDate) => {
     var tmp = false;
-    postCheckIn(bookingId).then((res) => {
-      console.log(res);
-      tmp = res.status;
-      console.log(res.data);
-      toast.success("Checked In Successfully!", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setCheckIn(true);
-    });
-    if (!tmp) {
-      toast.error("Cannot Check in For Given Date!", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    var date = new Date(
+      `${data.dateOfTravelling} ${flightData.flight.departureTime}`
+    );
+    console.log(date.getTime());
+
+    // console.log(milliseconds);
+    // postCheckIn(bookingId).then((res) => {
+    //   console.log(res);
+    //   tmp = res.status;
+    //   console.log(res.data);
+    //   toast.success("Checked In Successfully!", {
+    //     position: "bottom-left",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   setCheckIn(true);
+    // });
+    // if (!tmp) {
+    //   toast.error("Cannot Check in For Given Date!", {
+    //     position: "bottom-left",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    // }
   };
 
   const handlePayment = () => {
