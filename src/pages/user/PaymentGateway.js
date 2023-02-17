@@ -310,7 +310,7 @@ const Payments = (seats) => {
                                 border-2 border-gray-800 py-2 px-4
                                 transition-colors ease-out
                                 duration-500 text-white
-                                ${checkin ? "bg-green-800" : "bg-red-800"}
+                                ${checkin ? "bg-green-500" : "bg-yellow-500"}
                                 
                                 
                                 rounded-lg

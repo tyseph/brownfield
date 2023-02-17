@@ -7,10 +7,12 @@ import { userSignup } from "../../api/authenticationService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../user/Navbar";
+import phoneCountryCode from "../../elements/CountryCode";
 
 const Register = () => {
   // var today = new Date().toISOString().split('T')[0];
   // console.log(today)
+  console.log(phoneCountryCode);
 
   const [values, setValues] = useState({
     firstName: "",
@@ -26,6 +28,8 @@ const Register = () => {
     contactNumber: "",
 
     gender: "",
+
+    countryCode: "+91",
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -253,7 +257,33 @@ const Register = () => {
                       Phone Number{" "}
                     </label>
 
-                    <div className="rounded-md shadow-sm">
+                    <div className="rounded-md grid grid-cols-8 shadow-sm">
+                      <select
+                        onChange={handleChange}
+                        name="countryCode"
+                        onSelect={handleChange}
+                        required
+                        value={values.countryCode}
+                        className="col-span-2 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        id="countryCode"
+                        optionLabelProp="value"
+                      >
+                        <option value="" disabled>
+                          Code
+                        </option>
+                        {phoneCountryCode.map((item, index) => {
+                          return (
+                            <option
+                              // defaultValue={}
+                              key={index}
+                              value={item.code}
+                              className="justify-around flex"
+                            >
+                              {item.code} ({item.name})
+                            </option>
+                          );
+                        })}
+                      </select>
                       <input
                         id="phone"
                         name="contactNumber"
@@ -263,7 +293,7 @@ const Register = () => {
                         placeholder="Phone number"
                         required
                         // pattern="^[a-zA-Z ]*$"
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        className="col-span-6 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         onChange={(e) =>
                           setValues({
                             ...values,

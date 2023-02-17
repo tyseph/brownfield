@@ -28,13 +28,16 @@ const Graph = ({ revenue, graph }) => {
 
   const CustomTooltip = ({ active, payload }) => (
     <div className="rounded-xl overflow-hidden tooltip-head">
+      {console.log(active, payload)}
       <div className="flex items-center justify-between p-2">
         <div className="">Total Revenue</div>
         <Icon path="res-react-dash-options" className="w-2 h-2" />
       </div>
       <div className="tooltip-body text-center p-3">
         <div className="text-white font-bold">
-          {active && payload[0].payload.totalRevenue}
+          {active && payload
+            ? `${active && payload[0].payload.totalRevenue}`
+            : null}
         </div>
         {/* <div className="">Revenue from 230 sales</div> */}
       </div>

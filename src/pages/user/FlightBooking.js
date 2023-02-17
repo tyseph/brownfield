@@ -94,12 +94,15 @@ const FlightBooking = (res) => {
       count
     );
   };
+
+  const [countryCode, setCountryCode] = useState(user.countryCode);
   const [email, setEmail] = useState(user.emailId);
   const [mobileNo, setMobileNo] = useState(user.contactNumber);
   const data = {
     flightId: flightData.flightId,
     email: email,
     mobileNo: mobileNo,
+    countryCode: countryCode,
     // dateOfTravelling: "2023-02-09",
     dateOfTravelling: res.FlightBooking.data.dateOfTravelling,
     passengerInfo: passengerArray,
@@ -171,6 +174,11 @@ const FlightBooking = (res) => {
     console.log(email);
   };
 
+  const getCountryCode = (countryCode) => {
+    setCountryCode(countryCode);
+    console.log(countryCode);
+  };
+
   console.log(data);
   return (
     <>
@@ -189,9 +197,11 @@ const FlightBooking = (res) => {
           <ContactDetails
             contactData={contactData}
             getMobileNo={getMobileNo}
+            getCountryCode={getCountryCode}
             getEmail={getEmail}
             email={email}
             mobileNo={mobileNo}
+            countryCode={countryCode}
           />
         </div>
         <div className="sm:col-span-3">

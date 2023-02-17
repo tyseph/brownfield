@@ -20,6 +20,7 @@ import {
 } from "../../api/BookingManagementService";
 import BookingData from "../admin/bookingManagement/BookingData";
 import { getLoggedUser } from "../../redux/user/userActions";
+import phoneCountryCode from "../../elements/CountryCode";
 
 const Profile = () => {
   const [tasksCompleted, setTasksCompleted] = useState();
@@ -65,6 +66,7 @@ const Profile = () => {
   ) => {
     console.log(bookingId, dateOfTravelling, timeOfDeparture);
     let travel = new Date(`${dateOfTravelling} ${timeOfDeparture}`).getTime();
+    console.log(travel);
     let now = new Date().getTime();
     let yesterday = travel - 8.64e7;
     // let check1 = travel > now;
@@ -72,7 +74,7 @@ const Profile = () => {
     if (check1 && travel > now && yesterday < now) {
       return;
     }
-    if (travel > now && yesterday < now) {
+    if (travel >= now && yesterday <= now) {
       // console.log(true);
       postCheckIn(bookingId).then((res) => {
         console.log(res.data);
@@ -159,6 +161,8 @@ const Profile = () => {
 
   const handleUpdate = () => {
     console.log(users !== trueUser);
+    console.log(users, trueUser);
+
     if (users !== trueUser) {
       updateUser(users)
         .then((res) => {
@@ -266,7 +270,7 @@ const Profile = () => {
                             <span className="ml-auto">Nov 07, 2016</span>
                         </li> */}
                   <li className="space-y-1 flex flex-nowrap justify-around">
-                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
                       Email
                     </span>
                     {/* <input className="ml-auto"> value = {users.emailId} /> */}
@@ -284,9 +288,46 @@ const Profile = () => {
                     />
                   </li>
                   <li className="space-y-1 flex flex-nowrap justify-around">
-                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
+                      Country Code
+                    </span>
+
+                    <select
+                      onChange={handleChange}
+                      name="countryCode"
+                      onSelect={handleChange}
+                      required
+                      disabled={disabled}
+                      value={users.countryCode}
+                      className={`sm:inline-block  ${
+                        disabled ? "bg-gray-900" : "bg-gray-900"
+                      } focus:outline-none text-md text-gray-100 w-44 rounded-md py-1.5 px-2`}
+                      id="countryCode"
+                      optionLabelProp="value"
+                    >
+                      <option value="" disabled>
+                        Code
+                      </option>
+                      {phoneCountryCode.map((item, index) => {
+                        return (
+                          <option
+                            // defaultValue={}
+                            key={index}
+                            value={item.code}
+                            className="justify-around flex"
+                          >
+                            {item.code} ({item.name})
+                          </option>
+                        );
+                      })}
+                    </select>
+                    {/* <span className="ml-auto">{users.contactNumber}</span> */}
+                  </li>
+                  <li className="space-y-1 flex flex-nowrap justify-around">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
                       Contact no.
                     </span>
+
                     <input
                       id="listItem"
                       className={`sm:inline-block ${
@@ -302,7 +343,7 @@ const Profile = () => {
                     {/* <span className="ml-auto">{users.contactNumber}</span> */}
                   </li>
                   <li className="space-y-1 flex flex-wrap sm:flex-nowrap md:flex-nowrap lg:flex-nowrap justify-around">
-                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
                       Gender
                     </span>
                     {/* <input id="listItem" name="gender" type="email" value = {users.emailId} required className="ml-auto" disabled = {disabled}/> */}
@@ -327,7 +368,7 @@ const Profile = () => {
                     {/* <span className="ml-auto">{users.gender}</span> */}
                   </li>
                   <li className="space-y-1 flex flex-nowrap justify-around">
-                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
                       Date of birth
                     </span>
                     <input
@@ -347,7 +388,7 @@ const Profile = () => {
                     {/* <span className="ml-auto">{users.dateOfBirth}</span> */}
                   </li>
                   <li className="space-y-1 flex flex-nowrap justify-around">
-                    <span className=" sm:inline-block align-middle font-extrabold w-32">
+                    <span className="mt-2 sm:inline-block align-middle font-extrabold w-32">
                       Total Bookings
                     </span>
                     <span
@@ -613,15 +654,16 @@ const Profile = () => {
                                   className={`relative inline-block w-36 cursor-pointer font-semibold ${
                                     booking.checkedIn
                                       ? "text-green-900"
-                                      : `${
-                                          new Date(
-                                            `${booking.dateOfTravelling} ${booking.flight.departureTime}`
-                                          ).getTime() -
-                                            new Date().getTime() <
-                                          8.64e7
-                                            ? "text-red-900"
-                                            : "text-yellow-900 hover:scale-110 transform transition duration-200"
-                                        }`
+                                      : "text-yellow-900 hover:scale-110 transform transition duration-200"
+                                    // `${
+                                    //     new Date(
+                                    //       `${booking.dateOfTravelling}$ ${booking.flight.departureTime}`
+                                    //     ).getTime() -
+                                    //       new Date().getTime() <=
+                                    //     8.64e7
+                                    //       ? "text-red-900"
+                                    //       : "text-yellow-900 hover:scale-110 transform transition duration-200"
+                                    //   }`
                                   }  leading-tight`}
                                 >
                                   {/* <span
@@ -632,15 +674,20 @@ const Profile = () => {
                                     className={`px-2 py-1 ${
                                       booking.checkedIn
                                         ? "bg-green-500 text-white"
-                                        : `${
-                                            new Date(
-                                              `${booking.dateOfTravelling} ${booking.flight.departureTime}`
-                                            ).getTime() -
-                                              new Date().getTime() <
-                                            8.64e7
-                                              ? "bg-red-500 text-white"
-                                              : "hover:bg-yellow-500 bg-yellow-200 hover:text-white transform transition duration-200"
-                                          }`
+                                        : "hover:bg-yellow-500 bg-yellow-200 hover:text-white transform transition duration-200"
+                                      // ${
+                                      //     new Date(
+                                      //       `${
+                                      //         booking.dateOfTravelling
+                                      //       }${""}${
+                                      //         booking.flight.departureTime
+                                      //       }`
+                                      //     ).getTime() -
+                                      //       new Date().getTime() <=
+                                      //     8.64e7
+                                      //       ? "bg-red-500 text-white"
+                                      //       : "hover:bg-yellow-500 bg-yellow-200 hover:text-white transform transition duration-200"
+                                      //   }`
                                     }  rounded-xl`}
                                     onClick={() =>
                                       handleCheckIn(
@@ -651,17 +698,22 @@ const Profile = () => {
                                       )
                                     }
                                   >
-                                    {booking.checkedIn
-                                      ? "Checked In"
-                                      : `${
-                                          new Date(
-                                            `${booking.dateOfTravelling} ${booking.flight.departureTime}`
-                                          ).getTime() -
-                                            new Date().getTime() <
-                                          8.64e7
-                                            ? "Failed"
-                                            : "CheckIn Now"
-                                        }`}
+                                    {
+                                      booking.checkedIn
+                                        ? "Checked In"
+                                        : "CheckIn Now"
+                                      // `${
+                                      //     new Date(
+                                      //       `${booking.dateOfTravelling}$ ${
+                                      //         booking.flight.departureTime
+                                      //       }`
+                                      //     ).getTime() -
+                                      //       new Date().getTime() <=
+                                      //     8.64e7
+                                      //       ? "Failed"
+                                      //       : "CheckIn Now"
+                                      //   }`
+                                    }
                                   </span>
                                 </span>
                               </td>
